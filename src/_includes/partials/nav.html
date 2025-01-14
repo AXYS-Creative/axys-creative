@@ -1,43 +1,214 @@
 <nav
   class="site-nav"
   id="site-navigation"
-  aria-label="Main Navigation"
+  aria-label="Main navigation"
   aria-hidden="true"
 >
   <div class="width-constraint">
-    {% if navigation.items %}
-
     <ul class="nav-links">
-      {% for item in navigation.items %}
       <li>
-        <a class="nav-link tab-element-nav" href="{{ item.url }}">
-          {{ item.text }}
+        <a class="home-link nav-link tab-element-nav" href="#">
+          <div class="icon-wrapper">
+            <svg
+              class="nav-link-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                opacity="1"
+                fill="#1E3050"
+                d="M435.3 267.3L446.6 256l-11.3-11.3-168-168L256 65.4 233.4 88l11.3 11.3L385.4 240 16 240 0 240l0 32 16 0 369.4 0L244.7 412.7 233.4 424 256 446.6l11.3-11.3 168-168z"
+              />
+            </svg>
+          </div>
+          <span class="glitch-link" data-title="home">Home</span>
         </a>
       </li>
-      {% endfor %}
+      <li>
+        <a class="work-link nav-link tab-element-nav" href="#work">
+          <div class="icon-wrapper">
+            <svg
+              class="nav-link-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                opacity="1"
+                fill="#1E3050"
+                d="M435.3 267.3L446.6 256l-11.3-11.3-168-168L256 65.4 233.4 88l11.3 11.3L385.4 240 16 240 0 240l0 32 16 0 369.4 0L244.7 412.7 233.4 424 256 446.6l11.3-11.3 168-168z"
+              />
+            </svg>
+          </div>
+          <span class="glitch-link" data-title="work">Work</span>
+        </a>
+      </li>
+      <li>
+        <a class="benefits-link nav-link tab-element-nav" href="#benefits">
+          <div class="icon-wrapper">
+            <svg
+              class="nav-link-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                opacity="1"
+                fill="#1E3050"
+                d="M435.3 267.3L446.6 256l-11.3-11.3-168-168L256 65.4 233.4 88l11.3 11.3L385.4 240 16 240 0 240l0 32 16 0 369.4 0L244.7 412.7 233.4 424 256 446.6l11.3-11.3 168-168z"
+              />
+            </svg>
+          </div>
+          <span class="glitch-link" data-title="benefits">Benefits</span>
+        </a>
+      </li>
+      <li>
+        <a class="plans-link nav-link tab-element-nav" href="#plans">
+          <div class="icon-wrapper">
+            <svg
+              class="nav-link-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                opacity="1"
+                fill="#1E3050"
+                d="M435.3 267.3L446.6 256l-11.3-11.3-168-168L256 65.4 233.4 88l11.3 11.3L385.4 240 16 240 0 240l0 32 16 0 369.4 0L244.7 412.7 233.4 424 256 446.6l11.3-11.3 168-168z"
+              />
+            </svg>
+          </div>
+          <span class="glitch-link" data-title="plans">Plans</span>
+        </a>
+      </li>
+      <li>
+        <a class="faq-link nav-link tab-element-nav" href="#faq">
+          <div class="icon-wrapper">
+            <svg
+              class="nav-link-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              height="16"
+              width="14"
+              viewBox="0 0 448 512"
+            >
+              <path
+                opacity="1"
+                fill="#1E3050"
+                d="M435.3 267.3L446.6 256l-11.3-11.3-168-168L256 65.4 233.4 88l11.3 11.3L385.4 240 16 240 0 240l0 32 16 0 369.4 0L244.7 412.7 233.4 424 256 446.6l11.3-11.3 168-168z"
+              />
+            </svg>
+          </div>
+          <span class="glitch-link" data-title="faqs">FAQs</span>
+        </a>
+      </li>
     </ul>
 
-    {% endif %}
+    <div class="nav-footer">
+      <ul class="nav-footer-links">
+        <li>
+          <a
+            class="nav-footer-link tab-element-nav prevent-nav-close"
+            href="https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
+            target="_blank"
+          >
+            <span class="icon-wrapper">
+              <svg
+                class="icon green-text"
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="16"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  opacity="1"
+                  fill="#1E3050"
+                  d="M347.3 267.3c6.2-6.2 6.2-16.4 0-22.6l-128-128c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L297.4 240 16 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l281.4 0L196.7 372.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l128-128zM336 448c-8.8 0-16 7.2-16 16s7.2 16 16 16l96 0c44.2 0 80-35.8 80-80l0-288c0-44.2-35.8-80-80-80l-96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l96 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-96 0z"
+                />
+              </svg>
+            </span>
+            <span class="link-text">Client Login</span>
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-footer-link tab-element-nav prevent-nav-close"
+            href="/policies.html"
+          >
+            <span class="icon-wrapper"
+              ><svg
+                class="icon yellow-text"
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="12"
+                viewBox="0 0 384 512"
+              >
+                <path
+                  opacity="1"
+                  fill="#1E3050"
+                  d="M352 448V192H240c-26.5 0-48-21.5-48-48V32H64C46.3 32 32 46.3 32 64V448c0 17.7 14.3 32 32 32H320c17.7 0 32-14.3 32-32zm-.5-288c-.7-2.8-2.1-5.4-4.2-7.4L231.4 36.7c-2.1-2.1-4.6-3.5-7.4-4.2V144c0 8.8 7.2 16 16 16H351.5zM0 64C0 28.7 28.7 0 64 0H220.1c12.7 0 24.9 5.1 33.9 14.1L369.9 129.9c9 9 14.1 21.2 14.1 33.9V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64z"
+                />
+              </svg>
+            </span>
+            <span class="link-text">Our Policies</span>
+          </a>
+        </li>
+      </ul>
 
-    <ul class="nav-footer-links">
-      <li>
-        <a
-          class="nav-footer-link tab-element-nav"
-          href="{{ settings.url }}admin"
-        >
-          Admin Login
-        </a>
-      </li>
-      <li>
-        <a class="nav-footer-link tab-element-nav" href="/">Privacy Policy</a>
-      </li>
-      <li>
-        <a class="nav-footer-link tab-element-nav" href="/">
-          Terms & Conditions
-        </a>
-      </li>
-    </ul>
-
-    {% include "../components/social-media.html" %}
+      <div class="nav-social social-media-container">
+        <p class="social-media-title">
+          Social <span class="blue-text">Media</span>
+          <svg
+            class="blue-text"
+            xmlns="http://www.w3.org/2000/svg"
+            height="16"
+            width="14"
+            viewBox="0 0 448 512"
+          >
+            <path
+              opacity="1"
+              fill="#1E3050"
+              d="M448 112c0 44.2-35.8 80-80 80c-22.9 0-43.6-9.6-58.1-25l-151 75.5c.8 4.4 1.1 8.9 1.1 13.5s-.4 9.1-1.1 13.5l151 75.5c14.6-15.4 35.2-25 58.1-25c44.2 0 80 35.8 80 80s-35.8 80-80 80s-80-35.8-80-80c0-9.7 1.7-19 4.9-27.7L147.2 299.5c-14.3 22-39 36.5-67.2 36.5c-44.2 0-80-35.8-80-80s35.8-80 80-80c28.2 0 52.9 14.5 67.2 36.5l145.7-72.9c-3.2-8.6-4.9-17.9-4.9-27.7c0-44.2 35.8-80 80-80s80 35.8 80 80zM80 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM416 112a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM368 448a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"
+            />
+          </svg>
+        </p>
+        <ul class="social-media-links">
+          <li class="magnet magnet-strong">
+            <a
+              class="social-media-link tab-element-nav"
+              href="https://www.instagram.com/axyscreative/"
+              target="_blank"
+              aria-label="Instagram"
+            >
+              Ig
+            </a>
+          </li>
+          <li class="magnet magnet-strong">
+            <a
+              class="social-media-link tab-element-nav"
+              href="https://twitter.com/AXYSCreative"
+              target="_blank"
+              aria-label="X (Twitter)"
+            >
+              X
+            </a>
+          </li>
+          <li class="magnet magnet-strong">
+            <a
+              class="social-media-link tab-element-nav"
+              href="https://dribbble.com/axyscreative"
+              target="_blank"
+              aria-label="Dribbble"
+            >
+              Db
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </nav>

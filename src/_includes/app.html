@@ -34,6 +34,14 @@
       href="{{ meta_data.url }}{%if path != 'home'%}/{{ path }}{%endif%}"
     />
     {% endif %}
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
 
     <!-- Favicons -->
@@ -73,10 +81,6 @@
       referrerpolicy="no-referrer"
       defer
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js"
-      defer
-    ></script>
     <script src="../static/javascript/index.js" type="module" defer></script>
 
     <!-- Data Schema -->
@@ -106,6 +110,14 @@
     {% include "./partials/header.html" %}
     {% include "./partials/nav.html" %}
     <main class="main-content main-{{path}}">{{ content | safe }}</main>
-    {%include "./partials/footer.html" %}
+    <!-- prettier-ignore -->
+    {%include "./partials/footer.html" %} 
+    {%include "./partials/mouse-cursor.html" %}
+
+    <div class="stripes-bg" aria-hidden="true">
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+    </div>
   </body>
 </html>

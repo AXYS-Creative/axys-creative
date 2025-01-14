@@ -1,9 +1,78 @@
-.hero {
-  @include column-center;
-  gap: 24px;
+.hero-section {
+  @include column-start;
+  height: max(100vh, 750px);
 
-  h1,
-  p {
-    text-align: center;
+  .section-headline {
+    text-align: left;
+    // margin-block-end: 128px;
+
+    // @include mq-max("xxl") {
+    //   margin-block-end: 96px;
+    // }
+
+    &__title {
+      // see 'h1, h2' in _globals.scss
+      display: flex;
+      flex-direction: column;
+
+      @include mq-max("md") {
+        margin-block-end: 12px;
+      }
+
+      .dynamic-text {
+        @include mq-motion-reduce {
+          display: none;
+        }
+      }
+
+      span {
+        &:last-of-type {
+          padding-inline-start: 240px;
+
+          @include mq-max("xxl") {
+            padding-inline-start: 200px;
+          }
+
+          @include mq-max("xl") {
+            padding-inline-start: 160px;
+          }
+
+          @include mq-max("md") {
+            padding-inline-start: 0;
+          }
+        }
+      }
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      letter-spacing: 0.25px;
+      line-height: 120%;
+      display: inline-block;
+      color: $white;
+      translate: 0 -64px;
+
+      @include mq-max("xl") {
+        font-size: 12px;
+        translate: 0 -48px;
+      }
+
+      @include mq-max("md") {
+        translate: 0 0;
+        line-height: 112%;
+      }
+    }
+  }
+
+  .cta-wrapper {
+    margin-inline-start: 112px;
+
+    @include mq-max("xl") {
+      margin-inline-start: 96px;
+    }
+
+    @include mq-max("md") {
+      margin-inline-start: 0;
+    }
   }
 }

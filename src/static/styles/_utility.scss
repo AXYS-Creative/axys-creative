@@ -39,6 +39,14 @@
 //
 
 @media all {
+  .no-motion {
+    display: none;
+
+    @include mq-motion-reduce {
+      display: block;
+    }
+  }
+
   .lg-screen-and-up {
     display: none;
 

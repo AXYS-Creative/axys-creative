@@ -1,10 +1,10 @@
-site_name: "Sample Business"
-url: "https://starter-template-cms.netlify.app/"
-author: Sample Author
-contact_email: info@sample.com
-theme_color: "#000000"
+site_name: "AXYS Creative"
+url: "https://axyscreative.com/"
+author: AXYS Creative
+contact_email: hello@axyscreative.com
+theme_color: "#101010"
 
 # Open Graph Protocol
-og_title: "Sample Business | Motto Here" #Separate from page title in index.html
-og_description: "Open Graph Description Here" #Separate from page description in index.html
+og_title: "AXYS Creative | Unlimited Web Design + Development" #Separate from page title in index.html
+og_description: "Unlock unlimited web design and development services. Subscribe for responsive, user-friendly websites optimized for accessibility and performance." #Separate from page description in index.html
 og_image: "/static/img/og-image.png"

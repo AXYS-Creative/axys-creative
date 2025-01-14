@@ -1,23 +1,44 @@
-$brand-font--heading: "Satoshi", source-sans-pro, sans-serif;
-$brand-font--body: Avenir, Montserrat, Corbel, source-sans-pro, sans-serif; // If not using a 'Modern font stack' just have one fallback
+$brand-font--heading: "Archivo", source-sans-pro, sans-serif;
+$brand-font--body: "Archivo", source-sans-pro, sans-serif;
 
-$black: #0a0a0a;
-$grey-dark: #313131;
-$grey-light: #c0c0c0;
-$white: #fefefe;
+// Colors
+
+$white: #f0f0f0;
+$grey-light: #909090;
+$grey: #3d3d3d;
+$grey-dark: #1e1e1e;
+$black: #101010;
+
+$coral: #e48c66;
+$blue: #7ec1d4;
+$green: #a4d1a2;
+$yellow: #fbfaa2;
+$pink: #e1a7b4;
+
+// Section Title Colors
+$home-title-color: $pink; // Nav link only
+$work-title-color: $green;
+$benefits-title-color: $blue;
+$plans-title-color: $coral;
+$faq-title-color: $yellow;
 
 $content-width: 1920px;
 
 // Layering
+$z-index--toast: 2;
 $z-index--nav: 3;
-$z-index--loader: 10;
+$z-index--site-header: 4;
+$z-index--mouse-cursor: 5;
+$z-index--loader: 6;
 
 // Easing
 $cubic-ease: cubic-bezier(0.18, 0.97, 0.47, 1);
-$cubic-ease-sudden: cubic-bezier(1, 0.07, 0.2, 1);
-$cubic-ease-sudden-back: cubic-bezier(0.8, -0.11, 0.11, 1.11);
-$cubic-ease-sudden-back-strong: cubic-bezier(0.77, -0.43, 0.11, 1.11);
+$cubic-ease-mouse: cubic-bezier(0, 0.49, 0.4, 1.19);
+$cubic-ease-back-dramatic: cubic-bezier(0.05, 1.75, 0.75, 1.75);
 $cubic-ease-slow-finish: cubic-bezier(0.09, 0.9, 0.5, 1);
+// $cubic-ease-sudden: cubic-bezier(1, 0.07, 0.2, 1);
+// $cubic-ease-sudden-back: cubic-bezier(0.8, -0.11, 0.11, 1.11);
+// $cubic-ease-sudden-back-strong: cubic-bezier(0.77, -0.43, 0.11, 1.11);
 
 // Debugging
 $test: 2px dashed rgba(yellow, 0.75);

@@ -1,35 +1,36 @@
-<header class="site-header" aria-label="Site Header">
-  <a class="header-logo" href="{{ settings.url }}">
-    <img
-      class="header-logo__icon"
-      src="../../static/img/logo-light.svg"
-      alt="{{ settings.name }} logo"
-    />
+<header class="site-header" aria-label="Website header">
+  <a href="/" class="logo" aria-label="Axis Creative">
+    <span aria-hidden="true">AXYS</span>
+    <svg viewBox="0 0 82 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M4.76903 0.644194C1.9719 -0.972363 -1.16006 2.158 0.454202 4.95682L9.43292 20.5241C9.99662 21.5015 9.99619 22.7054 9.4318 23.6823L0.442096 39.2433C-1.17415 42.0409 1.95561 45.1735 4.75388 43.5589L37.1822 24.8481C39.2877 23.6332 39.2887 20.5943 37.1841 19.378L4.76903 0.644194Z"
+        fill="#E48C66"
+      />
+      <path
+        d="M77.231 0.442182C80.0281 -1.17438 83.1601 1.95599 81.5458 4.75481L72.5671 20.3221C72.0034 21.2995 72.0038 22.5034 72.5682 23.4803L81.5579 39.0413C83.1742 41.8389 80.0444 44.9715 77.2461 43.3569L44.8178 24.6461C42.7123 23.4312 42.7113 20.3923 44.8159 19.1759L77.231 0.442182Z"
+        fill="#E48C66"
+      />
+    </svg>
+    <span aria-hidden="true">Creative</span>
   </a>
-
-  {% if navigation.items %}
-  <ul class="header-links" aria-label="Header navigation">
-    {% for item in navigation.items %}
-    <li class="">
-      <a class="header-links__link classic-link" href="{{ item.url }}">
-        {{ item.text }}
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-  <div class="menu-btn-wrapper">
-    <button
-      class="menu-btn"
-      aria-controls="site-navigation"
-      aria-label="Toggle navigation menu"
-      aria-expanded="false"
+  <button
+    class="menu-btn"
+    aria-controls="site-navigation"
+    aria-label="Open navigation menu"
+    aria-expanded="false"
+  >
+    <span
+      class="menu-btn-text glitch-link"
+      data-title="menu"
+      aria-hidden="true"
     >
-      <div class="menu-btn-line-wrapper">
-        <span class="menu-btn-line"></span>
-        <span class="menu-btn-line"></span>
+      Menu
+    </span>
+    <div class="burger magnet magnet-strong">
+      <div class="burger-line-wrapper">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
       </div>
-    </button>
-  </div>
+    </div>
+  </button>
 </header>
