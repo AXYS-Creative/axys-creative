@@ -1,0 +1,88 @@
+---
+layout: app
+path: advanced
+# Non public facing
+
+title: Advanced // Delete this file from production sites
+description:
+---
+
+<section class="hero">
+  <h1>Advanced</h1>
+  <p>More complex components, advanced js, webGL, svg shaders, etc.</p>
+</section>
+
+<!-- Mouse position seems affected by content placement -->
+<section class="dots-field">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="400"
+    height="400"
+    viewBox="0 0 400 400"
+  ></svg>
+</section>
+
+<section class="video-scrub-section">
+  <video class="video-scrub" src="/static/img/library/vid-sample.mp4"></video>
+</section>
+
+<section class="grid-flow-img-section">
+  <!-- prettier-ignore -->
+  {% set grid_flow_img_src = '/static/img/library/landscape-1.webp' %}
+  {% set grid_flow_img_alt = '' %}
+  {% set grid_flow_img_size = 'lg' %}
+  {% include './_includes/library/grid-flow-img.njk' %}
+  
+  {% set grid_flow_img_src = '/static/img/library/landscape-2.webp' %}
+  {% set grid_flow_img_alt = '' %}
+  {% set grid_flow_img_size = 'md' %}
+  {% include './_includes/library/grid-flow-img.njk' %}
+</section>
+
+<section class="light">
+  <div class="container">
+    <h1 class="title">
+      UNLIMITED
+      <br />
+      DESIGN + DEVELOPMENT
+    </h1>
+    <div class="subtitle">AXYS CREATIVE</div>
+  </div>
+
+  <div class="cursor">
+    <div class="cursor__point"></div>
+    <div class="cursor__light"></div>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <filter id="light">
+      <feSpecularLighting
+        result="specOut"
+        surfaceScale="1"
+        specularConstant="1.2"
+        specularExponent="10"
+        lighting-color="#999"
+      >
+        <fePointLight id="point-light" x="50" y="75" z="100" />
+      </feSpecularLighting>
+    </filter>
+
+    <filter id="noise">
+      <feTurbulence
+        id="turbulence"
+        type="fractalNoise"
+        baseFrequency="0.999 0.999"
+        seed="1"
+        numOctaves="10"
+      />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer result="noise">
+        <feFuncA type="linear" slope="1" />
+      </feComponentTransfer>
+      <feBlend in="noise" in2="SourceGraphic" mode="multiply" />
+    </filter>
+  </svg>
+</section>
+
+<!-- prettier-ignore -->
+{% include './_includes/partials/loader.njk' %}

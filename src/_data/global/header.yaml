@@ -1,0 +1,33 @@
+show_skip_to_content: true # Dev use only
+
+logo:
+  class: header-logo # Dev use only
+  src_light: /static/img/favicon-dark.svg
+  src_dark: /static/img/favicon-light.svg
+  text: Sample Business
+  url: /
+  new_tab: false
+
+links:
+  - text: Home
+    url: "/"
+    new_tab: false
+  - text: Style Guide
+    url: "/style-guide"
+    new_tab: false
+  - text: Library
+    url: "/library"
+    new_tab: false
+  - text: Advanced
+    url: "/advanced"
+    new_tab: false
+  - text: Blog
+    url: "/blog"
+    new_tab: false
+
+nav_btn:
+  text: menu
+  type: chocolate
+  shape: square
+  display: md # Dev use only
+  class: "magnet magnet-strong sibling-hover-burger__target glitch-trigger" # Dev use only

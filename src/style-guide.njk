@@ -1,0 +1,48 @@
+---
+layout: app
+path: style-guide
+# Public facing
+
+title: Style Guide
+---
+
+<section class="hero">
+  <h1>Heading 1</h1>
+  <h2>Heading 2</h2>
+  <h3>Heading 3</h3>
+  <h4>Heading 4</h4>
+  <h5>Heading 5</h5>
+  <h6>Heading 6</h6>
+  <br />
+  <p>
+    This is a paragraph. Lorem ipsum dolor sit amet, consectetur adipisicing
+    elit. Quasi, quod.
+    <strong>This is strong text.</strong>
+    <em>This is italic text.</em>
+  </p>
+  <!-- prettier-ignore -->
+  {% set cta_1 = ({
+    text: 'Primary CTA',
+    text_desc: 'sup broseph',
+    url: '/',
+    new_tab: false
+  }) %}
+  {% set cta_2 = ({
+    text: 'Secondary CTA',
+    url: 'https://axyscreative.com',
+    new_tab: true
+  }) %}
+  {% include "./_includes/components/cta-group.njk" %}
+
+  <a href="" class="classic-link tab-element-page">Classic link</a>
+
+  <!-- prettier-ignore -->
+  {% set btn_toggle_label = 'Autoplay:' %}
+  {% set btn_toggle = ({
+    class: 'btn-toggle-carousel',
+    label: 'autoplay —',
+    label_true: 'on',
+    label_false: 'off'
+  }) %}
+  {% include "./_includes/library/button-toggle.njk" %}
+</section>

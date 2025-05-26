@@ -1,0 +1,20 @@
+<button
+  class="btn-toggle tab-element-page {{ btn_toggle.class }}"
+  aria-pressed="false"
+>
+  {% if btn_toggle.label %}
+  <span class="btn-toggle__label {{ btn_toggle.class }}__label">
+    {{ btn_toggle.label }}
+  </span>
+  {% endif %}
+  <span
+    class="btn-toggle__switch {{ btn_toggle.class }}__switch"
+    aria-hidden="true"
+    data-label-true="{{ btn_toggle.label_true or 'ON' }}"
+    data-label-false="{{ btn_toggle.label_false or 'OFF' }}"
+  >
+    <span
+      class="btn-toggle__switch-nob {{ btn_toggle.class }}__switch-nob"
+    ></span>
+  </span>
+</button>

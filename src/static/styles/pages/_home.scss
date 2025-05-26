@@ -1,0 +1,10 @@
+.hero {
+  @include full-viewport-section;
+  @include column-center;
+  gap: 24px;
+
+  h1,
+  p {
+    text-align: center;
+  }
+}

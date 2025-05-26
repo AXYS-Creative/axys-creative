@@ -1,0 +1,21 @@
+<div
+  class="accordion {%if library.accordion.accordion_behavior_single %}single-accordion{% endif %}"
+>
+  {% for accordion in accordion_list %}
+  <button
+    class="accordion-btn tab-element-page"
+    aria-expanded="false"
+    aria-controls="accordion-item-{{ loop.index }}"
+  >
+    <div class="accordion-label">
+      <span class="accordion-label__title">{{ accordion.title }}</span>
+      <span class="accordion-label__icon" aria-hidden="true">►</span>
+    </div>
+    <div class="accordion-content" id="accordion-item-{{ loop.index }}">
+      <div class="accordion-content__inner">
+        <p class="accordion-content__message">{{ accordion.content }}</p>
+      </div>
+    </div>
+  </button>
+  {% endfor %}
+</div>

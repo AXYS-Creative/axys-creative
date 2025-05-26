@@ -1,0 +1,507 @@
+backend:
+  # Use netlify identity as backend
+  name: git-gateway
+  branch: main
+  repo: "https://github.com/AXYS-Creative/starter-template-cms.git" # CHANGE ME
+media_folder: src/static/img
+public_folder: /static/img
+site_url: https://starter-template-cms.netlify.app # CHANGE ME # On admin login page, this adds a 'go back to site' link. Also added in the corner when logged in.
+display_url: https://starter-template-cms.netlify.app # CHANGE ME # In admin dashboard, this adds the URL in the corner 'View Live'. Used with 'preview_path' for collection viewing.
+logo_url: https://starter-template-cms.netlify.app/static/img/icons/admin-logo.svg # CHANGE ME # On admin login page, this adds a custom logo.
+
+# Please run "npx netlify-cms-proxy-server" for local backend
+local_backend: true
+# publish_mode: editorial_workflow
+partials:
+  shared_cta: &cta_field
+    name: cta
+    label: Call To Action
+    widget: object
+    summary: "{{ fields.text }} → {{ fields.url }}"
+    required: false
+    fields:
+      - name: text
+        label: Button Text
+        widget: string
+        required: false
+        hint: An empty value removes the button
+      - name: text_desc
+        label: Button Text Description
+        widget: string
+        required: false
+        hint: >
+          Some phrases like 'Learn More' or 'Register' are too vague & hurt site metrics. 
+          Add more details to enhance SEO & a11y. This won't show on the button.
+      - name: url
+        label: Button URL
+        widget: string
+        required: false
+        hint: e.g. '/join' or 'axyscreative.com'. To return home use '/'.
+      - name: new_tab
+        label: Open in a new tab
+        widget: boolean
+        default: true
+  shared_logo: &logo_field
+    name: logo
+    label: Logo
+    widget: object
+    summary: "Site Logo"
+    required: false
+    fields:
+      - name: src_light
+        label: Image Source (Light Theme)
+        widget: image
+        required: false
+        hint: An empty value removes the logo
+      - name: src_dark
+        label: Image Source (Dark Theme)
+        widget: image
+        required: false
+        hint: An empty value removes the logo
+      - name: text
+        label: Text
+        widget: string
+        required: false
+        hint: Optional image description for SEO and accessibility.
+      - name: url
+        label: Button URL
+        widget: string
+        required: false
+        hint: Include a url to make the logo a link. To return home use '/'.
+      - name: new_tab
+        label: Open in a new tab
+        widget: boolean
+        default: true
+        hint: If the logo is a link, this toggles opening in a new tab.
+collections:
+  - name: blog
+    label: Blog
+    folder: src/posts/blog
+    preview_path: posts/blog/{{filename}}/
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: string }
+      - { label: Author, name: author, widget: string }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Body, name: body, widget: markdown }
+      - widget: select
+        label: tags
+        name: tags
+        multiple: true
+        create: true
+        options: [Tags, created, from, config.yml]
+      - label: Cover Image # Only seems to work with .md collections
+        name: cover_image
+        widget: "image"
+        required: false
+  - name: page_library
+    label: Page - Library
+    description: >
+      Library for all UI components
+    files:
+      - name: marquee
+        label: Marquee
+        file: src/_data/library/marquee.yaml
+        preview_path: /
+        editor:
+          preview: false
+        fields:
+          - name: marquee
+            label: Marquee Data
+            widget: object
+            required: false
+            fields:
+              - name: text
+                label: Marquee Text
+                widget: string
+                required: true
+                hint: Keep your message at least 64 characters long.
+              - name: imgs
+                label: Marquee Images
+                label_singular: Image
+                widget: list
+                min: 5
+                max: 999 # max value is required to use 'min'
+                hint: Include a minimum of 5 images.
+                required: false
+                fields:
+                  - name: src
+                    label: Image Source
+                    widget: image
+                    required: true
+                  - name: alt
+                    label: Image Alt Text
+                    widget: string
+                    required: true
+              - name: scrub
+                label: Marquee Scrub
+                widget: boolean
+                hint: Change velocity based on user scroll.
+      - name: accordion
+        label: Accordion
+        file: src/_data/library.accordion.yaml
+        preview_path: /
+        editor:
+          preview: false
+        fields:
+          - name: "accordion_behavior_single"
+            label: "Single Open"
+            widget: "boolean"
+            required: false
+            hint: "Allow only one item to be open at a time."
+          - name: "accordion_data"
+            label: "accordion Items"
+            label_singular: "Item"
+            widget: "list"
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "string"
+                required: true
+              - name: "content"
+                label: "Content"
+                widget: "text"
+                required: true
+      - name: "carousel_snap"
+        label: "Snap Carousel"
+        file: "src/_data/library/carousel_snap.yaml"
+        preview_path: "/library#carousel-snap"
+        editor:
+          preview: false
+        fields:
+          - name: "autoplay"
+            label: "Autoplay"
+            widget: "object"
+            summary: "{{fields.enabled}}, {{fields.interval}}"
+            fields:
+              - name: "enabled"
+                label: "Enabled"
+                widget: "boolean"
+                hint: "Autoplay carousel"
+              - name: "interval"
+                label: "Interval"
+                widget: "number"
+                hint: "i.e. 5000 — Interval in milliseconds. Not recommended below 2000"
+              - name: "allow_user_toggle"
+                label: "Allow User Toggle"
+                widget: "boolean"
+                hint: "Allow users to toggle autoplay"
+          - name: "list"
+            label: "Carousel Items"
+            label_singular: "Item"
+            widget: "list"
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "string"
+                required: true
+              - name: "description"
+                label: "Description"
+                widget: "text"
+                required: true
+              - name: "image"
+                label: "Image"
+                widget: "image"
+      - name: "tabs"
+        label: "Tabs"
+        file: "src/_data/library/tabs.yaml"
+        preview_path: "/library#tabs"
+        editor:
+          preview: false
+        fields:
+          - name: "tabs"
+            label: "Tabs"
+            label_singular: "Tab"
+            widget: "list"
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "string"
+                required: true
+              - name: "desc"
+                label: "Description"
+                widget: "text"
+                required: true
+              - name: "img"
+                label: "Image"
+                widget: "image"
+  - name: page_404
+    label: Page - 404 (Error)
+    description: >-
+      A 404 page is shown to visitors when they try to access a page that doesn’t exist
+      on your site—either because the URL was mistyped, the page was removed, or it was
+      never created. You can customize this page to help guide users back to working content.
+    files:
+      - name: hero_error
+        label: Section - Hero
+        file: src/_data/page_404/hero_error.yaml
+        preview_path: /blog
+        editor:
+          preview: true
+        fields:
+          - name: section_title
+            label: Section Title
+            widget: string
+            required: true
+          - name: section_desc
+            label: Section Description
+            widget: text
+            required: true
+          - name: cta_1
+            label: Call To Action 1
+            widget: object
+            summary: "{{ fields.text }} → {{ fields.url }}"
+            required: false
+            fields:
+              - name: text
+                label: Button Text
+                widget: string
+                required: false
+                hint: An empty value removes the button
+              - name: text_desc
+                label: Button Text Description
+                widget: string
+                required: false
+                hint: "'Learn More' is too vague and hurts SEO. Add more details to enhance the site."
+              - name: url
+                label: Button URL
+                widget: string
+                required: false
+                hint: "To return home use: /"
+              - name: new_tab
+                label: Open in a new tab
+                widget: boolean
+                default: true
+          - name: cta_2
+            label: Call To Action 2
+            widget: object
+            summary: "{{ fields.text }} → {{ fields.url }}"
+            required: false
+            fields:
+              - name: text
+                label: Button Text
+                widget: string
+                required: false
+                hint: An empty value removes the button
+              - name: text_desc
+                label: Button Text Description
+                widget: string
+                required: false
+                hint: "'Learn More' is too vague and hurts SEO. Add more details to enhance the site."
+              - name: url
+                label: Button URL
+                widget: string
+                required: false
+              - name: new_tab
+                label: Open in a new tab
+                widget: boolean
+                default: true
+  - name: global
+    label: Global
+    description: >
+      Global components used throughout the site. These elements are shared across multiple pages and help maintain consistency in layout and branding.
+    files:
+      - name: header
+        label: Site Header
+        file: src/_data/global/header.yaml
+        editor:
+          preview: true
+        fields:
+          - *logo_field
+          - name: links
+            label: Header Links
+            label_singular: Link
+            widget: list
+            required: false
+            fields:
+              - name: title
+                label: Title
+                widget: string
+                required: true
+              - name: url
+                label: URL
+                widget: string
+                required: true
+              - name: new_tab
+                label: Open in a new tab
+                widget: boolean
+                default: true
+          - name: nav_btn
+            label: Navigation Menu Button
+            widget: object
+            summary: "{{ fields.text }} → {{ fields.url }}"
+            required: false
+            fields:
+              - name: text
+                label: Button Text
+                widget: string
+                required: false
+                hint: Text next to the icon. An empty value removes the text.
+              - name: type
+                label: Icon Type
+                widget: select
+                multiple: false
+                required: true
+                default: burger
+                options: [burger, chocolate, kebab]
+              - name: shape
+                label: Icon Shape
+                widget: select
+                multiple: false
+                required: true
+                default: burger
+                options: [square, round]
+      - name: footer
+        label: Site Footer
+        file: src/_data/global/footer.yaml
+        editor:
+          preview: false
+        fields:
+          - name: logo_src
+            label: Logo Image Source
+            widget: image
+            required: false
+            hint: An empty value removes the logo
+          - name: links
+            label: Footer Links
+            label_singular: Link
+            widget: list
+            required: false
+            fields:
+              - name: title
+                label: Title
+                widget: string
+                required: true
+              - name: url
+                label: URL
+                widget: string
+                required: true
+              - name: new_tab
+                label: Open in a new tab
+                widget: boolean
+                default: true
+      - name: social_media
+        label: Social Media
+        file: src/_data/global/social_media.yaml
+        editor:
+          preview: false
+        fields:
+          - name: links
+            label: Social Media Links
+            label_singular: Link
+            widget: list
+            required: false
+            fields:
+              - name: title
+                label: Title
+                widget: string
+                required: true
+              - name: url
+                label: URL
+                widget: string
+                required: true
+              - name: src
+                label: Icon Source
+                widget: image
+                required: true
+  - name: meta_data
+    label: Meta Data
+    description: >
+      Meta data includes important information used by search engines and
+      social platforms, such as your site title, description, keywords, and
+      preview images. Updating these settings can improve SEO and control
+      how your content appears when shared online.
+    files:
+      - name: meta_data
+        label: Meta Data
+        file: src/_data/meta_data.yaml
+        editor:
+          preview: false
+        fields:
+          - name: site_name
+            label: Site Name
+            widget: string
+            required: true
+            hint: Sample Business Co
+          - name: url
+            label: URL
+            widget: string
+            required: true
+            hint: Full URL to your site. Don't include end slash /
+          - name: author
+            label: Author
+            widget: string
+            required: true
+            hint: Person or company name
+          - name: contact_email
+            label: Contact Email
+            widget: string
+            required: true
+            hint: Email address for rich results schema
+          - name: theme_color
+            label: Theme Color
+            widget: color
+            required: true
+            hint: Hex code for overflow color on some devices
+          - name: favicon_light_theme
+            label: Favicon (Light Theme)
+            widget: image
+            default: "https://CHANGE-ME.com/static/img/favicon-dark.svg"
+            required: true
+            hint: Shown in browser tab and search engine results.
+            media_library:
+              config:
+                max_file_size: 500000 # 1MB = 1,000,000 bytes
+          - name: favicon_dark_theme
+            label: Favicon (Dark Theme)
+            widget: image
+            default: "https://CHANGE-ME.com/static/img/favicon-light.svg"
+            required: true
+            hint: Shown in browser tab and search engine results.
+            media_library:
+              config:
+                max_file_size: 500000 # 1MB = 1,000,000 bytes
+          - name: page_details
+            label: Page Details
+            allow_add: false
+            widget: list
+            required: true
+            hint: Used for SEO and social sharing
+            fields:
+              - name: label
+                label: Label (Admin Dashboard)
+                widget: string
+                required: false
+                hint: Dashboard label only — Do not edit this field
+              - name: title
+                label: Page Title
+                widget: string
+                required: true
+                hint: Shown in browser tab and search engine results. Keep it under 60 characters.
+              - name: description
+                label: Page Description
+                widget: text
+                required: true
+                hint: Short page summary for SEO and social media. Keep it around 140–160 characters.
+          - name: og_title
+            label: Open Graph Title
+            widget: string
+            required: true
+            hint: Sample Business | Motto here
+          - name: og_description
+            label: Open Graph Description
+            widget: text
+            required: true
+            hint: Keep at least 100 characters
+          - name: og_image
+            label: Open Graph Image
+            widget: image
+            default: "https://CHANGE-ME.com/static/img/og-image.png"
+            required: true
+            hint: "Recommended formats: PNG or JPG. Recommended image dimensions: 1200 x 630 pixels. File size should be under 8 MB."
+            media_library:
+              config:
+                max_file_size: 8000000 # 1MB = 1,000,000 bytes

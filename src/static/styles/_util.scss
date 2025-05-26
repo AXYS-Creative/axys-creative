@@ -1,0 +1,230 @@
+.classic-link {
+  position: relative;
+
+  @include mq-motion-allow {
+    transition: $ease;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+
+    @include mq-motion-allow {
+      transition: $ease;
+    }
+  }
+
+  @include desktop-hover {
+    color: var(--color-brand--primary);
+
+    &::before {
+      width: 0;
+      left: auto;
+      right: 0;
+    }
+  }
+}
+
+.classic-list {
+  list-style: initial;
+}
+
+.mask-icon {
+  @include mask-image();
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+// Form Submit & 404 pages
+.hero-alert {
+  @include full-viewport-section;
+  @include column-center;
+
+  &__title {
+    margin-block-end: 24px;
+    text-align: center;
+  }
+
+  &__desc {
+    margin-block-end: 48px;
+    max-width: 750px;
+    text-align: center;
+    text-wrap: balance;
+  }
+}
+
+// Library
+@media all {
+  .library-section {
+    // Doesn't work with Swiper or Fill-text
+    @include column-start;
+    gap: 24px;
+  }
+
+  .glitch-text {
+    max-width: var(--content-width); // Prevent overflow
+  }
+
+  .glitch-hover,
+  [class*="glitch-target__"] {
+    white-space: nowrap;
+  }
+
+  .glitch-hover {
+    overflow: hidden;
+  }
+
+  .magnet {
+    transition: $magnet;
+  }
+
+  .fill-text,
+  .fill-text-hover {
+    @include fill-text;
+
+    &:is(.fill-text-hover) {
+      background-size: 0%;
+      // -webkit-text-fill-color: rgba(255, 255, 255, 0.5);
+      transition: $ease;
+
+      @include desktop-hover {
+        background-size: 100%;
+      }
+    }
+  }
+}
+
+// Media Query Utility, be mindful of flex vs block
+@media all {
+  .xxl-up {
+    display: none;
+
+    @include mq-min("xxl") {
+      display: block;
+    }
+  }
+
+  .xxl-down {
+    display: none;
+
+    @include mq-max("xxl") {
+      display: block;
+    }
+  }
+
+  .xl-up {
+    display: none;
+
+    @include mq-min("xl") {
+      display: block;
+    }
+  }
+
+  .xl-down {
+    display: none;
+
+    @include mq-max("xl") {
+      display: block;
+    }
+  }
+
+  .lg-up {
+    display: none;
+
+    @include mq-min("lg") {
+      display: block;
+    }
+  }
+
+  .lg-down {
+    display: none;
+
+    @include mq-max("lg") {
+      display: block;
+    }
+  }
+
+  .md-up {
+    display: none;
+
+    @include mq-min("md") {
+      display: block;
+    }
+  }
+
+  .md-down {
+    display: none;
+
+    @include mq-max("md") {
+      display: block;
+    }
+  }
+
+  .sm-up {
+    display: none;
+
+    @include mq-min("sm") {
+      display: block;
+    }
+  }
+
+  .sm-down {
+    display: none;
+
+    @include mq-max("sm") {
+      display: block;
+    }
+  }
+}
+
+// CMS Tokens
+@media all {
+  .color-primary {
+    color: var(--color-brand--primary);
+  }
+  .color-secondary {
+    color: var(--hero-color--secondary);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-stroke {
+    -webkit-text-stroke: 1px var(--color-font--primary);
+    color: transparent;
+    font-weight: 500; // slightly above regular
+  }
+
+  .text-underline {
+    text-decoration: underline;
+  }
+
+  .text-italic {
+    font-style: italic;
+  }
+
+  .text-thin {
+    font-weight: 100;
+  }
+
+  .text-bold {
+    font-weight: 700;
+  }
+
+  $font-weights: (100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+  @each $weight in $font-weights {
+    .fw-#{$weight} {
+      font-weight: $weight;
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="{{ meta_data.theme_color }}" />
+    <meta name="author" content="{{ meta_data.author }}" />
+
+    <!-- prettier-ignore -->
+    {% set pageMeta = null %}
+    {% for meta in meta_data.page_details %}
+      {% if meta.path == page.fileSlug %}
+        {% set pageMeta = meta %}
+      {% endif %}
+    {% endfor %}
+
+    <!-- prettier-ignore -->
+    <meta name="description" content="{% if pageMeta %}{{ pageMeta.description }}{% else %}Page description goes here{% endif %}"/>
+
+    <!-- prettier-ignore -->
+    <title>
+      {% if pageMeta %}
+        {{ pageMeta.title }}
+      {% else %}
+        {{ meta_data.site_name }}
+      {% endif%}
+    </title>
+
+    {% if path == "404" %}
+    <meta name="robots" content="noindex, nofollow" />
+    {% else %}
+    <meta name="robots" content="index, follow" />
+    {% endif %}
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{{ meta_data.og_title }}" />
+    <meta property="og:description" content="{{ meta_data.og_description }}" />
+    <meta
+      property="og:image"
+      content="{{ meta_data.url }}{{ meta_data.og_image }}"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ meta_data.url }}" />
+    <meta property="og:site_name" content="{{ meta_data.site_name }}" />
+
+    {% block head %}{% endblock %}
+
+    <!-- prettier-ignore -->
+    <title>
+      {% if pageTitle %}{{ pageTitle }}{% else %}Page title here{% endif %}
+    </title>
+
+    {% if path != '404' %}
+    <link
+      rel="canonical"
+      href="{{ meta_data.url }}{%if path != 'home'%}/{{ path }}{%endif%}"
+    />
+    {% endif %}
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link
+      rel="icon"
+      href="{{ meta_data.favicon_light_theme }}"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="icon"
+      href="{{ meta_data.favicon_dark_theme }}"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Theme -->
+    <script>
+      (function () {
+        try {
+          const saved = localStorage.getItem("theme-preference") || "system";
+          const systemPrefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          const theme =
+            saved === "system" ? (systemPrefersDark ? "dark" : "light") : saved;
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css" />
+
+    <!-- Script Tags -->
+    {% if path == "home" %}
+    <!-- Netlify Identity Widget -->
+    <script
+      type="text/javascript"
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+      defer
+    ></script>
+    {% endif %}
+    <script src="/static/js/alpine.js" defer></script>
+    <script src="/static/javascript/index.js" type="module" defer></script>
+
+    <!-- Data Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ meta_data.og_site_name }}",
+        "url": "{{ meta_data.url }}",
+        "logo": "{{ meta_data.url }}/favicon.svg",
+        "image": "{{ meta_data.url }}{{ meta_data.og_image }}",
+        "sameAs": [{% for social_link in global.social_media.links %}
+          {% if social_link.url %}"{{ social_link.url }}"{% if not loop.last %},{% endif %}{% endif %}{% endfor %}
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "{{ meta_data.contact_email }}",
+          "contactType": "Support"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- prettier-ignore -->
+    {% include "./partials/header.njk" %}
+    {% include "./partials/nav.njk" %}
+    <main class="main-content main-{{ path }} ">{{ content | safe }}</main>
+    {%include "./partials/footer-simple.njk" %}
+
+    <!-- prettier-ignore -->
+    {% include "./library/mouse-cursor.njk" %}
+
+    <!-- prettier-ignore -->
+    {% if path == "library" %}
+      {% include "./library/video-overlay.njk" %}
+    {% endif %}
+    {% include "./partials/scripts.njk" %}
+  </body>
+</html>
