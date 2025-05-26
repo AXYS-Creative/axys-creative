@@ -12,17 +12,17 @@ links:
   - text: Home
     url: "/"
     new_tab: false
-  - text: Style Guide
-    url: "/style-guide"
+  - text: Work
+    url: "/#work"
     new_tab: false
-  - text: Library
-    url: "/library"
+  - text: Benefits
+    url: "/#benefits"
     new_tab: false
-  - text: Advanced
-    url: "/advanced"
+  - text: Plans
+    url: "/#plans"
     new_tab: false
-  - text: Blog
-    url: "/blog"
+  - text: FAQ
+    url: "/#faq"
     new_tab: false
 
 nav_btn:

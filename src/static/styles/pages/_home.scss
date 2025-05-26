@@ -1,10 +1,22 @@
 .hero {
   @include full-viewport-section;
-  @include column-center;
+  @include column-start;
   gap: 24px;
 
-  h1,
-  p {
-    text-align: center;
+  &__title {
+    @include column-start;
+
+    &-last {
+      translate: 4.1ch 0;
+    }
+  }
+
+  &__desc {
+    display: inline-block;
+    translate: 1ch -10ch;
+  }
+
+  .cta-group {
+    translate: 24ch 0;
   }
 }

@@ -104,9 +104,10 @@ $min-breakpoints: (
 
 @mixin h1 {
   @include heading-text(96px);
+  line-height: 1.1;
 
-  @include mq-max("xxl") {
-    font-size: max(61.5px, 6vw);
+  @include mq-max("xl") {
+    font-size: 80px;
   }
 }
 @mixin h2 {

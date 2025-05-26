@@ -3,16 +3,20 @@
 $brand-font--heading: "Funnel Display", source-sans-pro, sans-serif;
 $brand-font--body: "Funnel Display", source-sans-pro, sans-serif;
 
-$black: #0a0a0a;
-$grey-dark: #313131;
-$grey-light: #c0c0c0;
-$white: #fefefe;
+// Colors
+$white: #f0f0f0;
+$grey-light: #909090;
+$grey: #3d3d3d;
+$grey-dark: #1e1e1e;
+$black: #101010;
 
 $coral: #e48c66;
-$blue: #007bff;
-$red: #dc143c;
+$blue: #7ec1d4;
+$green: #a4d1a2;
+$yellow: #fbfaa2;
+$pink: #e1a7b4;
 
-$content-width: 1920px; // Be mindful of media query breakpoints with left/right spacing
+$content-width: 1512px; // Be mindful of media query breakpoints with left/right spacing
 
 // Layering
 $z-index--nav: 3;
@@ -45,7 +49,7 @@ $test-bg: rgba(navy, 0.75);
   --color-background: #{$white};
   --color-font--primary: #{$black};
   --color-font--secondary: #{$grey-light};
-  --color-font--error: #{$red};
+  --color-font--error: #{$coral};
 
   --color-brand--primary: #{$coral};
 

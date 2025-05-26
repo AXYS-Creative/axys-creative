@@ -395,7 +395,6 @@ section {
 h1,
 .h1 {
   @include h1;
-  // text-transform: uppercase;
 }
 h2,
 .h2 {
@@ -452,7 +451,11 @@ span {
 
 small {
   font-family: $brand-font--body;
-  font-size: 12px;
+  font-size: 16px;
+
+  @include mq-max("xl") {
+    font-size: 14px;
+  }
 }
 
 picture {

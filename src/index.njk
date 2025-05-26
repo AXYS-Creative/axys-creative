@@ -4,14 +4,26 @@ path: home
 ---
 
 <section class="hero">
-  <h1>{{ page_home.hero.section_title }}</h1>
-  <p>{{ page_home.hero.section_desc }}</p>
-
+  <h1 class="hero__title">
+    <span
+      class="glitch-text glitch-cycle"
+      data-glitch-cycle-words="Creative, Responsive, Accessible, Innovative, Engaging"
+      data-glitch-cycle-colors="#e48c66, #7ec1d4, #a4d1a2, #fbfaa2, #e1a7b4"
+      data-glitch-cycle-interval="3000"
+      aria-hidden="true"
+    ></span>
+    {{ page_home.hero.section_title }}
+  </h1>
+  <small class="hero__desc">{{ page_home.hero.section_desc }}</small>
   <!-- prettier-ignore -->
   {% set content_start = true %}
   {% set cta_1 = page_home.hero.cta_1 %}
   {% set cta_2 = page_home.hero.cta_2 %}
   {% include "./_includes/components/cta-group.njk" %}
 </section>
+
+<!-- prettier-ignore -->
+{% set marquee = global.marquee.marquee %}
+{% include "./_includes/components/marquee.njk" %}
 
 {% include './_includes/partials/loader.njk' %}

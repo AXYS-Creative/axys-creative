@@ -1,12 +1,12 @@
-section_title: Title goes [%span.text-italic%]here[%span%]
-section_desc: Section description goes here.
+section_title: "[%span%]Web Design +[%span%] [%span.hero__title-last%]Development[%span%]"
+section_desc: Unlimited services. [%br%] One basic subscription
 cta_1:
-  text: Visit Library
-  text_desc: Visit our component library
-  url: /library
+  text: View Plans
+  text_desc:
+  url: /#plans
   new_tab: false
 cta_2:
-  text: Get Started
-  text_desc: Get started with AXYS Creative
-  url: https://axyscreative.com/
+  text: Our Work
+  text_desc:
+  url: /#work
   new_tab: true
