@@ -1,8 +1,8 @@
-<div class="cta-group">
+<div class="cta-group disable-bg">
   {% if cta_1.text and cta_1.url %}
   <!-- prettier-ignore -->
   <a
-    class="cta-1 magnet magnet-wide-btn hide-mouse tab-element-page {%if content_start%}content-start{%endif%}"
+    class="cta-1 magnet magnet-wide-btn hide-mouse glitch-hover tab-element-page {%if content_start%}content-start{%endif%}"
     href="{{ cta_1.url }}"
     {%if cta_1.new_tab%}
       target="_blank" rel="noopener noreferrer"
@@ -20,14 +20,17 @@
   {% if cta_2.text and cta_2.url %}
   <!-- prettier-ignore -->
   <a
-    class="cta-2 {%if cta_2_outline%}outline{%endif%} tab-element-page sibling-hover"
+    class="cta-2 glitch-trigger tab-element-page sibling-hover"
+    data-glitch-target="glitch-target__cta-2"
     href="{{ cta_2.url }}"
     {%if cta_2.new_tab%}
       target="_blank" rel="noopener noreferrer"
     {%endif%}
     aria-label="{{ cta_2.text_desc or cta_2.text }}"
   >
-    {{ cta_2.text }}
+    <span class="glitch-target__cta-2">
+      {{ cta_2.text }}
+    </span>
     <span class="cta-2__icon sibling-hover__target"></span>
     {% if cta_2.text_desc %}
       <span class="sr-only">{{ cta_2.text_desc }}</span>

@@ -7,16 +7,22 @@
     @include column-start;
 
     &-last {
-      translate: 4.1ch 0;
+      @include mq-min(lg) {
+        translate: 4.1ch 0;
+      }
     }
   }
 
   &__desc {
-    display: inline-block;
-    translate: 1ch -10ch;
+    @include mq-min(lg) {
+      display: inline-block;
+      translate: 1ch -10ch;
+    }
   }
 
   .cta-group {
-    translate: 24ch 0;
+    @include mq-min(lg) {
+      translate: 24ch 0;
+    }
   }
 }

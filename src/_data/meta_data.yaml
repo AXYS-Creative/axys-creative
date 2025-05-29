@@ -1,30 +1,22 @@
-site_name: "Sample Business"
-url: "https://starter-template-cms.netlify.app" # CHANGE ME #Ensure no end slash for og-img
-author: Sample Author
-contact_email: info@sample.com
-theme_color: "#000000"
+site_name: "axys creative"
+url: "https://axyscreative.com" #Ensure no end slash for og-img
+author: Aaron Garcia
+contact_email: hello@sample.com
+theme_color: "#101010"
 favicon_light_theme: "/static/img/favicon-dark.svg"
 favicon_dark_theme: "/static/img/favicon-light.svg"
 
 page_details:
   - path: ""
     label: Home
-    title: Home | Business Name
+    title: Unlimited Web Design + Development | axys creative
     description: Home page description
-  - path: about
-    label: About
-    title: About Us | Business Name
+  - path: policies
+    label: Policies
+    title: Policies | axys creative
     description: About description
-  - path: style-guide
-    label: Style Guide
-    title: Style Guide | Business Name
-    description: Style guide description...
-  - path: library
-    label: Library
-    title: Library | Business Name
-    description: The UI component library and utility collection.
   - path: "404"
-    label: 404
+    label: "404"
     title: Page Not Found
     description: The page you are looking for cannot be found. Please check the URL or return to the home page.
 

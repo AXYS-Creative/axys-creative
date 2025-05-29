@@ -1,6 +1,7 @@
 import "./util.js";
 
 import "./global/animations.js";
+import "./global/background.js";
 import "./global/header.js";
 import "./global/loader.js";
 import "./global/nav.js";

@@ -8,7 +8,7 @@
   {% include "../components/site-logo.njk" %}
 
   {% if global.header.links %}
-  <ul class="header-links" aria-label="Header navigation">
+  <ul class="header-links disable-bg" aria-label="Header navigation">
     {% for link in global.header.links %}
     <li>
       <!-- prettier-ignore -->
@@ -29,10 +29,11 @@
 
   <div class="site-nav-btn-wrapper">
     <button
-      class="site-nav-btn sibling-hover-burger"
+      class="site-nav-btn sibling-hover-burger glitch-trigger"
       aria-controls="site-navigation"
       aria-label="Toggle navigation menu"
       aria-expanded="false"
+      data-glitch-target="glitch-target__menu-btn"
     >
       {% if global.header.nav_btn.text %}
       <small
