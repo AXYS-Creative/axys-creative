@@ -7,7 +7,7 @@
   const PROB_OF_NEIGHBOR = 0.5;
   const AMT_FADE_PER_FRAME = 5;
   const STROKE_WIDTH = 1;
-  const SHOW_HOVERED_CELL = true;
+  const SHOW_HOVERED_CELL = false;
 
   const canvas = document.getElementById("grid-bg");
   const ctx = canvas.getContext("2d");
@@ -29,6 +29,8 @@
 
   let mouseX = -1;
   let mouseY = -1;
+  let isMouseMoving = false;
+  let lastMouseMoveTime = 0;
 
   window.addEventListener("mousemove", (e) => {
     if (disableBgEffect(e)) {

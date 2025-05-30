@@ -1,17 +1,27 @@
 <footer class="site-footer">
-  <a href="#" class="return-to-top classic-link tab-element-page">
-    Return to top
-  </a>
-  <small class="copyright">
-    <span>&copy;<time class="year-text"></time> {{ meta_data.site_name }}</span>
-    <span class="lg-up" aria-hidden="true">•</span>
-    <span class="lg-up">All Rights Reserved</span>
-  </small>
-  <a
-    href="https://axyscreative.com"
-    target="_blank"
-    class="axys-link classic-link tab-element-page"
-  >
-    Made by axys creative
-  </a>
+  <div class="site-footer-top">
+    <div class="site-footer-top__left">
+      <h2 class="h3">{{ global.footer.title }}</h2>
+
+      <!-- prettier-ignore -->
+      {% set cta_1 = global.footer.cta_1 %}
+      {% include "../components/cta-group.njk" %}
+    </div>
+    <div class="site-footer-top__right">
+      <ul class="page-links"></ul>
+      <ul class="info-links"></ul>
+    </div>
+  </div>
+  <div class="site-footer-bottom">
+    <small class="copyright">
+      <span>
+        &copy;
+        <time class="year-text"></time>
+        {{ meta_data.site_name }}.
+      </span>
+      <span>All rights reserved</span>
+    </small>
+
+    {% include "../components/social-media.njk" %}
+  </div>
 </footer>

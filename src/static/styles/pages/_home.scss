@@ -14,6 +14,8 @@
   }
 
   &__desc {
+    @include body-font-styles;
+
     @include mq-min(lg) {
       display: inline-block;
       translate: 1ch -10ch;

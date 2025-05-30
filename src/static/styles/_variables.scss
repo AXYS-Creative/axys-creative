@@ -1,5 +1,3 @@
-// $brand-font--heading: "Satoshi", source-sans-pro, sans-serif;
-// $brand-font--body: Avenir, Montserrat, Corbel, source-sans-pro, sans-serif; // If not using a 'Modern font stack' just have one fallback
 $brand-font--heading: "Funnel Display", source-sans-pro, sans-serif;
 $brand-font--body: "Funnel Display", source-sans-pro, sans-serif;
 
@@ -17,14 +15,13 @@ $yellow: #fbfaa2;
 $pink: #e1a7b4;
 
 // Breakpoints
-$content-width: 1512px;
+$content-width: 1720px;
 
 // Layering
 $z-index--nav: 3;
 $z-index--header: 4;
 $z-index--loader: 5;
 $z-index--video-overlay: 6; // Library
-$z-index--mouse-cursor: 7; // Library
 
 // Easing
 $cubic-ease: cubic-bezier(0.18, 0.97, 0.47, 1);
@@ -46,16 +43,16 @@ $magnet: transform 0.5s $cubic-ease;
 $test: 2px dashed rgba(yellow, 0.75);
 $test-bg: rgba(navy, 0.75);
 
-@mixin light-theme {
-  --color-background: #{$white};
-  --color-font--primary: #{$black};
+:root {
+  --color-background: #{$black};
+  --color-font--primary: #{$white};
   --color-font--secondary: #{$grey-light};
   --color-font--error: #{$coral};
 
   --color-brand--primary: #{$coral};
 
   // --color-btn-2-bg: var(--color-brand--primary);
-  --color-btn-2-text: #{$black};
+  --color-btn-2-text: #{$white};
   // --color-btn-2-border: transparent;
   // --color-btn-2-bg--hover: transparent;
   --color-btn-2-text--hover: var(--color-brand--primary);
@@ -65,18 +62,6 @@ $test-bg: rgba(navy, 0.75);
   --link-color--hover: #{$white};
 
   --border-color--bold: #{$grey-light};
-}
-
-@mixin dark-theme {
-  --color-background: #{$black};
-  --color-font--primary: #{$white};
-
-  --color-btn-2-text: #{$white};
-
-  --border-color--bold: #{$grey-light};
-}
-
-:root {
   --color-brand--primary: #{$coral}; // Consistent across themes
 
   --font-family--heading: #{$brand-font--heading};
@@ -113,17 +98,4 @@ $test-bg: rgba(navy, 0.75);
     --body-padding: 24px;
     --section-gap--lg: 24px;
   }
-}
-
-// Library (themes and component vars)
-html[data-theme="dark"] {
-  @include dark-theme;
-}
-
-html[data-theme="light"] {
-  @include light-theme;
-}
-
-:root {
-  --carousel-snap-gap: 24px;
 }

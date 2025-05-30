@@ -7,7 +7,6 @@
   top: 0;
   pointer-events: none;
   translate: -50% -50%;
-  z-index: $z-index--mouse-cursor;
   transition: opacity 0.3s ease 0.2s; // Initial display
   // Transition for movement controlled by js for browser compatibility (old safari issues)
 

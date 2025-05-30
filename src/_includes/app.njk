@@ -129,17 +129,9 @@
     {% include "./partials/header.njk" %}
     {% include "./partials/nav.njk" %}
     <main class="main-content main-{{ path }} ">{{ content | safe }}</main>
-    {%include "./partials/footer-simple.njk" %}
-
-    <!-- prettier-ignore -->
-    <!-- {% include "./library/mouse-cursor.njk" %} -->
-
-    <!-- prettier-ignore -->
-    {% if path == "library" %}
-      {% include "./library/video-overlay.njk" %}
-    {% endif %}
-    {% include "./partials/scripts.njk" %}
+    {%include "./partials/footer.njk" %}
 
     <canvas id="grid-bg"></canvas>
+    {% include "./partials/scripts.njk" %}
   </body>
 </html>

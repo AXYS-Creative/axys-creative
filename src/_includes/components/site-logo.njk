@@ -1,10 +1,10 @@
 <!-- prettier-ignore -->
-{% set logo_classes = "site-logo theme-img" %}
+{% set logo_classes = "site-logo" %}
 
 {% if logo.url %}
 <!-- prettier-ignore -->
 <a 
-  class="{{ logo.class }} hide-mouse" 
+  class="{{ logo.class }}" 
   href="{{ logo.url }}" 
   {% if logo.new_tab %}
     target="_blank" 

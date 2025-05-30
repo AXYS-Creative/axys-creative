@@ -1,18 +1,39 @@
 logo_src: /static/img/logo-light.svg
 
-links:
+title: Let’s bring your [%br%] vision to life!
+
+cta_1:
+  text: "Get Started"
+  url: "/get-started"
+  new_tab: false
+
+page_links:
   - text: Home
-    url: "/"
+    url: "/#"
     new_tab: false
-  - text: Style Guide
-    url: "/style-guide"
+  - text: Work
+    url: "/#work"
     new_tab: false
-  - text: Library
-    url: "/library"
+  - text: Benefits
+    url: "/#benefits"
     new_tab: false
-  - text: Advanced
-    url: "/advanced"
+  - text: Plans
+    url: "/#plans"
     new_tab: false
-  - text: Blog
-    url: "/blog"
+  - text: FAQ
+    url: "/#faq"
+    new_tab: false
+
+info_links:
+  - text: Terms of service
+    url: "/polcies"
+    new_tab: false
+  - text: Privacy policy
+    url: "/policies#privacy-policy"
+    new_tab: false
+  - text: Client log in
+    url: "https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
+    new_tab: true
+  - text: admin log in
+    url: "/admin"
     new_tab: false
