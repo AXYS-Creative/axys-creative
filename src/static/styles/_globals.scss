@@ -66,7 +66,7 @@ body {
 
 .site-header {
   // No static content here to allow clickthrough
-  --children-height: 36px;
+  --children-height: 24px;
 
   & > * {
     z-index: $z-index--header;
@@ -76,6 +76,7 @@ body {
 
   .header-logo {
     @include left-spacing;
+    @include row-center;
     top: var(--body-padding);
     height: var(--children-height);
     aspect-ratio: 1;
@@ -88,6 +89,7 @@ body {
     @include right-spacing;
     top: var(--body-padding);
     gap: var(--links-gap);
+    height: var(--children-height);
 
     @include mq-max(lg) {
       display: none;
@@ -364,8 +366,12 @@ body {
 }
 
 .site-logo {
-  height: 36px;
+  height: 20px;
   width: auto;
+
+  @include mq-max(xl) {
+    height: 16px;
+  }
 }
 
 .site-loader {

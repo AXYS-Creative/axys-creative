@@ -2,8 +2,8 @@ show_skip_to_content: true # Dev use only
 
 logo:
   class: header-logo # Dev use only
-  src_light: /static/img/favicon-dark.svg
-  src_dark: /static/img/favicon-light.svg
+  src_light: /static/img/logo.svg
+  src_dark: /static/img/logo.svg
   text: Sample Business
   url: /
   new_tab: false

@@ -7,9 +7,9 @@
       {% set cta_1 = global.footer.cta_1 %}
       {% include "../components/cta-group.njk" %}
     </div>
-    <div class="site-footer-top__right">
-      <div class="disable-bg">
-        <h3 class="link-title">Quick links</h3>
+    <div class="site-footer-top__right disable-bg">
+      <div>
+        <h3 class="link-title">{{ global.footer.page_links_title }}</h3>
         <ul class="page-links footer-links">
           {% for link in global.footer.page_links %}
           <li>
@@ -24,8 +24,8 @@
           {% endfor %}
         </ul>
       </div>
-      <div class="disable-bg">
-        <h3 class="link-title">Information</h3>
+      <div>
+        <h3 class="link-title">{{ global.footer.info_links_title }}</h3>
         <ul class="info-links footer-links">
           {% for link in global.footer.info_links %}
           <li>
