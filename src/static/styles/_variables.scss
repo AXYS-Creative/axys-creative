@@ -49,8 +49,6 @@ $test-bg: rgba(navy, 0.75);
   --color-font--secondary: #{$grey-light};
   --color-font--error: #{$coral};
 
-  --color-brand--primary: #{$coral};
-
   // --color-btn-2-bg: var(--color-brand--primary);
   --color-btn-2-text: #{$white};
   // --color-btn-2-border: transparent;
@@ -61,8 +59,10 @@ $test-bg: rgba(navy, 0.75);
   --link-color: #{$grey-light};
   --link-color--hover: #{$white};
 
-  --border-color--bold: #{$grey-light};
-  --color-brand--primary: #{$coral}; // Consistent across themes
+  --border-color: #{$grey-light};
+  --color-brand--primary: #{$coral};
+  --color-brand--secondary: #{$blue};
+  --color-brand--tertiary: #{$green};
 
   --font-family--heading: #{$brand-font--heading};
   --font-family--body: #{$brand-font--body};
@@ -96,6 +96,6 @@ $test-bg: rgba(navy, 0.75);
 
   @media (max-width: 1024px) {
     --body-padding: 24px;
-    --section-gap--lg: 24px;
+    --section-gap--lg: 48px;
   }
 }

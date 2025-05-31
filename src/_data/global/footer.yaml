@@ -26,7 +26,7 @@ page_links:
 
 info_links:
   - text: Terms of service
-    url: "/polcies"
+    url: "/policies"
     new_tab: false
   - text: Privacy policy
     url: "/policies#privacy-policy"
@@ -34,6 +34,6 @@ info_links:
   - text: Client log in
     url: "https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
     new_tab: true
-  - text: admin log in
+  - text: Admin log in
     url: "/admin"
     new_tab: false

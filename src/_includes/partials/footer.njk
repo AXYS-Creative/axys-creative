@@ -1,15 +1,45 @@
 <footer class="site-footer">
   <div class="site-footer-top">
     <div class="site-footer-top__left">
-      <h2 class="h3">{{ global.footer.title }}</h2>
+      <h2 class="h3 disable-bg">{{ global.footer.title }}</h2>
 
       <!-- prettier-ignore -->
       {% set cta_1 = global.footer.cta_1 %}
       {% include "../components/cta-group.njk" %}
     </div>
     <div class="site-footer-top__right">
-      <ul class="page-links"></ul>
-      <ul class="info-links"></ul>
+      <div class="disable-bg">
+        <h3 class="link-title">Quick links</h3>
+        <ul class="page-links footer-links">
+          {% for link in global.footer.page_links %}
+          <li>
+            <!-- prettier-ignore -->
+            <a class="classic-link tab-element-page" href="{{ link.url }}"
+            {% if link.new_tab %}
+            target="_blank"
+            rel="noopener noreferrer"
+            {% endif %}
+            >{{ link.text }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="disable-bg">
+        <h3 class="link-title">Information</h3>
+        <ul class="info-links footer-links">
+          {% for link in global.footer.info_links %}
+          <li>
+            <!-- prettier-ignore -->
+            <a class="classic-link tab-element-page" href="{{ link.url }}"
+            {% if link.new_tab %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {% endif %}
+            >{{ link.text }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </div>
   <div class="site-footer-bottom">

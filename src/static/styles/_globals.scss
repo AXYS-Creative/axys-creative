@@ -319,14 +319,47 @@ body {
   gap: var(--section-gap--lg);
   padding: var(--body-padding);
 
+  .link-title {
+    font-size: 20px;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    color: var(--color-brand--secondary);
+  }
+
+  .footer-links {
+    @include column-start;
+    gap: 8px;
+  }
+
   .site-footer-top {
+    @include row-center(space-between);
+
+    @include mq-max(lg) {
+      @include column-start;
+      gap: var(--section-gap--lg);
+    }
+
     &__left {
       @include column-start;
+      gap: var(--section-gap);
+    }
+
+    &__right {
+      @include row-start(space-between);
+      gap: var(--section-gap--lg);
     }
   }
 
   .site-footer-bottom {
+    @include row-center(space-between);
     border-top: 1px solid var(--border-color);
+    padding-block-start: var(--section-gap--lg);
+
+    @include mq-max(lg) {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      gap: var(--section-gap);
+    }
   }
 }
 
