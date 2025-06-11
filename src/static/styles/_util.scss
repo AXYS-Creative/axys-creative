@@ -64,13 +64,29 @@
 .color--work {
   color: $green;
 }
+.color--benefits {
+  color: $blue;
+}
+.color--faq {
+  color: $yellow;
+}
 
 // Library
 @media all {
-  .library-section {
-    // Doesn't work with Swiper or Fill-text
+  .pin-steps {
+    @include hide-content;
     @include column-start;
-    gap: 24px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+
+    .pin-step {
+      background: linear-gradient(180deg, $coral, $black);
+      flex: 1;
+      width: 100%;
+    }
   }
 
   .glitch-text {
@@ -84,6 +100,44 @@
 
   .glitch-hover {
     overflow: hidden;
+  }
+
+  .gradient-border {
+    @include border-radient;
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .grid-fade {
+    position: relative;
+
+    .grid-fade__overlay {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      z-index: 1;
+      pointer-events: none;
+
+      &--tile {
+        // min-width controlled via javascript/config
+        // border: $test;
+        // opacity: 1 !important;
+        flex: 1;
+        background: var(--color-background);
+        // transition: $ease;
+        transition: 0.5s ease;
+      }
+
+      &.full-viewport {
+        left: 50%;
+        translate: -50% 0;
+        width: 100vw;
+        height: 100vh;
+      }
+    }
   }
 
   .magnet {
@@ -103,6 +157,12 @@
         background-size: 100%;
       }
     }
+  }
+
+  .library-section {
+    // library section styles - Doesn't work with Swiper or Fill-text sections
+    @include column-start;
+    gap: 24px;
   }
 }
 

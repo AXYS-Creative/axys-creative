@@ -1,0 +1,12 @@
+# Section-components don't need to be one big object. Floating configs are allowed
+
+# title: "[ Horizontal scroll - Section-component ]"
+# desc: "This is a horizontal scroll component that can be used to display images in a horizontal layout. It is useful for showcasing multiple items in a compact space, allowing users to scroll through the items horizontally."
+
+message: "We are [%span.text-stroke%]committed[%span%] to building [%span.text-stroke%]memorable[%span%] web experiences ✦"
+# imgs:
+#   - title: Title 1 here
+#     desc: Description 1 goes here
+#     src: /static/img/library/img-sample-1.jpg
+
+img_parallax: null

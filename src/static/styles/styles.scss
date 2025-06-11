@@ -14,13 +14,15 @@
 
 // // // // // Components
 // prettier-ignore
-@import "./components/cta-group",
-"./components/social-media";
+@import "./components/accordion",
+"./components/cta-group",
+"./components/horizontal-scroll",
+"./components/social-media",
+"./components/stack-scroll";
 
 // Library // Delete after pulling files
 // prettier-ignore
-@import "./library/accordion",
-  "./library/advanced",
+@import "./library/advanced",
   "./library/blog-archive",
   "./library/blog-post",
   "./library/buttons",
@@ -28,7 +30,6 @@
   "./library/carousel-swiper",
   "./library/contact-form",
   "./library/grid-flow-img",
-  "./library/horizontal-scroll",
   "./library/style-guide",
   "./library/marquee",
   "./library/mouse-cursor",

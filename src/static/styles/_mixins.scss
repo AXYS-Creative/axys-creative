@@ -107,51 +107,43 @@ $min-breakpoints: (
 @mixin h1 {
   @include heading-text(96px);
 
-  @include mq-max(xl) {
-    font-size: 80px;
-  }
-
-  @include mq-max(md) {
-    font-size: 64px;
-  }
-
-  @include mq-max(sm) {
-    font-size: 12vw;
+  @include mq-max(xxl) {
+    font-size: max(62px, 6.2vw);
   }
 }
 @mixin h2 {
-  @include heading-text(72px);
+  @include heading-text(78px);
 
   @include mq-max(xxl) {
-    font-size: max(49.2px, 4.8vw);
+    font-size: max(50px, 5vw);
   }
 }
 @mixin h3 {
-  @include heading-text(52px);
+  @include heading-text(64px);
 
   @include mq-max(xxl) {
-    font-size: max(39px, 3.4vw);
+    font-size: max(42px, 4.2vw);
   }
 }
 @mixin h4 {
-  @include heading-text(36px);
+  @include heading-text(48px);
 
   @include mq-max(xxl) {
-    font-size: max(28.7px, 2.4vw);
+    font-size: max(32px, 3.2vw);
   }
 }
 @mixin h5 {
-  @include heading-text(32px);
+  @include heading-text(36px);
 
   @include mq-max(xxl) {
-    font-size: max(24.5px, 2.4vw);
+    font-size: max(24px, 2.4vw);
   }
 }
 @mixin h6 {
-  @include heading-text(24px);
+  @include heading-text(28px);
 
   @include mq-max(xxl) {
-    font-size: max(18px, 2vw);
+    font-size: max(20px, 2vw);
   }
 }
 
@@ -347,15 +339,38 @@ $min-breakpoints: (
   mask-repeat: no-repeat;
   mask-position: center;
   aspect-ratio: 1/1;
+  background: var(--color-font--primary);
 
   @if $url {
     mask-image: url($url);
   }
 }
 
+@mixin border-radient(
+  $deg: 10deg,
+  $col-1: rgba(255, 255, 255, 0.5),
+  $col-2: transparent
+) {
+  position: relative;
+
+  &::before {
+    content: "";
+    border: 1px solid transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient($deg, $col-1 5%, $col-2 75%) border-box;
+    mask: linear-gradient(#fff) padding-box, linear-gradient(#000);
+    -webkit-mask: linear-gradient(#fff) padding-box, linear-gradient(#000);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+  }
+}
+
 // Library
 
-@mixin fill-text($color: rgba(255, 255, 255, 0.25)) {
+@mixin fill-text($color: rgba(125, 125, 125, 0.25)) {
   display: inline; // for fill line-wrap
   background-repeat: no-repeat;
   background-clip: text;

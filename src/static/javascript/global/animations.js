@@ -24,13 +24,18 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
   let responsiveGsap = gsap.matchMedia();
 
-  let whiteMarkers = {
-    startColor: "white",
-    endColor: "white",
-    fontSize: "0.75rem",
-    indent: 128,
-    fontWeight: 400,
-  };
+  const createMarkers = (color, indent) => ({
+    startColor: color,
+    endColor: color,
+    fontSize: "12px",
+    indent: indent,
+    fontWeight: 500,
+  });
+
+  let whiteMarkers = createMarkers("white", 20);
+  let blackMarkers = createMarkers("black", 20);
+  let coralMarkers = createMarkers("coral", 120);
+  let navyMarkers = createMarkers("navy", 220);
 
   responsiveGsap.add(
     {
@@ -42,21 +47,18 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
     (context) => {
       let { maxSm, maxMd, maxLg, minMd } = context.conditions;
 
-      // // TEMPLATE TWEEN - SCRUB
-      // gsap.fromTo(
-      //   ".slider__inner",
-      //   { x: "-2%" },
-      //   {
-      //     x: maxSm ? "-32%" : maxLg ? "-32%" : "-32%",
-      //     scrollTrigger: {
-      //       trigger: ".slider",
-      //       start: "top bottom",
-      //       end: maxSm ? "bottom 75%" : "bottom top",
-      //       scrub: 0.8,
-      //       // markers: true,
-      //     },
-      //   }
-      // );
+      let bodyPadding = getComputedStyle(
+        document.documentElement
+      ).getPropertyValue("--body-padding");
+
+      // Utility
+      // Shuffle an array in place (used for grid-fade)
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
 
       // GLOBAL (place under other tweens i.e. pinned sections) - Animate any element with the class 'gsap-animate' using the 'animate' companion class
       {
@@ -79,27 +81,12 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
       // Library - Lift any desired code blocks out, then delete from production
       {
-        // Parallax
-        {
-          const parallaxConfigs = [
-            { selector: ".parallax", y: "15%", scrub: 1 },
-            { selector: ".parallax--strong", y: "25%", scrub: 1 },
-            { selector: ".parallax--reverse", y: "-25%", scrub: 0.25 },
-          ];
-
-          parallaxConfigs.forEach(({ selector, y, scrub }) => {
-            document.querySelectorAll(selector).forEach((el) => {
-              gsap.to(el, {
-                y,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub,
-                },
-              });
-            });
+        // Page specific scrollTrigger fix
+        if (document.querySelector(".main-library")) {
+          window.addEventListener("load", () => {
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 500); // try 200–500ms if needed
           });
         }
 
@@ -138,14 +125,106 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           }
         }
 
+        // Grid Fade (Utility)
+        {
+          const gridFades = document.querySelectorAll(".grid-fade");
+
+          if (gridFades.length) {
+            gridFades.forEach((section) => {
+              const scrubVal = 0.5;
+              const fadeType = section.dataset.gridFade || "in";
+              const tileSize = section.dataset.gridTileSize || "medium";
+              const tileFadeRandom = section.dataset.gridFadeRandom || "true";
+
+              // Determine config based on tileSize (default medium)
+              let tileCount = 40;
+              let minWidth = "12%";
+
+              if (tileSize === "large") {
+                tileCount = 20;
+                minWidth = "18%";
+              } else if (tileSize === "small") {
+                tileCount = 192;
+                minWidth = "6%";
+              }
+
+              const overlay = document.createElement("div");
+              overlay.classList.add("grid-fade__overlay");
+
+              const tiles = [];
+              for (let i = 0; i < tileCount; i++) {
+                const tile = document.createElement("div");
+                tile.classList.add("grid-fade__overlay--tile");
+                tile.style.minWidth = minWidth;
+                overlay.appendChild(tile);
+                tiles.push(tile);
+              }
+
+              section.appendChild(overlay);
+
+              if (tileFadeRandom === "true") {
+                shuffleArray(tiles);
+              }
+
+              if (fadeType === "in") {
+                gsap.fromTo(
+                  tiles,
+                  { opacity: 1 },
+                  {
+                    opacity: 0,
+                    ease: "none",
+                    stagger: 1,
+                    scrollTrigger: {
+                      trigger: section,
+                      start: "top 70%",
+                      end: "top 15%",
+                      scrub: scrubVal,
+                    },
+                  }
+                );
+              } else if (fadeType === "in-out") {
+                const tl = gsap.timeline({
+                  scrollTrigger: {
+                    trigger: section,
+                    start: "top 60%",
+                    end: "bottom 20%",
+                    scrub: scrubVal,
+                  },
+                });
+
+                tl.to(tiles, {
+                  opacity: 0,
+                  ease: "none",
+                  stagger: 1,
+                })
+                  .to(tiles, {
+                    opacity: 0,
+                    ease: "none",
+                    stagger: 1,
+                  })
+                  .to(tiles, {
+                    opacity: 1,
+                    ease: "none",
+                    stagger: 1,
+                  });
+              }
+            });
+          }
+        }
+
         // Horizontal Scroll (pinned section)
         {
           const horizontalScroll =
             document.querySelectorAll(".horizontal-scroll");
 
+          let horizontalScrub = maxSm ? 1 : 0.5;
+
           horizontalScroll.forEach((el) => {
-            let container = el.querySelector(".container");
-            let slider = el.querySelector(".slider");
+            let container = el.querySelector(".horizontal-scroll__container");
+            let slider = el.querySelector(".horizontal-scroll__slider");
+            let imgs = el.querySelectorAll(
+              ".horizontal-scroll__figure--parallax img"
+            );
             const sliderWidth = slider.scrollWidth;
             const containerWidth = container.offsetWidth;
             const distanceToTranslate = sliderWidth - containerWidth;
@@ -173,103 +252,129 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                   trigger: el,
                   start: "top top",
                   end: duration,
-                  scrub: maxSm ? 1 : 0.5,
+                  scrub: horizontalScrub,
                 },
               }
             );
+
+            // Optional parallax effect on images (use landscape images in portrait view)
+            imgs.forEach((img) => {
+              gsap.fromTo(
+                img,
+                { x: 0 },
+                {
+                  x: "25%", // Adjust this value for more or less parallax effect
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: el,
+                    start: "top top",
+                    end: duration,
+                    scrub: horizontalScrub,
+                  },
+                }
+              );
+            });
           });
         }
 
-        // Marquee Animations
+        // Stack Scroll (Overlapping Panels) — Duration and Delays can be controls via pin-steps in _stack-scroll.scss
         {
-          let marqueeSpeed = maxSm ? 20 : maxMd ? 24 : 28;
+          const stackScrollSections =
+            document.querySelectorAll(".stack-scroll");
 
-          // Standard Marquee
-          {
-            const autoMarquees = gsap.utils.toArray(".marquee-inner");
-            let marqueeTweens = [];
+          let panelToTop = "128px"; // Match with $panel-to-top in _stack-scroll.scss
+          let panelScrub = 0.5;
 
-            const createMarqueeTweens = () => {
-              marqueeTweens.forEach((tween) => tween.kill()); // Kill previous tweens to prevent stacking memory
-              marqueeTweens = [];
+          stackScrollSections.forEach((section) => {
+            const panels = section.querySelectorAll(".stack-panel");
+            const pinContainer = section.querySelector(".stack-pin");
+            const pinSteps = section.querySelectorAll(".stack-pin-step");
 
-              autoMarquees.forEach((elem) => {
-                const tween = gsap
-                  .to(elem, {
-                    xPercent: -50,
-                    repeat: -1,
-                    duration: marqueeSpeed,
-                    ease: "linear",
-                  })
-                  .totalProgress(0.5);
+            const duration = `${panels.length * 100}%`;
 
-                marqueeTweens.push(tween);
-              });
-            };
+            // Pin the entire panel container
+            gsap.to(pinContainer, {
+              scrollTrigger: {
+                trigger: pinContainer,
+                start: `top ${bodyPadding}`,
+                end: duration,
+                pin: true,
+              },
+            });
 
-            createMarqueeTweens();
-
-            let currentScroll = window.scrollY;
-
-            const adjustTimeScale = () => {
-              const isScrollingDown = window.scrollY > currentScroll;
-
-              marqueeTweens.forEach((tween, index) =>
-                gsap.to(tween, {
-                  timeScale: (index % 2 === 0) === isScrollingDown ? 1 : -1,
-                  duration: 0.3,
-                  ease: "power2.out",
-                })
+            // Slide and scale panels
+            panels.forEach((panel, i) => {
+              const panelIndex = i + 1;
+              const nextPanel = panels[i + 1];
+              const triggerStep = section.querySelector(
+                `.stack-pin-step-${panelIndex + 1}`
               );
 
-              currentScroll = window.scrollY;
-            };
+              if (!triggerStep || !nextPanel) return;
 
-            window.addEventListener("scroll", adjustTimeScale, {
-              passive: true,
+              // Scale panels
+              gsap.fromTo(
+                `.stack-panel-${panelIndex}`,
+                { scale: 1 },
+                {
+                  scale: 0.95,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: triggerStep,
+                    start: "top 112%",
+                    end: "bottom 112%",
+                    scrub: panelScrub,
+                  },
+                }
+              );
+
+              // Slide in next panel
+              gsap.fromTo(
+                `.stack-panel-${panelIndex + 1}`,
+                {
+                  top: "120%",
+                  // transform:
+                  //   "perspective(1200px) rotateX(-50deg) translate(-50%, 0%)",
+                },
+                {
+                  top: panelToTop,
+                  // transform:
+                  //   "perspective(1200px) rotateX(0deg) translate(-50%, 0%)",
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: triggerStep,
+                    start: "top 112%",
+                    end: "bottom 112%",
+                    scrub: panelScrub,
+                  },
+                }
+              );
             });
-          }
 
-          // Scrub Effect for Specific Marquees
-          {
-            const scrubMarquees = gsap.utils.toArray(".marquee--scrub");
-            const sensitivity = 5;
-            let scrubTriggers = [];
+            // Stack Link highlight
+            if (document.querySelector(".stack-scroll__nav-link")) {
+              const stackLinks = document.querySelectorAll(
+                ".stack-scroll__nav-link"
+              );
 
-            const createScrubMarquees = () => {
-              scrubTriggers.forEach((trigger) => trigger.kill());
-              scrubTriggers = [];
+              pinSteps.forEach((marker, index) => {
+                const link = stackLinks[index];
 
-              scrubMarquees.forEach((scrubElem) => {
-                const marqueeInners =
-                  scrubElem.querySelectorAll(".marquee-inner");
-
-                marqueeInners.forEach((inner, index) => {
-                  const scrubTween = gsap.fromTo(
-                    inner,
-                    { x: index % 2 === 0 ? "0%" : `-${sensitivity}%` },
-                    {
-                      x: index % 2 === 0 ? `-${sensitivity}%` : "0%",
-                      scrollTrigger: {
-                        trigger: scrubElem,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1,
-                        invalidateOnRefresh: true,
-                      },
-                    }
-                  );
-
-                  scrubTriggers.push(scrubTween.scrollTrigger);
+                ScrollTrigger.create({
+                  trigger: marker,
+                  start: "-15% top",
+                  end: "85% top",
+                  onEnter: () => link.classList.add("active"),
+                  onEnterBack: () => link.classList.add("active"),
+                  onLeave: () => link.classList.remove("active"),
+                  onLeaveBack: () => link.classList.remove("active"),
                 });
               });
-            };
-
-            createScrubMarquees();
-          }
+            }
+          });
         }
 
-        // Glitch Text (Uses gsap scrambleText)
+        // Glitch Text (Uses gsap scrambleText) // Place below horizontal scroll & scroll stacking
         {
           let alphaNumberic = "0123456789abcedfghijklmnopqrstuvwxyz";
 
@@ -278,13 +383,13 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             const originalText = el.textContent;
             const chars = el.dataset.glitchChars || "upperAndLowerCase";
             const revealDelay =
-              parseFloat(el.dataset.glitchRevealDelay) || 0.05; // Ensure revealDelay is less than the duration
+              parseFloat(el.dataset.glitchRevealDelay) || 0.05;
             const duration = parseFloat(el.dataset.glitchDuration) || 0.75;
             const playOnceAttr = el.dataset.glitchOnce;
-            const playOnce = playOnceAttr !== "false"; // Default to true unless explicitly set to "false"
+            const playOnce = playOnceAttr === "true"; // Default is false (repeat), only true if explicitly set
 
             if (playOnce) {
-              // 🔁 Play once using scrollTrigger animation timeline
+              // 🔁 Play once on scroll
               gsap
                 .timeline({
                   scrollTrigger: {
@@ -302,18 +407,8 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                   duration,
                 });
             } else {
-              // 🔁 Play every time
-              gsap.to(el, {
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 98%",
-                  toggleActions: "play reset play reset",
-                  onEnter: () => animateScramble(),
-                  onEnterBack: () => animateScramble(),
-                },
-              });
-
-              function animateScramble() {
+              // 🔁 Repeat on scroll in both directions
+              const animateScramble = () => {
                 el.textContent = originalText;
 
                 gsap.to(el, {
@@ -324,7 +419,17 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                   },
                   duration,
                 });
-              }
+              };
+
+              gsap.to(el, {
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 98%",
+                  toggleActions: "play reset play reset",
+                  onEnter: animateScramble,
+                  onEnterBack: animateScramble,
+                },
+              });
             }
           });
 
@@ -425,28 +530,134 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           });
         }
 
+        // Marquee Animations
+        {
+          let marqueeSpeed = maxSm ? 20 : maxMd ? 24 : 28;
+
+          // Standard Marquee
+          {
+            const autoMarquees = gsap.utils.toArray(".marquee-inner");
+            let marqueeTweens = [];
+
+            const createMarqueeTweens = () => {
+              marqueeTweens.forEach((tween) => tween.kill()); // Kill previous tweens to prevent stacking memory
+              marqueeTweens = [];
+
+              autoMarquees.forEach((elem) => {
+                const tween = gsap
+                  .to(elem, {
+                    xPercent: -50,
+                    repeat: -1,
+                    duration: marqueeSpeed,
+                    ease: "linear",
+                  })
+                  .totalProgress(0.5);
+
+                marqueeTweens.push(tween);
+              });
+            };
+
+            createMarqueeTweens();
+
+            let currentScroll = window.scrollY;
+
+            const adjustTimeScale = () => {
+              const isScrollingDown = window.scrollY > currentScroll;
+
+              marqueeTweens.forEach((tween, index) =>
+                gsap.to(tween, {
+                  timeScale: (index % 2 === 0) === isScrollingDown ? 1 : -1,
+                  duration: 0.3,
+                  ease: "power2.out",
+                })
+              );
+
+              currentScroll = window.scrollY;
+            };
+
+            window.addEventListener("scroll", adjustTimeScale, {
+              passive: true,
+            });
+          }
+
+          // Scrub Effect for Specific Marquees
+          {
+            const scrubMarquees = gsap.utils.toArray(".marquee--scrub");
+            const sensitivity = 5;
+            let scrubTriggers = [];
+
+            const createScrubMarquees = () => {
+              scrubTriggers.forEach((trigger) => trigger.kill());
+              scrubTriggers = [];
+
+              scrubMarquees.forEach((scrubElem) => {
+                const marqueeInners =
+                  scrubElem.querySelectorAll(".marquee-inner");
+
+                marqueeInners.forEach((inner, index) => {
+                  const scrubTween = gsap.fromTo(
+                    inner,
+                    { x: index % 2 === 0 ? "0%" : `-${sensitivity}%` },
+                    {
+                      x: index % 2 === 0 ? `-${sensitivity}%` : "0%",
+                      scrollTrigger: {
+                        trigger: scrubElem,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1,
+                        invalidateOnRefresh: true,
+                      },
+                    }
+                  );
+
+                  scrubTriggers.push(scrubTween.scrollTrigger);
+                });
+              });
+            };
+
+            createScrubMarquees();
+          }
+        }
+
+        // Parallax
+        {
+          const parallaxConfigs = [
+            { selector: ".parallax", y: "15%", scrub: 1 },
+            { selector: ".parallax--strong", y: "25%", scrub: 1 },
+            { selector: ".parallax--reverse", y: "-25%", scrub: 0.25 },
+          ];
+
+          parallaxConfigs.forEach(({ selector, y, scrub }) => {
+            document.querySelectorAll(selector).forEach((el) => {
+              gsap.to(el, {
+                y,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub,
+                },
+              });
+            });
+          });
+        }
+
         // Video Scrub
         {
           const video = document.querySelector(".video-scrub");
 
           if (video) {
-            // Wait for metadata to get duration
             video.addEventListener("loadedmetadata", () => {
-              const duration = video.duration;
-
-              gsap.registerPlugin(ScrollTrigger);
-
-              gsap.to(video, {
-                currentTime: duration,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: ".video-scrub-section",
-                  start: "top top",
-                  end: "bottom top",
-                  scrub: true,
-                  pin: true,
-                  anticipatePin: 1,
-                  // markers: true,
+              ScrollTrigger.create({
+                trigger: ".video-scrub-section",
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+                pin: true,
+                onUpdate: (self) => {
+                  const progress = self.progress;
+                  video.currentTime = video.duration * progress;
                 },
               });
             });

@@ -1,9 +1,11 @@
 .accordion {
+  --label-content-gap: 24px;
+
   display: flex;
   flex-direction: column;
 
   &-btn {
-    $border: var(--border-width--bold) solid var(--border-color);
+    $border: var(--border-width--bold) solid var(--color-border);
 
     // color: var(--color-font--primary);
     border-bottom: $border;
@@ -22,13 +24,14 @@
       .accordion-content {
         grid-template-rows: 1fr;
         visibility: visible;
+        padding-block-start: var(--label-content-gap);
       }
     }
   }
 
   &-label {
     @include row-start(space-between);
-    @include h4;
+    @include h6;
     gap: 24px;
 
     @include mq-max("sm") {
@@ -51,6 +54,7 @@
     display: grid;
     grid-template-rows: 0fr;
     visibility: hidden;
+    width: calc(100% - 4ch);
     transition: $ease;
 
     &__inner {

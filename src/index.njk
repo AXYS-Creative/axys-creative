@@ -29,7 +29,7 @@ path: home
 <section class="section-work">
   <h2>
     Our
-    <span class="glitch-scroll color--work" data-glitch-once="false">Work</span>
+    <span class="glitch-scroll color--work">Work</span>
   </h2>
   <p class="text-balance">
     We diligently collaborate with our clients to create exceptional experiences
@@ -38,6 +38,25 @@ path: home
 </section>
 
 <!-- prettier-ignore -->
-{% include './_includes/library/horizontal-scroll.njk' %}
+{% set hs_title = page_home.horizontal_scroll.title %} 
+{% set hs_desc = page_home.horizontal_scroll.desc %}
+{% set hs_message = page_home.horizontal_scroll.message %}
+{% set hs_imgs = page_home.horizontal_scroll.imgs %}
+{% set hs_img_parallax = page_home.horizontal_scroll.img_parallax %}
+{% include './_includes/components/horizontal-scroll.njk' %}
+
+<!-- prettier-ignore  -->
+{% set panel_nav = page_home.stack_scroll.panel_nav %}
+{% set panel_copy = page_home.stack_scroll.panel_copy %} 
+{% set panel_data = page_home.stack_scroll.panels %}
+{% set panel_configs = page_home.stack_scroll.panel_configs %}
+{% include './_includes/components/stack-scroll.njk' %}
+
+<section id="faq">
+  <h2>Quick <span class="glitch-scroll color--faq">FAQ</span></h2>
+  <!-- prettier-ignore -->
+  {% set accordion_list = page_home.accordion.accordion_data %}
+  {% include './_includes/components/accordion.njk' %}
+</section>
 
 {% include './_includes/partials/loader.njk' %}
