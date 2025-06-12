@@ -1,16 +1,28 @@
 .horizontal-scroll {
   overflow: hidden;
-  height: 100vh;
-  min-height: 850px;
+  max-width: 100%;
 
-  @include mq-max(xxl) {
-    min-height: 650px;
-  }
+  // height: 100vh;
+  // min-height: 850px;
+
+  // @include mq-max(xxl) {
+  //   min-height: 650px;
+  // }
 
   &:has(&__title),
   &:has(&__desc) {
     .horizontal-scroll__container {
-      height: 80%;
+      height: 65%;
+    }
+  }
+
+  &__pin {
+    // overflow: hidden;
+    height: 100vh;
+    min-height: 850px;
+
+    @include mq-max(xxl) {
+      min-height: 650px;
     }
   }
 
@@ -30,7 +42,7 @@
     // border: $test;
     display: flex;
     align-items: center;
-    height: 100%; // Conditionally changes from 85% if there's a title or description.
+    height: 80%; // Conditionally changes from 85% if there's a title or description.
   }
 
   &__slider {
@@ -40,34 +52,42 @@
     gap: 12px;
   }
 
-  &__figure {
-    // Couldn't get aspect ratio to work
-    @include column-start;
-    width: min(25vw, 450px);
-
-    @include mq-max(xl) {
-      width: 350px;
-    }
-
-    picture {
-      overflow: hidden;
-      height: 100%;
-    }
-
-    img {
-      height: 100%;
-      width: auto;
-    }
-
-    &--parallax {
-      picture {
-        justify-content: flex-end;
-      }
-    }
-  }
-
   &__message {
     white-space: nowrap;
-    font-size: 12vw;
+    font-size: min(10vw, 128px);
   }
+
+  .pin-spin__star {
+    display: inline-block;
+    rotate: -90deg;
+    scale: 0.5;
+    transform-origin: center;
+  }
+
+  // Image config
+  // &__figure {
+  //   // Couldn't get aspect ratio to work
+  //   @include column-start;
+  //   width: min(25vw, 450px);
+
+  //   @include mq-max(xl) {
+  //     width: 350px;
+  //   }
+
+  //   picture {
+  //     overflow: hidden;
+  //     height: 100%;
+  //   }
+
+  //   img {
+  //     height: 100%;
+  //     width: auto;
+  //   }
+
+  //   &--parallax {
+  //     picture {
+  //       justify-content: flex-end;
+  //     }
+  //   }
+  // }
 }

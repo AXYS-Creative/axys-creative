@@ -1,5 +1,5 @@
 marquee:
-  text: "• Where [%span.text-stroke%]design[%span%] meets [%span.text-stroke%]development[%span%] • Where [%span.text-stroke%]design[%span%] meets [%span.text-stroke%]development[%span%]" # Keep at least 64 characters
+  text: "[%span.color--coral%]▪︎[%span%] Where [%span.color--blue%]meaningful[%span%] [%span.text-stroke%]design[%span%] meets [%span.color--blue%]modern[%span%] [%span.text-stroke%]development[%span%]"
   # imgs:
   #   - src: /static/img/library/img-sample-1.jpg
   #     alt: "Sample Image 1"

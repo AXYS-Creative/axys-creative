@@ -214,8 +214,9 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
         // Horizontal Scroll (pinned section)
         {
-          const horizontalScroll =
-            document.querySelectorAll(".horizontal-scroll");
+          const horizontalScroll = document.querySelectorAll(
+            ".horizontal-scroll__pin"
+          );
 
           let horizontalScrub = maxSm ? 1 : 0.5;
 
@@ -257,23 +258,39 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
               }
             );
 
-            // Optional parallax effect on images (use landscape images in portrait view)
-            imgs.forEach((img) => {
-              gsap.fromTo(
-                img,
-                { x: 0 },
-                {
-                  x: "25%", // Adjust this value for more or less parallax effect
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: el,
-                    start: "top top",
-                    end: duration,
-                    scrub: horizontalScrub,
-                  },
-                }
-              );
-            });
+            // // Optional parallax effect on images (use landscape images in portrait view)
+            // imgs.forEach((img) => {
+            //   gsap.fromTo(
+            //     img,
+            //     { x: 0 },
+            //     {
+            //       x: "25%", // Adjust this value for more or less parallax effect
+            //       ease: "none",
+            //       scrollTrigger: {
+            //         trigger: el,
+            //         start: "top top",
+            //         end: duration,
+            //         scrub: horizontalScrub,
+            //       },
+            //     }
+            //   );
+            // });
+
+            // Spin children
+            let pinStar = document.querySelector(".pin-spin__star");
+            if (pinStar) {
+              gsap.to(".pin-spin__star", {
+                rotate: "0",
+                scale: "1",
+                scrollTrigger: {
+                  trigger: ".horizontal-scroll",
+                  start: "78% center",
+                  end: "84% center",
+                  scrub: 1,
+                  // markers: true,
+                },
+              });
+            }
           });
         }
 

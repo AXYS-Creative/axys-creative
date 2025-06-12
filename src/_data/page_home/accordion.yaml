@@ -2,9 +2,9 @@ accordion_data:
   - title: What services do you offer?
     content: We build engaging static sites that revolve around the user experience. Our current stack includes Nunjucks for templating, 11ty for SSG, Decap for headless CMS, and Netlify for deployment, authentication & everything else.
   - title: Why wouldn't I just hire in-house?
-    content: We’re a much better deal. The average salaries for designers & developers can exceed $100,000 and this doesn't include any benefits. In our model, you have the flexibility to pause your plan at any time, so you're only paying for what you need.
+    content: We’re a much better deal. The average salaries for designers & developers can exceed $100,000 and this doesn't include any benefits. In our model, you also have the flexibility to pause your plan at any time, so you only pay for what you need.
   - title: What happens after I sign up?
-    content: Within minutes of signing up, we'll issue an email with details about your Trello board. This is how we’ll track tasks. After creating the board, we'll send you the link so you can start adding requests immediately. Typically, we begin working on these requests on the same day.
+    content: Within minutes of signing up, we'll issue an email with details about your Trello board, where you can start adding requests immediately. Typically, we begin working on these requests on the same day.
   - title: Do I have a limited number of requests?
     content: No. Once you become a member, you can add as many design or development requests as you'd like (based on the plan you chose). Keep in mind that they are worked on and delivered one by one.
   - title: What if I only have a single request?
