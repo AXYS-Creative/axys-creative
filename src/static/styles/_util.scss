@@ -39,6 +39,10 @@
   @include mask-image();
 }
 
+.section-thin {
+  @include section-padding(thin);
+}
+
 .sr-only {
   @include sr-only;
 }

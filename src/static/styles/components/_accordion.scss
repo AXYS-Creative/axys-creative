@@ -31,6 +31,7 @@
 
   &-label {
     @include row-start(space-between);
+    // @include body-font-styles;
     @include h6;
     gap: 24px;
 

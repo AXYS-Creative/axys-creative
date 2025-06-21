@@ -16,9 +16,17 @@
   &__desc {
     @include body-font-styles;
 
+    @include mq-max(xl) {
+      font-size: 14px;
+    }
+
     @include mq-min(lg) {
       display: inline-block;
       translate: 1ch -10ch;
+    }
+
+    @include mq-min(xxl) {
+      translate: 1ch -9ch;
     }
   }
 
@@ -26,5 +34,17 @@
     @include mq-min(lg) {
       translate: 24ch 0;
     }
+  }
+}
+
+.section-faq {
+  // @include section-padding(thin);
+
+  // &__title {
+
+  // }
+
+  .accordion {
+    margin-block: var(--section-gap--lg);
   }
 }

@@ -479,16 +479,26 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             const targetClass = trigger.dataset.glitchTarget;
             if (!targetClass) return;
 
-            const target = document.querySelector(`.${targetClass}`);
+            // Scope to the nearest ancestor that contains both trigger and target
+            const scope =
+              trigger.closest(`[class*="glitch"]`) || trigger.parentElement;
+
+            // Search *within that scope* for the target class
+            const target = scope.querySelector(`.${targetClass}`);
             if (!target) return;
 
-            const originalText = target.textContent;
-            target.dataset.originalText = originalText;
-            const width = target.scrollWidth;
-            target.style.width = `${width}px`;
-            target.style.display = "inline-block";
+            // Store original text only once
+            if (!target.dataset.originalText) {
+              const originalText = target.textContent;
+              target.dataset.originalText = originalText;
+              const width = target.scrollWidth;
+              target.style.width = `${width}px`;
+              target.style.display = "inline-block";
+            }
 
             const runGlitch = () => {
+              const originalText = target.dataset.originalText;
+
               target.textContent = originalText;
 
               gsap.to(target, {
@@ -684,10 +694,16 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
     }
   );
 
-  // Refresh ScrollTrigger instances on page load and resize
   window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500); // try 200–500ms if needed
   });
+
+  // // Refresh ScrollTrigger instances on page load and resize
+  // window.addEventListener("load", () => {
+  //   ScrollTrigger.refresh();
+  // });
 
   // Greater than 520 so it doesn't refresh on  mobile(dvh)
   if (window.innerWidth > 520) {

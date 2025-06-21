@@ -402,6 +402,14 @@ body {
   width: 100vw;
   height: 100vh;
   max-width: 100vw;
+
+  @include mq-mouse {
+    opacity: 0.25;
+  }
+
+  @include mq-touch {
+    opacity: 0.5;
+  }
 }
 
 section {

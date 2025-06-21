@@ -26,7 +26,7 @@ path: home
 {% set marquee = global.marquee.marquee %}
 {% include "./_includes/components/marquee.njk" %}
 
-<section class="section-work">
+<section class="section-work" id="section-work">
   <h2>
     Our
     <span class="glitch-scroll color--work">Work</span>
@@ -52,11 +52,16 @@ path: home
 {% set panel_configs = page_home.stack_scroll.panel_configs %}
 {% include './_includes/components/stack-scroll.njk' %}
 
-<section id="faq">
-  <h2>Quick <span class="glitch-scroll color--faq">FAQs</span></h2>
+<section class="section-faq" id="section-faq">
+  <h2 class="section-faq__title">
+    Quick <span class="glitch-scroll color--faq">FAQs</span>
+  </h2>
   <!-- prettier-ignore -->
   {% set accordion_list = page_home.accordion.accordion_data %}
   {% include './_includes/components/accordion.njk' %}
+
+  <!-- prettier-ignore -->
+  {% include "./_includes/components/cta-group.njk" %}
 </section>
 
 {% include './_includes/partials/loader.njk' %}

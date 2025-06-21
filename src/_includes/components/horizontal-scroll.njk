@@ -4,7 +4,12 @@
   {% set img_parallax_class = 'horizontal-scroll__figure--parallax' %} 
 {% endif %}
 
-<section class="horizontal-scroll">
+<section
+  class="horizontal-scroll show-grid"
+  data-grid-enter="ripple-out"
+  data-grid-exit="ripple-out"
+  data-stagger-interval="80"
+>
   <div class="horizontal-scroll__pin">
     {% if hs_title %}
     <h2 class="horizontal-scroll__title h5">{{ hs_title }}</h2>
