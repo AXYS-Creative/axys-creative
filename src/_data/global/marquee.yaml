@@ -1,5 +1,5 @@
 marquee:
-  text: "[%span.color--coral%]▪︎[%span%] Where [%span.color--blue%]meaningful[%span%] [%span.text-stroke%]design[%span%] meets [%span.color--blue%]modern[%span%] [%span.text-stroke%]development[%span%]"
+  text: "[%span.color--coral%]▪︎[%/span%] Where [%span.color--blue%]meaningful[%/span%] [%span.text-stroke%]design[%/span%] meets [%span.color--blue%]modern[%/span%] [%span.text-stroke%]development[%/span%]"
   # imgs:
   #   - src: /static/img/library/img-sample-1.jpg
   #     alt: "Sample Image 1"

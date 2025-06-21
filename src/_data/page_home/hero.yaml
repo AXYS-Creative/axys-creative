@@ -1,4 +1,4 @@
-section_title: "[%span%]Web Design +[%span%] [%span.hero__title-last%]Development[%span%]"
+section_title: "[%span%]Web Design +[%/span%] [%span.hero__title-last%]Development[%/span%]"
 section_desc: Unlimited services for [%br%] one basic subscription.
 cta_1:
   text: View Plans
