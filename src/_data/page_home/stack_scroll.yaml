@@ -1,7 +1,7 @@
 panel_nav: false # based on each panel in 'panels' below
 panel_copy:
   title: Member [%br%][%span.glitch-scroll color--benefits%]benefits[%span%]
-  desc: The concept is simple and better yet, it provides results.
+  desc: The concept is simple — we replace unreliable freelancers and expensive agencies for one flat monthly fee. With swift turnaround times, you won't want to go anywhere else.
   cta_1:
     text: View Plans
     url: /

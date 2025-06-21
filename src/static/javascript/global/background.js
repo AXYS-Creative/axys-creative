@@ -1,5 +1,5 @@
 // Grid effect, requires canvas in html
-(() => {
+if (document.getElementById("grid-bg")) {
   const CELL_SIZE = 48;
   const STROKE_COLOR_HEX = "#3d3d3d";
   const STARTING_ALPHA = 255;
@@ -268,7 +268,7 @@
     }
   };
 
-  document.querySelectorAll(".show-grid").forEach((el) => {
+  document.querySelectorAll(".grid-show").forEach((el) => {
     const enter = el.dataset.gridEnter || "stack-top";
     const exit = el.dataset.gridExit || "stack-top";
     const stagger = parseInt(el.dataset.gridStagger) || 50;
@@ -295,4 +295,4 @@
       },
     });
   });
-})();
+}
