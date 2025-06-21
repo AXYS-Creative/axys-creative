@@ -23,6 +23,7 @@
     @include mq-min(lg) {
       display: inline-block;
       translate: 1ch -10ch;
+      height: 0;
     }
 
     @include mq-min(xxl) {

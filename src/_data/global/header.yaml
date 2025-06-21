@@ -4,7 +4,7 @@ logo:
   class: header-logo # Dev use only
   src_light: /static/img/logo.svg
   src_dark: /static/img/logo.svg
-  text: Sample Business
+  text: axys creative
   url: /
   new_tab: false
 

@@ -371,6 +371,10 @@ body {
   height: 20px;
   width: auto;
 
+  @include mq-max(xxl) {
+    height: 18px;
+  }
+
   @include mq-max(xl) {
     height: 16px;
   }

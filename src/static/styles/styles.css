@@ -457,6 +457,11 @@ body:has(.load-complete) .hero div {
   height: 20px;
   width: auto;
 }
+@media (max-width: 1512px) {
+  .site-logo {
+    height: 18px;
+  }
+}
 @media (max-width: 1200px) {
   .site-logo {
     height: 16px;
@@ -1328,6 +1333,7 @@ figure {
   .hero__desc {
     display: inline-block;
     translate: 1ch -10ch;
+    height: 0;
   }
 }
 @media (min-width: 1513px) {

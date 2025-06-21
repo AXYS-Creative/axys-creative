@@ -9,7 +9,7 @@
   const STROKE_WIDTH = 1;
   const SHOW_HOVERED_CELL = false;
   const IS_TOUCH_DEVICE = window.matchMedia("(pointer: coarse)").matches;
-  const TOUCH_INTERVAL_MS = 5000; // Interval between simulated touches
+  const TOUCH_INTERVAL_MS = 7500; // Interval between simulated touches
 
   let freezeGridFade = false;
 
@@ -164,30 +164,24 @@
 
   draw();
 
-  function simulateTouchActivity() {
-    const x = Math.floor(Math.random() * window.innerWidth);
-    const y = Math.floor(Math.random() * window.innerHeight);
+  // Interval animation (optional)
+  function triggerAmbientGridLoop() {
+    // const animation = "ripple-out";
+    // const stagger = 50;
+    const animation = "random";
+    const stagger = 100;
 
-    // Simulate mouse position
-    mouseX = x;
-    mouseY = y;
-    isMouseMoving = true;
-    lastMouseMoveTime = Date.now();
-
-    // Manually trigger grid neighbors (same logic as when mouse moves to a new cell)
-    const row = Math.floor(y / CELL_SIZE);
-    const col = Math.floor(x / CELL_SIZE);
-
-    if (row !== currentRow || col !== currentCol) {
-      currentRow = row;
-      currentCol = col;
-      allNeighbors.push(...getRandomNeighbors(row, col));
-    }
+    setInterval(() => {
+      if (!freezeGridFade) {
+        revealAllGridSquares({ animation, stagger });
+      }
+    }, TOUCH_INTERVAL_MS);
   }
 
-  if (IS_TOUCH_DEVICE) {
-    setInterval(simulateTouchActivity, TOUCH_INTERVAL_MS);
-  }
+  // Mobile only animation. Remove conditional for all devices.
+  // if (IS_TOUCH_DEVICE) {
+  triggerAmbientGridLoop();
+  // }
 
   //
   //
