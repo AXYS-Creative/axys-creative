@@ -1,11 +1,10 @@
-.horizontal-scroll {
-  // border: $test;
+.scroll-horizontal {
   overflow: hidden;
   max-width: 100%;
 
   &:has(&__title),
   &:has(&__desc) {
-    .horizontal-scroll__container {
+    .scroll-horizontal__container {
       height: 65%;
     }
   }

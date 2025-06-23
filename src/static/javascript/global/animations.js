@@ -215,16 +215,16 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
         // Horizontal Scroll (pinned section)
         {
           const horizontalScroll = document.querySelectorAll(
-            ".horizontal-scroll__pin"
+            ".scroll-horizontal__pin"
           );
 
           let horizontalScrub = maxSm ? 1 : 0.5;
 
           horizontalScroll.forEach((el) => {
-            let container = el.querySelector(".horizontal-scroll__container");
-            let slider = el.querySelector(".horizontal-scroll__slider");
+            let container = el.querySelector(".scroll-horizontal__container");
+            let slider = el.querySelector(".scroll-horizontal__slider");
             let imgs = el.querySelectorAll(
-              ".horizontal-scroll__figure--parallax img"
+              ".scroll-horizontal__figure--parallax img"
             );
             const sliderWidth = slider.scrollWidth;
             const containerWidth = container.offsetWidth;
@@ -283,7 +283,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                 rotate: "0",
                 scale: "1",
                 scrollTrigger: {
-                  trigger: ".horizontal-scroll",
+                  trigger: ".scroll-horizontal",
                   start: "78% center",
                   end: "84% center",
                   scrub: 1,
@@ -294,18 +294,18 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           });
         }
 
-        // Stack Scroll (Overlapping Panels) — Duration and Delays can be controls via pin-steps in _stack-scroll.scss
+        // Stack Scroll (Overlapping Panels) — Duration and Delays can be controls via pin-steps in _scroll-stack.scss
         {
           const stackScrollSections =
-            document.querySelectorAll(".stack-scroll");
+            document.querySelectorAll(".scroll-stack");
 
-          let panelToTop = "200px"; // Match with $panel-to-top in _stack-scroll.scss
+          let panelToTop = "200px"; // Match with $panel-to-top in _scroll-stack.scss
           let panelScrub = 0.5;
 
           stackScrollSections.forEach((section) => {
             const panels = section.querySelectorAll(".stack-panel");
-            const pinContainer = section.querySelector(".stack-pin");
-            const pinSteps = section.querySelectorAll(".stack-pin-step");
+            const pinContainer = section.querySelector(".scroll-stack__pin");
+            const pinSteps = section.querySelectorAll(".scroll-stack__step");
 
             const duration = `${panels.length * 100}%`;
 
@@ -324,7 +324,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
               const panelIndex = i + 1;
               const nextPanel = panels[i + 1];
               const triggerStep = section.querySelector(
-                `.stack-pin-step-${panelIndex + 1}`
+                `.scroll-stack__step-${panelIndex + 1}`
               );
 
               if (!triggerStep || !nextPanel) return;
@@ -369,9 +369,9 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             });
 
             // Stack Link highlight
-            if (document.querySelector(".stack-scroll__nav-link")) {
+            if (document.querySelector(".scroll-stack__nav-link")) {
               const stackLinks = document.querySelectorAll(
-                ".stack-scroll__nav-link"
+                ".scroll-stack__nav-link"
               );
 
               pinSteps.forEach((marker, index) => {

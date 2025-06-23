@@ -36,21 +36,20 @@ path: home
     for their audiences.
   </p>
 </section>
-
 <!-- prettier-ignore -->
-{% set hs_title = page_home.horizontal_scroll.title %} 
-{% set hs_desc = page_home.horizontal_scroll.desc %}
-{% set hs_message = page_home.horizontal_scroll.message %}
-{% set hs_imgs = page_home.horizontal_scroll.imgs %}
-{% set hs_img_parallax = page_home.horizontal_scroll.img_parallax %}
-{% include './_includes/components/horizontal-scroll.njk' %}
+{% set hs_title = page_home.scroll_horizontal.title %} 
+{% set hs_desc = page_home.scroll_horizontal.desc %}
+{% set hs_message = page_home.scroll_horizontal.message %}
+{% set hs_imgs = page_home.scroll_horizontal.imgs %}
+{% set hs_img_parallax = page_home.scroll_horizontal.img_parallax %}
+{% include './_includes/components/scroll-horizontal.njk' %}
 
 <!-- prettier-ignore  -->
-{% set panel_nav = page_home.stack_scroll.panel_nav %}
-{% set panel_copy = page_home.stack_scroll.panel_copy %} 
-{% set panel_data = page_home.stack_scroll.panels %}
-{% set panel_configs = page_home.stack_scroll.panel_configs %}
-{% include './_includes/components/stack-scroll.njk' %}
+{% set panel_nav = page_home.scroll_stack.panel_nav %}
+{% set panel_copy = page_home.scroll_stack.panel_copy %} 
+{% set panel_data = page_home.scroll_stack.panels %}
+{% set panel_configs = page_home.scroll_stack.panel_configs %}
+{% include './_includes/components/scroll-stack.njk' %}
 
 <section class="section-faq" id="section-faq">
   <h2 class="section-faq__title">
