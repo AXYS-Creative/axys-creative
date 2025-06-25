@@ -3,7 +3,7 @@
 # title: "[ Horizontal scroll - Section-component ]"
 # desc: "This is a horizontal scroll component that can be used to display images in a horizontal layout. It is useful for showcasing multiple items in a compact space, allowing users to scroll through the items horizontally."
 
-message: "We are [%span.text-stroke%]committed[%/span%] to [%span.color--faq%]building[%/span%] [%span.text-stroke%]enjoyable[%/span%] web experiences [%span.color--coral pin-spin__star%]✦[%/span%]"
+# message: "We are [%span.text-stroke%]committed[%/span%] to [%span.color--yellow%]building[%/span%] [%span.text-stroke%]enjoyable[%/span%] web [%span.icons%][%span.icon-mobile%][%/span%][%/span%] experiences [%span.color--coral pin-spin__star%]✦[%/span%]"
 # imgs:
 #   - title: Title 1 here
 #     desc: Description 1 goes here

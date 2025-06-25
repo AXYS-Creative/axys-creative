@@ -12,6 +12,8 @@
   &__pin {
     height: 100vh;
     min-height: 850px;
+    max-width: $content-width;
+    margin: auto;
 
     @include mq-max(xxl) {
       min-height: 650px;
@@ -46,6 +48,31 @@
   &__message {
     white-space: nowrap;
     font-size: min(10vw, 128px);
+
+    .icons {
+      position: relative;
+
+      .mask-icon {
+        background: $blue;
+        position: absolute;
+        display: inline-flex;
+        width: 1ch;
+        opacity: 0;
+        scale: 0.5;
+      }
+
+      .pin-icon-mobile {
+        translate: -120% 56px;
+        rotate: -28deg;
+        bottom: 2ch;
+      }
+
+      .pin-icon-desktop {
+        rotate: 28deg;
+        translate: 0 56px;
+        bottom: 1.5ch;
+      }
+    }
   }
 
   .pin-spin__star {

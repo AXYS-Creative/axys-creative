@@ -1511,6 +1511,8 @@ figure {
 .scroll-horizontal__pin {
   height: 100vh;
   min-height: 850px;
+  max-width: 1512px;
+  margin: auto;
 }
 @media (max-width: 1512px) {
   .scroll-horizontal__pin {
@@ -1539,6 +1541,27 @@ figure {
 .scroll-horizontal__message {
   white-space: nowrap;
   font-size: min(10vw, 128px);
+}
+.scroll-horizontal__message .icons {
+  position: relative;
+}
+.scroll-horizontal__message .icons .mask-icon {
+  background: #7ec1d4;
+  position: absolute;
+  display: inline-flex;
+  width: 1ch;
+  opacity: 0;
+  scale: 0.5;
+}
+.scroll-horizontal__message .icons .pin-icon-mobile {
+  translate: -120% 56px;
+  rotate: -28deg;
+  bottom: 2ch;
+}
+.scroll-horizontal__message .icons .pin-icon-desktop {
+  rotate: 28deg;
+  translate: 0 56px;
+  bottom: 1.5ch;
 }
 .scroll-horizontal .pin-spin__star {
   display: inline-block;
@@ -1702,7 +1725,7 @@ figure {
     display: flex;
   }
 }
-.scroll-stack .stack-panel {
+.scroll-stack__panel {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1718,22 +1741,22 @@ figure {
   background: var(--color-background);
 }
 @media (max-width: 1024px) {
-  .scroll-stack .stack-panel {
+  .scroll-stack__panel {
     width: 100%;
   }
 }
-.scroll-stack .stack-panel-1 {
+.scroll-stack__panel-1 {
   top: 200px !important;
 }
-.scroll-stack .stack-panel:nth-of-type(n + 2) {
+.scroll-stack__panel:nth-of-type(n + 2) {
   top: 120%;
 }
-.scroll-stack .stack-panel__icon {
+.scroll-stack__panel__icon {
   width: 48px;
   height: 48px;
   background: var(--color-font--primary);
 }
-.scroll-stack .stack-panel .cta-group {
+.scroll-stack__panel .cta-group {
   margin-top: auto;
 }
 .scroll-stack .scroll-stack__pin {
@@ -1754,11 +1777,11 @@ figure {
   display: none;
 }
 @media (min-width: 1025px) {
-  .scroll-stack.half .stack-panel {
+  .scroll-stack.half .scroll-stack__panel {
     width: max(500px, 50%);
   }
 }
-.scroll-stack.center .stack-panel {
+.scroll-stack.center .scroll-stack__panel {
   left: 50%;
   translate: -50% 0;
 }
@@ -1768,11 +1791,11 @@ figure {
 .scroll-stack.center .scroll-stack__copy--unpinned {
   display: flex;
 }
-.scroll-stack.right .stack-panel {
+.scroll-stack.right .scroll-stack__panel {
   right: var(--body-padding);
 }
 @media (max-width: 1024px) {
-  .scroll-stack.right .stack-panel {
+  .scroll-stack.right .scroll-stack__panel {
     right: 0;
   }
 }

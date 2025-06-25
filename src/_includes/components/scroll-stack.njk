@@ -25,7 +25,7 @@
     <nav class="scroll-stack__nav">
       {% for panel in panel_data %}
       <a
-        href="#scroll-stack__step-{{ loop.index }}"
+        href="#scroll-stack__pin-step-{{ loop.index }}"
         class="scroll-stack__nav-link classic-link tab-element-page"
       >
         {{ panel.title }}
@@ -52,18 +52,18 @@
 
     <!-- prettier-ignore -->
     {% for panel in panel_data %}
-    <div class="stack-panel stack-panel-{{ loop.index }}">
+    <div class="scroll-stack__panel scroll-stack__panel-{{ loop.index }}">
       {% if panel.icon %}
       <span
-        class="stack-panel__icon mask-icon"
+        class="scroll-stack__panel__icon mask-icon"
         style="mask-image: url({{ panel.icon }})"
       ></span>
       {% endif %} {% if panel.title %}
-      <h3 class="stack-panel__title h5">
+      <h3 class="scroll-stack__panel__title h5">
         {{ panel.title }}
       </h3>
       {% endif %} {% if panel.desc %}
-      <p class="stack-panel__desc">{{ panel.desc }}</p>
+      <p class="scroll-stack__panel__desc">{{ panel.desc }}</p>
       {% endif %} {% if panel.cta_1 %}
       <!-- prettier-ignore -->
       {% set cta_1 = panel.cta_1 %}
@@ -75,11 +75,11 @@
   </div>
 
   <!-- prettier-ignore -->
-  <div class="scroll-stack__steps pin-steps" aria-hidden="true">
+  <div class="scroll-stack__pin-steps pin-steps" aria-hidden="true">
     {% for step in panel_data %}
     <div 
-      class="scroll-stack__step scroll-stack__step-{{ loop.index }} pin-step"
-      id="scroll-stack__step-{{ loop.index }}"
+      class="scroll-stack__pin-step scroll-stack__pin-step-{{ loop.index }} pin-step"
+      id="scroll-stack__pin-step-{{ loop.index }}"
     >
     </div>
     {% endfor %}

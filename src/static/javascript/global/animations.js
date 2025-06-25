@@ -212,15 +212,15 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           }
         }
 
-        // Horizontal Scroll (pinned section)
+        // Scroll Horizontal (pinned section)
         {
-          const horizontalScroll = document.querySelectorAll(
+          const scrollHorizontal = document.querySelectorAll(
             ".scroll-horizontal__pin"
           );
 
-          let horizontalScrub = maxSm ? 1 : 0.5;
+          let scrollHorizontalScrub = maxSm ? 1 : 0.5;
 
-          horizontalScroll.forEach((el) => {
+          scrollHorizontal.forEach((el) => {
             let container = el.querySelector(".scroll-horizontal__container");
             let slider = el.querySelector(".scroll-horizontal__slider");
             let imgs = el.querySelectorAll(
@@ -253,7 +253,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                   trigger: el,
                   start: "top top",
                   end: duration,
-                  scrub: horizontalScrub,
+                  scrub: scrollHorizontalScrub,
                 },
               }
             );
@@ -270,13 +270,45 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             //         trigger: el,
             //         start: "top top",
             //         end: duration,
-            //         scrub: horizontalScrub,
+            //         scrub: scrollHorizontalScrub,
             //       },
             //     }
             //   );
             // });
 
             // Spin children
+            let pinIconMobile = document.querySelector(".pin-icon-mobile");
+            if (pinIconMobile) {
+              gsap.to(".pin-icon-mobile", {
+                rotate: "-10deg",
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                scrollTrigger: {
+                  trigger: ".scroll-horizontal",
+                  start: "70% center",
+                  end: "72% center",
+                  scrub: 1,
+                },
+              });
+            }
+
+            let pinIconDesktop = document.querySelector(".pin-icon-desktop");
+            if (pinIconDesktop) {
+              gsap.to(".pin-icon-desktop", {
+                rotate: "10deg",
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                scrollTrigger: {
+                  trigger: ".scroll-horizontal",
+                  start: "71% center",
+                  end: "73% center",
+                  scrub: 1,
+                },
+              });
+            }
+
             let pinStar = document.querySelector(".pin-spin__star");
             if (pinStar) {
               gsap.to(".pin-spin__star", {
@@ -294,7 +326,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           });
         }
 
-        // Stack Scroll (Overlapping Panels) — Duration and Delays can be controls via pin-steps in _scroll-stack.scss
+        // Scroll Stack (Overlapping Panels) — Duration and Delays can be controls via pin-steps in _scroll-stack.scss
         {
           const stackScrollSections =
             document.querySelectorAll(".scroll-stack");
@@ -303,9 +335,11 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           let panelScrub = 0.5;
 
           stackScrollSections.forEach((section) => {
-            const panels = section.querySelectorAll(".stack-panel");
+            const panels = section.querySelectorAll(".scroll-stack__panel");
             const pinContainer = section.querySelector(".scroll-stack__pin");
-            const pinSteps = section.querySelectorAll(".scroll-stack__step");
+            const pinSteps = section.querySelectorAll(
+              ".scroll-stack__pin-step"
+            );
 
             const duration = `${panels.length * 100}%`;
 
@@ -324,14 +358,14 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
               const panelIndex = i + 1;
               const nextPanel = panels[i + 1];
               const triggerStep = section.querySelector(
-                `.scroll-stack__step-${panelIndex + 1}`
+                `.scroll-stack__pin-step-${panelIndex + 1}`
               );
 
               if (!triggerStep || !nextPanel) return;
 
               // Scale panels
               gsap.fromTo(
-                `.stack-panel-${panelIndex}`,
+                `.scroll-stack__panel-${panelIndex}`,
                 { scale: 1 },
                 {
                   scale: 0.95,
@@ -347,7 +381,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
               // Slide in next panel
               gsap.fromTo(
-                `.stack-panel-${panelIndex + 1}`,
+                `.scroll-stack__panel-${panelIndex + 1}`,
                 {
                   top: "120%",
                   // transform:

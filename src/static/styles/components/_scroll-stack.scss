@@ -69,7 +69,7 @@
     }
   }
 
-  .stack-panel {
+  &__panel {
     // @include gradient-border;
     @include column-start(flex-start);
     gap: var(--section-gap);
@@ -147,7 +147,7 @@
   }
 
   &.half {
-    .stack-panel {
+    .scroll-stack__panel {
       @include mq-min(lg) {
         width: max(500px, 50%);
       }
@@ -155,7 +155,7 @@
   }
 
   &.center {
-    .stack-panel {
+    .scroll-stack__panel {
       left: 50%;
       translate: -50% 0;
     }
@@ -170,7 +170,7 @@
   }
 
   &.right {
-    .stack-panel {
+    .scroll-stack__panel {
       right: var(--body-padding);
 
       @include mq-max(lg) {
