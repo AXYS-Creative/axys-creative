@@ -1,5 +1,6 @@
 .hero {
   @include full-viewport-section;
+  height: 100px;
   @include column-start;
   gap: 24px;
 
@@ -36,6 +37,11 @@
       translate: 24ch 0;
     }
   }
+}
+
+.section-work {
+  margin-top: var(--body-padding-double);
+  padding-top: var(--body-padding-double);
 }
 
 .section-faq {

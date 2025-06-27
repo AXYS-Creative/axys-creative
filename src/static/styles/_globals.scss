@@ -19,6 +19,12 @@
   input::-webkit-inner-spin-button {
     display: none;
   }
+
+  &::selection {
+    background: rgba($coral, 1);
+    background: rgba($yellow, 0.85);
+    color: $black;
+  }
 }
 
 body {

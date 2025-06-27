@@ -34,8 +34,9 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
   let whiteMarkers = createMarkers("white", 20);
   let blackMarkers = createMarkers("black", 20);
+  let navyMarkers = createMarkers("navy", 120);
   let coralMarkers = createMarkers("coral", 120);
-  let navyMarkers = createMarkers("navy", 220);
+  let yellowMarkers = createMarkers("yellow", 220);
 
   responsiveGsap.add(
     {
@@ -60,7 +61,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
         }
       }
 
-      // GLOBAL (place under other tweens i.e. pinned sections) - Animate any element with the class 'gsap-animate' using the 'animate' companion class
+      // GLOBAL (placing may affect animation! Moving these to the top) - Animate any element with the class 'gsap-animate' using the 'animate' companion class
       {
         const targetElements = document.querySelectorAll(".gsap-animate");
 
@@ -77,6 +78,28 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             },
           });
         });
+
+        // Split Text (characters & words)
+        {
+          const splitCharacters = document.querySelectorAll(".split-chars");
+          const splitWords = document.querySelectorAll(".split-words");
+
+          splitCharacters.forEach((el) => {
+            new SplitText(el, {
+              type: "chars",
+              charsClass: "split-chars__char",
+              tag: "span",
+            });
+          });
+
+          splitWords.forEach((el) => {
+            new SplitText(el, {
+              type: "words",
+              charsClass: "split-words__word",
+              tag: "span",
+            });
+          });
+        }
       }
 
       // Library - Lift any desired code blocks out, then delete from production
@@ -276,18 +299,70 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             //   );
             // });
 
-            // Spin children
+            // Nested animations
+            const horzSplitOffset = 128;
+
+            let horzSplitChars1 = document.querySelectorAll(
+              ".horz-split-chars-1 .split-chars__char"
+            );
+            if (horzSplitChars1.length) {
+              gsap.fromTo(
+                horzSplitChars1,
+                {
+                  opacity: 0,
+                  y: -horzSplitOffset,
+                },
+                {
+                  opacity: 1,
+                  y: 0,
+                  stagger: 0.1,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: ".scroll-horizontal",
+                    start: `${maxMd ? "34%" : maxLg ? "22%" : "18%"} center`,
+                    end: `${maxMd ? "48%" : maxLg ? "44%" : "42%"} center`,
+                    scrub: 1,
+                  },
+                }
+              );
+            }
+
+            let horzSplitChars2 = document.querySelectorAll(
+              ".horz-split-chars-2 .split-chars__char"
+            );
+            if (horzSplitChars2.length) {
+              gsap.fromTo(
+                horzSplitChars2,
+                {
+                  opacity: 0,
+                  y: horzSplitOffset,
+                },
+                {
+                  opacity: 1,
+                  y: 0,
+                  stagger: 0.1,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: ".scroll-horizontal",
+                    start: `${maxMd ? "44%" : maxLg ? "34%" : "28%"} center`,
+                    end: `${maxMd ? "56%" : maxLg ? "56%" : "52%"} center`,
+                    scrub: 1,
+                  },
+                }
+              );
+            }
+
             let pinIconMobile = document.querySelector(".pin-icon-mobile");
             if (pinIconMobile) {
-              gsap.to(".pin-icon-mobile", {
+              gsap.to(pinIconMobile, {
                 rotate: "-10deg",
                 y: 0,
                 opacity: 1,
                 scale: 1,
                 scrollTrigger: {
                   trigger: ".scroll-horizontal",
-                  start: "70% center",
-                  end: "72% center",
+                  start: `${maxMd ? "64%" : "70%"} center`,
+                  end: `${maxMd ? "66%" : "72%"} center`,
                   scrub: 1,
                 },
               });
@@ -295,15 +370,15 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
             let pinIconDesktop = document.querySelector(".pin-icon-desktop");
             if (pinIconDesktop) {
-              gsap.to(".pin-icon-desktop", {
+              gsap.to(pinIconDesktop, {
                 rotate: "10deg",
                 y: 0,
                 opacity: 1,
                 scale: 1,
                 scrollTrigger: {
                   trigger: ".scroll-horizontal",
-                  start: "71% center",
-                  end: "73% center",
+                  start: `${maxMd ? "65%" : "71%"} center`,
+                  end: `${maxMd ? "67%" : "73%"} center`,
                   scrub: 1,
                 },
               });
@@ -316,10 +391,9 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                 scale: "1",
                 scrollTrigger: {
                   trigger: ".scroll-horizontal",
-                  start: "78% center",
-                  end: "84% center",
+                  start: `${maxSm ? "74%" : "78%"} center`,
+                  end: `${maxSm ? "80%" : "84%"} center`,
                   scrub: 1,
-                  // markers: true,
                 },
               });
             }
@@ -331,7 +405,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           const stackScrollSections =
             document.querySelectorAll(".scroll-stack");
 
-          let panelToTop = "200px"; // Match with $panel-to-top in _scroll-stack.scss
+          let panelToTop = maxSm ? "96px" : "200px"; // Match with $panel-to-top in _scroll-stack.scss
           let panelScrub = 0.5;
 
           stackScrollSections.forEach((section) => {

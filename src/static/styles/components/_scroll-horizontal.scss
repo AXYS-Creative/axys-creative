@@ -10,13 +10,18 @@
   }
 
   &__pin {
-    height: 100vh;
+    height: 100vh; // Fine on desktop
     min-height: 850px;
     max-width: $content-width;
     margin: auto;
 
     @include mq-max(xxl) {
       min-height: 650px;
+    }
+
+    @include mq-max(sm) {
+      height: lvh(100);
+      min-height: 580px;
     }
   }
 
@@ -48,6 +53,13 @@
   &__message {
     white-space: nowrap;
     font-size: min(10vw, 128px);
+
+    @include mq-max(md) {
+      font-size: 96px;
+    }
+    @include mq-max(sm) {
+      font-size: 64px;
+    }
 
     .icons {
       position: relative;

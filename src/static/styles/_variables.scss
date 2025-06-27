@@ -94,7 +94,7 @@ $test-bg: rgba(navy, 0.75);
     --body-padding: 48px;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     --body-padding: 24px;
     --section-gap--lg: 48px;
   }

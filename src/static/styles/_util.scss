@@ -185,10 +185,10 @@
     }
   }
 
-  .library-section {
-    // library section styles - Doesn't work with Swiper or Fill-text sections
-    @include column-start;
-    gap: 24px;
+  .split-chars {
+    &__char {
+      display: inline-block;
+    }
   }
 }
 
