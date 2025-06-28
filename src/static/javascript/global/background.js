@@ -9,7 +9,7 @@ if (document.getElementById("grid-bg")) {
   const STROKE_WIDTH = 1;
   const SHOW_HOVERED_CELL = false;
   const IS_TOUCH_DEVICE = window.matchMedia("(pointer: coarse)").matches;
-  const TOUCH_INTERVAL_MS = 7500; // Interval between simulated touches
+  const TOUCH_INTERVAL_MS = 10000; // Interval for touch devices
 
   let freezeGridFade = false;
 
