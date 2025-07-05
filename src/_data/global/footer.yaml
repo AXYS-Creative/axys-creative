@@ -13,16 +13,16 @@ page_links:
     url: "/#"
     new_tab: false
   - text: Work
-    url: "/#work"
+    url: "/#section-work"
     new_tab: false
   - text: Benefits
-    url: "/#benefits"
+    url: "/#section-benefits"
     new_tab: false
   - text: Plans
-    url: "/#plans"
+    url: "/#section-plans"
     new_tab: false
   - text: FAQ
-    url: "/#faq"
+    url: "/#section-faq"
     new_tab: false
 
 info_links_title: Information

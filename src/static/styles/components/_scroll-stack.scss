@@ -85,12 +85,13 @@
     position: absolute;
     // See component modifiers for placement
     border: 1px solid var(--color-border);
+    // background: var(--color-background);
+    background: var(--color-surface--1);
     border-radius: var(--radius);
     height: max($panel-height, 400px);
     width: calc(100% - var(--body-padding-double));
     padding: var(--body-padding);
     transform-origin: top center;
-    background: var(--color-background);
     // background: rgba($black, 0.75);
     // backdrop-filter: blur(4px);
     // transform-origin: bottom center;
@@ -130,7 +131,12 @@
 
   .scroll-stack__pin {
     // Need vh, can't use percentage since it's children are position absolute
-    height: calc(100lvh - var(--body-padding-double));
+    height: calc(lvh(90) - var(--body-padding-double));
+    min-height: 500px;
+
+    @include mq-max(md) {
+      min-height: 350px;
+    }
   }
 
   .pin-steps {
@@ -147,7 +153,7 @@
   }
 
   // Modifiers
-  &.full {
+  &--full {
     .scroll-stack__copy--unpinned {
       display: flex;
     }
@@ -157,7 +163,7 @@
     }
   }
 
-  &.half {
+  &--half {
     .scroll-stack__panel {
       @include mq-min(lg) {
         width: max(500px, 50%);
@@ -165,7 +171,7 @@
     }
   }
 
-  &.center {
+  &--center {
     .scroll-stack__panel {
       left: 50%;
       translate: -50% 0;
@@ -180,7 +186,7 @@
     }
   }
 
-  &.right {
+  &--right {
     .scroll-stack__panel {
       right: var(--body-padding);
 
@@ -190,7 +196,7 @@
     }
   }
 
-  &.left {
+  &--left {
     .scroll-stack__copy--pinned {
       right: var(--body-padding);
     }

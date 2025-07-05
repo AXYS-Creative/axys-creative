@@ -47,9 +47,9 @@
 .section-faq {
   // @include section-padding(thin);
 
-  // &__title {
-
-  // }
+  &__title {
+    margin-block-end: var(--section-gap);
+  }
 
   .accordion {
     margin-block: var(--section-gap--lg);

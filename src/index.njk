@@ -4,12 +4,14 @@ path: home
 ---
 
 <section class="hero full-screen-section">
+  {% set section_title_glitch = page_home.hero.section_title_glitch %}
+
   <h1 class="hero__title">
     <span
       class="glitch-text glitch-cycle"
-      data-glitch-cycle-words="Creative, Responsive, Accessible, Innovative, Engaging"
-      data-glitch-cycle-colors="#e48c66, #7ec1d4, #a4d1a2, #fbfaa2, #e1a7b4"
-      data-glitch-cycle-interval="3000"
+      data-glitch-cycle-words="{{ section_title_glitch.words }}"
+      data-glitch-cycle-colors="{{ section_title_glitch.colors }}"
+      data-glitch-cycle-interval="{{ section_title_glitch.interval }}"
       aria-hidden="true"
     ></span>
     {{ page_home.hero.section_title }}
@@ -51,12 +53,20 @@ path: home
 {% set panel_configs = page_home.scroll_stack.panel_configs %}
 {% include './_includes/components/scroll-stack.njk' %}
 
-<section class="section-faq" id="section-faq">
+<!-- prettier-ignore  -->
+{% set price_cards_data = page_home.price_cards %}
+{% include './_includes/components/price-cards.njk' %}
+
+<section class="section-faq section-thin" id="section-faq">
   <h2 class="section-faq__title">
     Quick <span class="glitch-scroll color--faq">FAQs</span>
   </h2>
+  <p>
+    Get answers to the most common questions about axys creative. Still have
+    questions? Reach out below.
+  </p>
   <!-- prettier-ignore -->
-  {% set accordion_list = page_home.accordion.accordion_data %}
+  {% set accordion_data = page_home.accordion.accordion_faq %}
   {% include './_includes/components/accordion.njk' %}
 
   <!-- prettier-ignore -->

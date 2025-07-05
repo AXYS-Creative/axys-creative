@@ -33,7 +33,7 @@
 
 .classic-list {
   @include column-start;
-  gap: 4px;
+  gap: 0.5ch;
   list-style: initial;
 
   li {
@@ -116,6 +116,7 @@
   }
 
   .glitch-text {
+    display: inline-block;
     max-width: var(--content-width); // Prevent overflow
   }
 

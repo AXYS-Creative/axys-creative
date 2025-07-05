@@ -512,6 +512,10 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             const duration = parseFloat(el.dataset.glitchDuration) || 0.75;
             const playOnceAttr = el.dataset.glitchOnce;
             const playOnce = playOnceAttr === "true"; // Default is false (repeat), only true if explicitly set
+            if (el.classList.contains("glitch-text")) {
+              const width = el.offsetWidth;
+              el.style.width = `${width}px`;
+            }
 
             if (playOnce) {
               // 🔁 Play once on scroll
