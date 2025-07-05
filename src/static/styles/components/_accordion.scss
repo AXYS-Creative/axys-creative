@@ -3,25 +3,41 @@
   flex-direction: column;
 
   &-btn {
-    $border: var(--border-width--bold) solid var(--color-border);
-
-    // color: var(--color-font--primary);
-    border-bottom: $border;
+    position: relative;
     text-align: left;
     padding-block: 20px;
 
     @include desktop-hover {
-      border-color: var(--color-brand--primary);
+      border-color: $faq;
+
+      &::after {
+        background: $faq;
+      }
+
+      .accordion-label__icon {
+        background: $faq;
+      }
     }
 
-    // &:first-of-type {
-    //   border-top: $border;
-    // }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--border-width--bold);
+      background: var(--color-border);
+
+      @include mq-motion-allow {
+        transition: $ease;
+      }
+    }
 
     &[aria-expanded="true"] {
       .accordion-content {
         grid-template-rows: 1fr;
         visibility: visible;
+        margin-top: var(--spacing--sm);
       }
 
       .accordion-label__icon {
@@ -49,6 +65,10 @@
     &__title {
       @include inherit-font;
       cursor: pointer;
+    }
+
+    &__icon-wrap {
+      display: flex;
     }
 
     &__icon,

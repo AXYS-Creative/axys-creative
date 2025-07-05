@@ -1008,6 +1008,10 @@ figure {
   color: #e1a7b4;
 }
 
+.color--hero {
+  color: #e48c66;
+}
+
 .color--work {
   color: #a4d1a2;
 }
@@ -1392,18 +1396,39 @@ figure {
   flex-direction: column;
 }
 .accordion-btn {
-  border-bottom: var(--border-width--bold) solid var(--color-border);
+  position: relative;
   text-align: left;
   padding-block: 20px;
 }
 @media (hover: hover) and (pointer: fine) {
   .accordion-btn:hover, .accordion-btn:focus-visible {
-    border-color: var(--color-brand--primary);
+    border-color: #fbfaa2;
+  }
+  .accordion-btn:hover::after, .accordion-btn:focus-visible::after {
+    background: #fbfaa2;
+  }
+  .accordion-btn:hover .accordion-label__icon, .accordion-btn:focus-visible .accordion-label__icon {
+    background: #fbfaa2;
+  }
+}
+.accordion-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--border-width--bold);
+  background: var(--color-border);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .accordion-btn::after {
+    transition: 0.24s ease;
   }
 }
 .accordion-btn[aria-expanded=true] .accordion-content {
   grid-template-rows: 1fr;
   visibility: visible;
+  margin-top: var(--spacing--sm);
 }
 .accordion-btn[aria-expanded=true] .accordion-label__icon {
   transform: scaleY(-1);
@@ -1454,6 +1479,9 @@ figure {
   font-size: inherit;
   font-weight: inherit;
   cursor: pointer;
+}
+.accordion-label__icon-wrap {
+  display: flex;
 }
 .accordion-label__icon, .accordion-label__plus {
   width: 1.5em;

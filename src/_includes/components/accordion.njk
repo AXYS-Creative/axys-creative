@@ -16,11 +16,13 @@
       <span class="accordion-label__title">{{ item.title }}</span>
 
       {% if icon %}
-      <span
-        class="accordion-label__icon mask-icon"
-        style="mask-image: url('{{ icon }}')"
-        aria-hidden="true"
-      >
+      <span class="accordion-label__icon-wrap magnet magnet-strong">
+        <span
+          class="accordion-label__icon mask-icon"
+          style="mask-image: url('{{ icon }}')"
+          aria-hidden="true"
+        >
+        </span>
       </span>
       {% endif %}
 

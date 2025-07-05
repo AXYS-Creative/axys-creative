@@ -502,6 +502,12 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
         // Glitch Text (Uses gsap scrambleText) // Place below horizontal scroll & scroll stacking
         {
           let alphaNumberic = "0123456789abcedfghijklmnopqrstuvwxyz";
+          const glitchTextElems = document.querySelectorAll(".glitch-text");
+
+          glitchTextElems.forEach((el) => {
+            const width = el.offsetWidth;
+            el.style.width = `${width}px`;
+          });
 
           // Scroll-based glitch
           document.querySelectorAll(".glitch-scroll").forEach((el) => {
@@ -512,10 +518,6 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             const duration = parseFloat(el.dataset.glitchDuration) || 0.75;
             const playOnceAttr = el.dataset.glitchOnce;
             const playOnce = playOnceAttr === "true"; // Default is false (repeat), only true if explicitly set
-            if (el.classList.contains("glitch-text")) {
-              const width = el.offsetWidth;
-              el.style.width = `${width}px`;
-            }
 
             if (playOnce) {
               // 🔁 Play once on scroll

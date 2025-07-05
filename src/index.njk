@@ -59,17 +59,17 @@ path: home
 
 <section class="section-faq section-thin" id="section-faq">
   <h2 class="section-faq__title">
-    Quick <span class="glitch-scroll color--faq">FAQs</span>
+    {{ page_home.section_faq.title }}
   </h2>
   <p>
-    Get answers to the most common questions about axys creative. Still have
-    questions? Reach out below.
+    {{ page_home.section_faq.desc }}
   </p>
   <!-- prettier-ignore -->
-  {% set accordion_data = page_home.accordion.accordion_faq %}
+  {% set accordion_data = page_home.section_faq.accordion %}
   {% include './_includes/components/accordion.njk' %}
 
   <!-- prettier-ignore -->
+  {% set cta_1 = page_home.section_faq.cta_1 %}
   {% include "./_includes/components/cta-group.njk" %}
 </section>
 

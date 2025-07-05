@@ -1,0 +1,43 @@
+title: "Quick [%span.glitch-scroll color--faq%]FAQs[%span%]"
+desc: Get answers to the most common questions about axys creative. Still have questions? Reach out below.
+
+accordion:
+  id: 1
+  icon: /static/img/icon-google-chevron-down.svg
+  plus: false
+  single_open: true
+  items:
+    - title: What services do you offer?
+      content: We design and develop modern, user-friendly static websites with a strong focus on the user experience. From thoughtful layouts to smooth interactions, we build sites that not only look great but are intuitive and engaging.
+    - title: What tools do you use to build?
+      content: Our current tech stack includes Nunjucks for templating, 11ty as our static site generator, Decap as a headless CMS, and Netlify for hosting, authentication, and deployment. Together, these tools help us create fast, flexible, and easily maintainable websites.
+    - title: Do you use AI in your products?
+      content: Yes, though we primarily use AI as a tool for refining and enhancing our work — such as optimizing code, streamlining design assets, or proofreading content. We don’t rely on AI to generate the original design concepts or foundational code; that’s all crafted in-house to ensure each project is thoughtfully tailored and genuinely unique.
+    - title: Why wouldn’t I just hire in-house?
+      content: Generally we’re a much better deal. The average salaries for designers & developers can exceed $100,000 without including any benefits. With the subscription model, you have the flexibility to pause your plan at any time, so you’re only paying for what you need.
+    - title: What happens after I sign up?
+      content: Within minutes of signing up, you’ll receive an email with details about your Trello board. You can use this to start adding requests immediately. Typically, we begin working on these requests on the same day.
+    - title: Do I have a limited number of requests?
+      content: No. Once you become a member, you can add as many design or development requests as you’d like (based on the plan you selected). Keep in mind that they are worked on and delivered one by one.
+    - title: What if I only have a single request?
+      content: This is where the pause feature comes in. You can pause your subscription at any time. Any unused days remaining will carry over and can be used anytime in the future.
+    - title: How quickly do you deliver?
+      content: We deliver designs or portions of websites within 24-48 hours. Estimates for delivering entire projects depends on their size and complexity. Most single page, static sites can move from wireframe to launch in about two weeks. Sites with many pages or heavily animated sections can generally take longer.
+    - title: How do I make a request and track progress?
+      content: This is done with Trello, an easy to use web app that shows which tasks are in progress, finished and up next. You can add anything that helps describe the work you need, such as images, videos, documents, or links to other resources.
+    - title: How does the referral program work?
+      content: For every cli of our plans, you’ll earn 10% recurring monthly commission based on the current subscription amount they chose. Your commission will end when the referred client pauses or cancels their membership, but will start up again if the client resumes their plan. There’s no limit to the number of clients you can refer. You’ll earn commissions for every successful referral that subscribes to axys creative services. Referral tracking and payouts are handled by Rewardful.
+    - title: Who operates axys creative?
+      content: Axys creative is led by Aaron Garcia, a dedicated web designer and developer, alongside his wife, Bailey Garcia, who manages business operations, social media, and marketing. While Bailey has also explored design and development, you’ll primarily work with Aaron for your website needs.
+    - title: Are there limits to your services?
+      content: Yes. We currently don’t offer development for social media-type applications. We also don’t develop mobile apps of any kind. Possibly in the future though!
+    - title: What if I’m unsatisfied with the work?
+      content: We’ll continue to revise until you’re happy and proud of the work. Simply put in a request and we’ll get started on it.
+    - title: Do you offer refunds?
+      content: No. Please be aware that we don’t offer any refunds at this time.
+
+cta_1:
+  url: "mailto:axyscreativeagency@gmail.com"
+  text: Email us
+  text_desc:
+  new_tab: false
