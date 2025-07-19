@@ -1,7 +1,12 @@
 marquee:
-  text: "[%span.color--coral%]▪︎[%/span%] Where meaningful [%span.text-stroke%]design[%/span%] meets modern [%span.text-stroke%]development[%/span%]"
+  text: "[%span.color--coral%]▪︎[%/span%] Where meaningful [%span.text-stroke%]design[%/span%] meets modern [%span.text-stroke%]development[%/span%] [%span.color--coral%]▪︎[%/span%] Where meaningful [%span.text-stroke%]design[%/span%] meets modern [%span.text-stroke%]development[%/span%]"
   # imgs:
   #   - src: /static/img/library/img-sample-1.jpg
   #     alt: "Sample Image 1"
-  scrub: true
   count: 2
+  scroll_alternate: true
+  velocity: 5
+  speed: 56
+  speed_md: 52
+  speed_sm: 48
+  scrub: false

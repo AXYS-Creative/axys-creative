@@ -1,5 +1,5 @@
-panel_nav: true # based on each panel in 'panels' below
-panel_copy:
+nav: true # based on each panel in 'panels' below
+copy:
   title: Member [%br%][%span.glitch-scroll color--benefits%]benefits[%/span%]
   desc: The concept is simple — we replace unreliable freelancers and expensive agencies for one flat monthly fee. With swift turnaround times, you won't want to go anywhere else.
   cta_1:
@@ -44,7 +44,8 @@ panels:
       url: /
       new_tab: false
   - title: Cancel Anytime
-    desc: No contracts locking you in. We understand that your workload may change, so feel free to pause or cancel anytime. You can manage your subscription from your [%a.classic-link href="https://google.com"%]Stripe[%/a%] account or contact us for assistance.
+    desc: |
+      We understand that your workload may change, so feel free to pause or cancel anytime. You can manage your subscription from your <a class="classic-link" href="https://google.com">Stripe</a> account or contact us for assistance.
     icon: /static/img/icon-google-pause.svg
     cta_1:
       text: View Plans

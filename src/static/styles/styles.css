@@ -1026,11 +1026,6 @@ figure {
 
 @media all {
   .pin-steps {
-    opacity: 0;
-    pointer-events: none;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1617,6 +1612,7 @@ figure {
 }
 
 .scroll-horizontal {
+  position: relative;
   overflow: hidden;
   max-width: 100%;
 }

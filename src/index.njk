@@ -47,10 +47,7 @@ path: home
 {% include './_includes/components/scroll-horizontal.njk' %}
 
 <!-- prettier-ignore  -->
-{% set panel_nav = page_home.scroll_stack.panel_nav %}
-{% set panel_copy = page_home.scroll_stack.panel_copy %} 
-{% set panel_data = page_home.scroll_stack.panels %}
-{% set panel_configs = page_home.scroll_stack.panel_configs %}
+{% set scroll_stack_data = page_home.scroll_stack %}
 {% include './_includes/components/scroll-stack.njk' %}
 
 <!-- prettier-ignore  -->

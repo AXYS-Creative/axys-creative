@@ -63,18 +63,25 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
       // GLOBAL (placing may affect animation! Moving these to the top) - Animate any element with the class 'gsap-animate' using the 'animate' companion class
       {
-        const targetElements = document.querySelectorAll(".gsap-animate");
+        // .gsap-animate util
+        const gsapElems = document.querySelectorAll(".gsap-animate");
 
-        targetElements.forEach((targetElem) => {
-          gsap.to(targetElem, {
+        gsapElems.forEach((gsapElem) => {
+          let startVal = gsapElem.dataset.gsapStart || "top 98%";
+          let endVal = gsapElem.dataset.gsapEnd || "bottom top";
+          let showMarkers = gsapElem.dataset.gsapMarkers === "true";
+          let triggerEl = gsapElem.dataset.gsapTrigger || gsapElem;
+
+          gsap.to(gsapElem, {
             scrollTrigger: {
-              trigger: targetElem,
-              start: "top 98%",
-              end: "bottom top",
-              onEnter: () => targetElem.classList.add("animate"),
-              onLeave: () => targetElem.classList.remove("animate"),
-              onEnterBack: () => targetElem.classList.add("animate"),
-              onLeaveBack: () => targetElem.classList.remove("animate"),
+              trigger: triggerEl,
+              start: startVal,
+              end: endVal,
+              onEnter: () => gsapElem.classList.add("animate"),
+              onLeave: () => gsapElem.classList.remove("animate"),
+              onEnterBack: () => gsapElem.classList.add("animate"),
+              onLeaveBack: () => gsapElem.classList.remove("animate"),
+              markers: showMarkers,
             },
           });
         });
@@ -87,7 +94,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           splitCharacters.forEach((el) => {
             new SplitText(el, {
               type: "chars",
-              charsClass: "split-chars__char",
+              charsClass: "split-chars__char++",
               tag: "span",
             });
           });
@@ -95,7 +102,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           splitWords.forEach((el) => {
             new SplitText(el, {
               type: "words",
-              charsClass: "split-words__word",
+              wordsClass: "split-words__word++",
               tag: "span",
             });
           });
@@ -104,15 +111,6 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
       // Library - Lift any desired code blocks out, then delete from production
       {
-        // Page specific scrollTrigger fix
-        if (document.querySelector(".main-library")) {
-          window.addEventListener("load", () => {
-            setTimeout(() => {
-              ScrollTrigger.refresh();
-            }, 500); // try 200–500ms if needed
-          });
-        }
-
         // Fill Text - Scrub only
         {
           // Use 'fill-text' for default, then 'quick-fill' or 'slow-fill' to modify animation end
@@ -235,7 +233,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           }
         }
 
-        // Scroll Horizontal (pinned section)
+        // Scroll Horizontal "sh" (pinned section)
         {
           const scrollHorizontal = document.querySelectorAll(
             ".scroll-horizontal__pin"
@@ -299,18 +297,41 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             //   );
             // });
 
-            // Nested animations
-            const horzSplitOffset = 128;
+            // Scoped word/letter splitting to pin steps within scroll horizontal (sh)
+            {
+              const shSplitChars = document.querySelectorAll(".sh-split-chars");
+              const shSplitWords = document.querySelectorAll(".sh-split-words");
 
-            let horzSplitChars1 = document.querySelectorAll(
-              ".horz-split-chars-1 .split-chars__char"
+              shSplitChars.forEach((el) => {
+                new SplitText(el, {
+                  type: "chars",
+                  charsClass: "split-chars__char++",
+                  tag: "span",
+                });
+              });
+
+              shSplitWords.forEach((el) => {
+                new SplitText(el, {
+                  type: "words",
+                  wordsClass: "split-words__word++",
+                  tag: "span",
+                });
+              });
+            }
+
+            // Nested animations
+            const shSplitOffset = 128;
+
+            let shSplitChars1 = document.querySelectorAll(
+              ".sh-split-chars-1 .split-chars__char"
             );
-            if (horzSplitChars1.length) {
+
+            if (shSplitChars1.length) {
               gsap.fromTo(
-                horzSplitChars1,
+                shSplitChars1,
                 {
                   opacity: 0,
-                  y: -horzSplitOffset,
+                  y: -shSplitOffset,
                 },
                 {
                   opacity: 1,
@@ -327,15 +348,16 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
               );
             }
 
-            let horzSplitChars2 = document.querySelectorAll(
-              ".horz-split-chars-2 .split-chars__char"
+            let shSplitChars2 = document.querySelectorAll(
+              ".sh-split-chars-2 .split-chars__char"
             );
-            if (horzSplitChars2.length) {
+
+            if (shSplitChars2.length) {
               gsap.fromTo(
-                horzSplitChars2,
+                shSplitChars2,
                 {
                   opacity: 0,
-                  y: horzSplitOffset,
+                  y: shSplitOffset,
                 },
                 {
                   opacity: 1,
@@ -353,6 +375,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             }
 
             let pinIconMobile = document.querySelector(".pin-icon-mobile");
+
             if (pinIconMobile) {
               gsap.to(pinIconMobile, {
                 rotate: "-10deg",
@@ -369,6 +392,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             }
 
             let pinIconDesktop = document.querySelector(".pin-icon-desktop");
+
             if (pinIconDesktop) {
               gsap.to(pinIconDesktop, {
                 rotate: "10deg",
@@ -385,6 +409,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             }
 
             let pinStar = document.querySelector(".pin-spin__star");
+
             if (pinStar) {
               gsap.to(".pin-spin__star", {
                 rotate: "0",
@@ -671,78 +696,76 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           });
         }
 
-        // Marquee Animations
+        // Marquee
         {
-          let marqueeSpeed = maxSm ? 20 : maxMd ? 24 : 28;
+          gsap.utils.toArray(".marquee").forEach((marqueeBlock) => {
+            const marqueeInners =
+              marqueeBlock.querySelectorAll(".marquee-inner");
+            const velocity = parseFloat(
+              marqueeBlock.getAttribute("data-marquee-velocity")
+            );
+            const speedDefault = parseFloat(
+              marqueeBlock.getAttribute("data-marquee-speed")
+            );
+            const speedMd = parseFloat(
+              marqueeBlock.getAttribute("data-marquee-speed-md")
+            );
+            const speedSm = parseFloat(
+              marqueeBlock.getAttribute("data-marquee-speed-sm")
+            );
+            const scrubEnabled =
+              marqueeBlock.hasAttribute("data-marquee-scrub");
 
-          // Standard Marquee
-          {
-            const autoMarquees = gsap.utils.toArray(".marquee-inner");
-            let marqueeTweens = [];
+            const scrollAlternate = marqueeBlock.hasAttribute(
+              "data-marquee-scroll-alternate"
+            );
 
-            const createMarqueeTweens = () => {
-              marqueeTweens.forEach((tween) => tween.kill()); // Kill previous tweens to prevent stacking memory
-              marqueeTweens = [];
+            let marqueeSpeed = maxSm ? speedSm : maxMd ? speedMd : speedDefault;
 
-              autoMarquees.forEach((elem) => {
+            if (scrubEnabled) {
+              // Scrub disables marquee animation, ties x directly to scroll
+              marqueeInners.forEach((inner, index) => {
+                gsap.fromTo(
+                  inner,
+                  { x: index % 2 === 0 ? "0%" : `-${velocity}%` },
+                  {
+                    x: index % 2 === 0 ? `-${velocity}%` : "0%",
+                    scrollTrigger: {
+                      trigger: marqueeBlock,
+                      start: "top bottom",
+                      end: "bottom top",
+                      scrub: 1,
+                      invalidateOnRefresh: true,
+                    },
+                  }
+                );
+              });
+            } else {
+              const marqueeTweens = [];
+
+              marqueeInners.forEach((inner, index) => {
+                // Always baseline animation
                 const tween = gsap
-                  .to(elem, {
+                  .to(inner, {
                     xPercent: -50,
                     repeat: -1,
                     duration: marqueeSpeed,
                     ease: "linear",
                   })
-                  .totalProgress(0.5);
+                  .totalProgress(0.5)
+                  .timeScale(index % 2 === 0 ? 1 : -1);
 
                 marqueeTweens.push(tween);
-              });
-            };
 
-            createMarqueeTweens();
-
-            let currentScroll = window.scrollY;
-
-            const adjustTimeScale = () => {
-              const isScrollingDown = window.scrollY > currentScroll;
-
-              marqueeTweens.forEach((tween, index) =>
-                gsap.to(tween, {
-                  timeScale: (index % 2 === 0) === isScrollingDown ? 1 : -1,
-                  duration: 0.3,
-                  ease: "power2.out",
-                })
-              );
-
-              currentScroll = window.scrollY;
-            };
-
-            window.addEventListener("scroll", adjustTimeScale, {
-              passive: true,
-            });
-          }
-
-          // Scrub Effect for Specific Marquees
-          {
-            const scrubMarquees = gsap.utils.toArray(".marquee--scrub");
-            const sensitivity = 5;
-            let scrubTriggers = [];
-
-            const createScrubMarquees = () => {
-              scrubTriggers.forEach((trigger) => trigger.kill());
-              scrubTriggers = [];
-
-              scrubMarquees.forEach((scrubElem) => {
-                const marqueeInners =
-                  scrubElem.querySelectorAll(".marquee-inner");
-
-                marqueeInners.forEach((inner, index) => {
-                  const scrubTween = gsap.fromTo(
+                // If velocity is set > 0, overlay velocity scrub
+                if (velocity > 0) {
+                  gsap.fromTo(
                     inner,
-                    { x: index % 2 === 0 ? "0%" : `-${sensitivity}%` },
+                    { x: index % 2 === 0 ? "0%" : `-${velocity}%` },
                     {
-                      x: index % 2 === 0 ? `-${sensitivity}%` : "0%",
+                      x: index % 2 === 0 ? `-${velocity}%` : "0%",
                       scrollTrigger: {
-                        trigger: scrubElem,
+                        trigger: marqueeBlock,
                         start: "top bottom",
                         end: "bottom top",
                         scrub: 1,
@@ -750,14 +773,33 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                       },
                     }
                   );
-
-                  scrubTriggers.push(scrubTween.scrollTrigger);
-                });
+                }
               });
-            };
 
-            createScrubMarquees();
-          }
+              // Scroll direction swap
+              if (scrollAlternate) {
+                let currentScroll = window.scrollY;
+
+                const adjustTimeScale = () => {
+                  const isScrollingDown = window.scrollY > currentScroll;
+
+                  marqueeTweens.forEach((tween, index) =>
+                    gsap.to(tween, {
+                      timeScale: (index % 2 === 0) === isScrollingDown ? 1 : -1,
+                      duration: 0.3,
+                      ease: "power2.out",
+                    })
+                  );
+
+                  currentScroll = window.scrollY;
+                };
+
+                window.addEventListener("scroll", adjustTimeScale, {
+                  passive: true,
+                });
+              }
+            }
+          });
         }
 
         // Parallax
@@ -808,16 +850,12 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
     }
   );
 
+  // Refresh ScrollTrigger after a brief page load. This allows images to use lazy loading and content to generate from 11ty
   window.addEventListener("load", () => {
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 500); // try 200–500ms if needed
   });
-
-  // // Refresh ScrollTrigger instances on page load and resize
-  // window.addEventListener("load", () => {
-  //   ScrollTrigger.refresh();
-  // });
 
   // Greater than 520 so it doesn't refresh on  mobile(dvh)
   if (window.innerWidth > 520) {
@@ -826,28 +864,12 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
     });
   }
 
-  // Fix scrollTrigger issue with loading="lazy" (alternate approach loading="eager")
-  {
-    function handleLazyLoad(config = {}) {
-      let lazyImages = gsap.utils.toArray("img[loading='lazy']"),
-        timeout = gsap
-          .delayedCall(config.timeout || 1, ScrollTrigger.refresh)
-          .pause(),
-        lazyMode = config.lazy !== false,
-        imgLoaded = lazyImages.length,
-        onImgLoad = () =>
-          lazyMode
-            ? timeout.restart(true)
-            : --imgLoaded || ScrollTrigger.refresh();
-      lazyImages.forEach((img, i) => {
-        lazyMode || (img.loading = "eager");
-        img.naturalWidth
-          ? onImgLoad()
-          : img.addEventListener("load", onImgLoad);
-      });
-    }
-
-    // Timeout is how many seconds it throttles the loading events that call ScrollTrigger.refresh()
-    handleLazyLoad({ lazy: false, timeout: 1 });
-  }
+  // Any page specific scrollTrigger fix (Optional)
+  // if (document.querySelector(".main-library")) {
+  //   window.addEventListener("load", () => {
+  //     setTimeout(() => {
+  //       ScrollTrigger.refresh();
+  //     }, 500); // try 200–500ms if needed
+  //   });
+  // }
 }

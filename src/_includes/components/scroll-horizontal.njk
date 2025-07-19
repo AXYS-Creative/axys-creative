@@ -42,13 +42,21 @@
         {% endfor %} 
         {% endif %}
 
+        {% if hs_message %}
         <h3 class="scroll-horizontal__message">
-          We are
-          <span class="text-stroke">committed</span> to
-          <span class="color--yellow split-chars horz-split-chars-1">
+          <span
+            class="hs-word-1 gsap-animate"
+            data-gsap-trigger="scroll-horizontal__pin-step-1"
+            data-gsap-markers="true"
+            >We</span
+          >
+          <span class="">are</span>
+          <span class="text-stroke">committed</span>
+          <span class="">to</span>
+          <span class="color--yellow split-chars sh-split-chars-1">
             building
           </span>
-          <span class="text-stroke split-chars horz-split-chars-2">
+          <span class="text-stroke split-chars sh-split-chars-2">
             enjoyable
           </span>
           web
@@ -65,7 +73,14 @@
           experiences
           <span class="color--coral pin-spin__star">✦</span>
         </h3>
+        {% endif %}
       </div>
     </div>
+  </div>
+
+  <div class="scroll-horizontal__pin-steps pin-steps">
+    {% for i in range(1, 8) %}
+    <div class="scroll-horizontal__pin-step-{{ loop.index }} pin-step"></div>
+    {% endfor %}
   </div>
 </section>

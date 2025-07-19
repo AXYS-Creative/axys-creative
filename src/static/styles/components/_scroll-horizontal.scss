@@ -1,4 +1,5 @@
 .scroll-horizontal {
+  position: relative;
   overflow: hidden;
   max-width: 100%;
 
@@ -86,6 +87,37 @@
       }
     }
   }
+
+  // .sh-reveal-text-1 {
+  //   $mimic-space: 0.5ch;
+
+  //   display: inline-flex;
+  //   gap: $mimic-space;
+  //   margin-inline-end: $mimic-space;
+  //   overflow: hidden;
+
+  //   span {
+  //     display: inline-block;
+  //     translate: 0 100%;
+  //     transition: $ease-c 0.2s;
+
+  //     &:nth-of-type(2) {
+  //       transition: $ease-c 0.28s;
+  //     }
+  //     &:nth-of-type(3) {
+  //       transition: $ease-c 0.36s;
+  //     }
+  //     &:nth-of-type(4) {
+  //       transition: $ease-c 0.44s;
+  //     }
+  //   }
+
+  //   &.animate {
+  //     span {
+  //       translate: 0 0;
+  //     }
+  //   }
+  // }
 
   .pin-spin__star {
     display: inline-block;
