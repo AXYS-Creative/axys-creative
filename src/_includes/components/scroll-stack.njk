@@ -17,7 +17,10 @@
   {% if copy %}
   <div class="scroll-stack__copy scroll-stack__copy--unpinned">
     {% if copy.title %}
-    <h2 class="scroll-stack__copy-title">{{ copy.title }}</h2>
+    <h2 class="scroll-stack__copy-title">
+      <span>Member</span>
+      <span class="glitch-scroll color--benefits"> benefits </span>
+    </h2>
     {% endif %} {% if copy.desc %}
     <p class="scroll-stack__copy-desc">{{ copy.desc | safe }}</p>
     {% endif %} {% if copy.cta_1 %}
@@ -47,9 +50,19 @@
     {% if copy %}
     <div class="scroll-stack__copy scroll-stack__copy--pinned">
       {% if copy.title %}
-      <h2 class="scroll-stack__copy-title">{{ copy.title }}</h2>
+      <h2 class="scroll-stack__copy-title">
+        <span>Member</span>
+        <span
+          class="glitch-scroll color--benefits"
+          data-glitch-trigger=".scroll-stack"
+          data-glitch-start="top center"
+          data-glitch-end="bottom center"
+        >
+          benefits
+        </span>
+      </h2>
       {% endif %} {% if copy.desc %}
-      <p class="scroll-stack__copy-desc">{{ copy.desc }}</p>
+      <p class="scroll-stack__copy-desc">{{ copy.desc | safe }}</p>
       {% endif %} {% if copy.cta_1 %}
       <!-- prettier-ignore -->
       {% set cta_1 = copy.cta_1 %}

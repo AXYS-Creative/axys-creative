@@ -81,7 +81,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
               onLeave: () => gsapElem.classList.remove("animate"),
               onEnterBack: () => gsapElem.classList.add("animate"),
               onLeaveBack: () => gsapElem.classList.remove("animate"),
-              markers: showMarkers,
+              // markers: showMarkers,
             },
           });
         });
@@ -543,15 +543,20 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             const duration = parseFloat(el.dataset.glitchDuration) || 0.75;
             const playOnceAttr = el.dataset.glitchOnce;
             const playOnce = playOnceAttr === "true"; // Default is false (repeat), only true if explicitly set
+            const glitchTrigger = el.dataset.glitchTrigger || el; // Requires . or #
+            const glitchStart = el.dataset.glitchStart || "top 98%";
+            const glitchEnd = el.dataset.glitchEnd || "bottom top"; // Only on "playOnce = false"
+            const glitchMarkers = el.dataset.glitchMarkers === "true";
 
             if (playOnce) {
               // 🔁 Play once on scroll
               gsap
                 .timeline({
                   scrollTrigger: {
-                    trigger: el,
-                    start: "top 98%",
+                    trigger: glitchTrigger,
+                    start: glitchStart,
                     once: true,
+                    markers: glitchMarkers,
                   },
                 })
                 .to(el, {
@@ -579,11 +584,12 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
               gsap.to(el, {
                 scrollTrigger: {
-                  trigger: el,
-                  start: "top 98%",
-                  toggleActions: "play reset play reset",
+                  trigger: glitchTrigger,
+                  start: glitchStart,
+                  end: glitchEnd,
                   onEnter: animateScramble,
                   onEnterBack: animateScramble,
+                  markers: glitchMarkers,
                 },
               });
             }
@@ -789,6 +795,12 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                       duration: 0.3,
                       ease: "power2.out",
                     })
+                  );
+
+                  // Toggle class based on scroll direction
+                  marqueeBlock.classList.toggle(
+                    "marquee--alternated",
+                    !isScrollingDown
                   );
 
                   currentScroll = window.scrollY;

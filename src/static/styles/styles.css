@@ -281,8 +281,8 @@ body:has(.load-complete) .hero div {
   font-family: var(--font-family--heading);
   font-size: 64px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
   height: 100%;
   translate: 0 100%;
   border-left: 4px solid transparent;
@@ -506,8 +506,8 @@ body:has(.load-complete) .hero div {
   font-family: var(--font-family--heading);
   font-size: 28px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
   color: var(--color-font--primary);
 }
 @media (max-width: 768px) {
@@ -556,8 +556,8 @@ h1,
   font-family: var(--font-family--heading);
   font-size: 96px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 @media (max-width: 1200px) {
   h1,
@@ -590,8 +590,8 @@ h2,
   font-family: var(--font-family--heading);
   font-size: 78px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 @media (max-width: 1200px) {
   h2,
@@ -618,8 +618,8 @@ h3,
   font-family: var(--font-family--heading);
   font-size: 64px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 @media (max-width: 1200px) {
   h3,
@@ -646,8 +646,8 @@ h4,
   font-family: var(--font-family--heading);
   font-size: 48px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 @media (max-width: 1200px) {
   h4,
@@ -674,8 +674,8 @@ h5,
   font-family: var(--font-family--heading);
   font-size: 40px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 @media (max-width: 1200px) {
   h5,
@@ -702,8 +702,8 @@ h6,
   font-family: var(--font-family--heading);
   font-size: 28px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
 }
 @media (max-width: 768px) {
   h6,
@@ -1026,6 +1026,11 @@ figure {
 
 @media all {
   .pin-steps {
+    opacity: 0;
+    pointer-events: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1702,8 +1707,8 @@ figure {
   font-family: var(--font-family--heading);
   font-size: 78px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
   padding-inline: var(--body-padding);
   padding-block: var(--body-padding-double);
   padding-inline: 0;
@@ -2101,8 +2106,8 @@ figure {
   font-family: var(--font-family--heading);
   font-size: 96px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
   font-size: 10vw;
   font-weight: 600;
   line-height: 90%;
@@ -2133,8 +2138,8 @@ figure {
   font-family: var(--font-family--heading);
   font-size: 78px;
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  line-height: 1;
+  letter-spacing: -1px;
   text-transform: uppercase;
   font-weight: 700;
 }
