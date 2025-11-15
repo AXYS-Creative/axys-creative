@@ -2,6 +2,7 @@
 // Media Queries
 //
 
+// Define base 'max' breakpoints ('min' are calculated based on these as well)
 $max-breakpoints: (
   xs: 360px,
   sm: 480px,
@@ -12,6 +13,18 @@ $max-breakpoints: (
   xxxl: 1920px,
 );
 
+// Derive min breakpoints (max + 1px)
+$min-breakpoints: ();
+@each $name, $value in $max-breakpoints {
+  $min-breakpoints: map-merge(
+    $min-breakpoints,
+    (
+      $name: $value + 1px,
+    )
+  );
+}
+
+// Mixins
 @mixin mq-max($breakpoint) {
   $value: map-get($max-breakpoints, $breakpoint);
   @media (max-width: $value) {
@@ -19,19 +32,21 @@ $max-breakpoints: (
   }
 }
 
-$min-breakpoints: (
-  xs: 361px,
-  sm: 481px,
-  md: 769px,
-  lg: 1025px,
-  xl: 1201px,
-  xxl: 1513px,
-  xxxl: 1921px,
-);
-
 @mixin mq-min($breakpoint) {
   $value: map-get($min-breakpoints, $breakpoint);
   @media (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin mq-landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin mq-portrait {
+  @media (orientation: portrait) {
     @content;
   }
 }
@@ -95,125 +110,94 @@ $min-breakpoints: (
 // FYI: Dropping below 12px results in a11y pentalty.
 //
 
-@mixin heading-text($size) {
+@mixin font-styles--heading($sz: 72px, $wt: 300, $lh: 1.1, $ls: -1px) {
   color: var(--color-font--primary);
   font-family: var(--font-family--heading);
-  font-size: $size;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
+  font-size: $sz;
+  font-weight: $wt;
+  line-height: $lh;
+  letter-spacing: $ls;
 }
 
 @mixin h1 {
-  @include heading-text(96px);
+  @include font-styles--heading($ls: -2px);
 
-  @include mq-max(xl) {
-    font-size: 80px;
-  }
   @include mq-max(md) {
     font-size: 56px;
   }
-  @include mq-max(sm) {
-    font-size: 48px;
-  }
-  @include mq-max(xs) {
-    font-size: 40px;
-  }
 }
 @mixin h2 {
-  @include heading-text(78px);
+  @include font-styles--heading($sz: 48px);
+  opacity: 0.75;
 
-  @include mq-max(xl) {
-    font-size: 64px;
-  }
   @include mq-max(md) {
-    font-size: 48px;
-  }
-  @include mq-max(sm) {
-    font-size: 40px;
+    font-size: 36px;
   }
 }
 @mixin h3 {
-  @include heading-text(64px);
+  @include font-styles--heading($sz: 40px);
 
-  @include mq-max(xl) {
-    font-size: 48px;
-  }
   @include mq-max(md) {
-    font-size: 40px;
-  }
-  @include mq-max(sm) {
-    font-size: 36px;
+    font-size: 28px;
   }
 }
 @mixin h4 {
-  @include heading-text(48px);
-
-  @include mq-max(xl) {
-    font-size: 40px;
-  }
-  @include mq-max(md) {
-    font-size: 36px;
-  }
-  @include mq-max(sm) {
-    font-size: 28px;
-  }
-}
-@mixin h5 {
-  @include heading-text(40px);
-
-  @include mq-max(xl) {
-    font-size: 36px;
-  }
-  @include mq-max(md) {
-    font-size: 32px;
-  }
-  @include mq-max(sm) {
-    font-size: 28px;
-  }
-}
-@mixin h6 {
-  @include heading-text(28px);
+  @include font-styles--heading($sz: 32px);
 
   @include mq-max(md) {
     font-size: 24px;
   }
-  @include mq-max(sm) {
+}
+@mixin h5 {
+  @include font-styles--heading($sz: 24px);
+  font-weight: 600;
+
+  @include mq-max(md) {
     font-size: 20px;
   }
 }
+@mixin h6 {
+  @include font-styles--heading($sz: 20px);
+  font-weight: 600;
 
-@mixin body-font-styles($size: md) {
-  --font-size: 18px;
+  @include mq-max(md) {
+    font-size: 18px;
+  }
+}
+
+@mixin font-styles--body($sz: md, $wt: 400, $lh: 1.4, $ls: 0) {
+  --font-size: 16px;
 
   color: var(--color-font--primary);
   font-family: var(--font-family--body);
   font-size: var(--font-size);
   font-weight: 400;
+  letter-spacing: -0.25px;
 
-  @media all {
-    @include mq-max(xxl) {
-      --font-size: 16px;
-    }
-
-    @include mq-max(md) {
-      --font-size: 14px;
-    }
+  @include mq-max(md) {
+    --font-size: 14px;
   }
 
-  @if $size == lg {
-    --font-size: 24px;
+  @if $sz == lg {
+    --font-size: 20px;
 
     line-height: 1.5;
 
-    @include mq-max(xxl) {
-      --font-size: 20px;
-    }
-
-    @include mq-max(md) {
-      --font-size: 16px;
+    @include mq-max(sm) {
+      --font-size: 18px;
     }
   }
+
+  @if $sz == sm {
+    --font-size: 14px;
+    opacity: 0.75;
+  }
+}
+
+@mixin font-styles--mono {
+  font-family: var(--font-family--mono);
+  letter-spacing: -0.5px;
+  font-weight: 400;
 }
 
 @mixin inherit-font {
@@ -222,16 +206,148 @@ $min-breakpoints: (
   font-weight: inherit;
 }
 
-@mixin sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+//
+// Btn
+//
+
+@mixin btn-type--solid {
+  border: var(--border-width--btn) solid var(--color-btn-border);
+  border-radius: var(--radius--btn);
+  background: var(--color-btn-bg);
+  color: var(--color-btn-text);
+  padding: var(--padding-btn);
+
+  @include mq-motion-allow {
+    // transition: $ease;
+    transition: all $ease, $magnet;
+  }
+
+  @include desktop-hover {
+    border-color: var(--color-btn-border--hover);
+    background: var(--color-btn-bg--hover);
+    color: var(--color-btn-text--hover);
+  }
+}
+
+@mixin btn-type--outline {
+  border: var(--border-width--btn) solid var(--color-btn-border);
+  border-radius: var(--radius--btn);
+  color: var(--color-btn-text);
+  padding: var(--padding-btn);
+
+  @include mq-motion-allow {
+    // transition: $ease;
+    transition: $ease, $magnet;
+  }
+
+  @include desktop-hover {
+    color: var(--color-btn-text--hover);
+    scale: 0.96;
+  }
+
+  .btn__text {
+    color: inherit;
+    overflow: hidden;
+  }
+}
+
+@mixin btn-type--icon-end {
+  @include desktop-hover {
+    color: var(--color-btn-text--hover);
+
+    .btn__icon-group {
+      translate: 1ch 0;
+    }
+
+    .btn__icon-circle path {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .btn__icon-end {
+    background-color: var(--color-brand--primary);
+  }
+}
+
+@mixin btn-type--underline {
+  position: relative;
+  min-height: 1.1lh; // added in case overflow hidden is used
+  color: var(--color-font--primary);
+  border-radius: var(--radius--btn);
+
+  @include mq-motion-allow {
+    // transition: $ease;
+    transition: all $ease, $magnet;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+
+    @include mq-motion-allow {
+      transition: $ease-sudden;
+    }
+  }
+
+  @include desktop-hover {
+    &::before {
+      width: 0;
+      left: auto;
+      right: 0;
+    }
+  }
+
+  // Prevent underline from creeping under icons (if this is used on btn.njk)
+  &:has(.btn__text) {
+    &::before {
+      display: none;
+    }
+
+    @include desktop-hover {
+      .btn__text::before {
+        width: 0;
+        left: auto;
+        right: 0;
+      }
+    }
+
+    .btn__text {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: auto;
+        width: 100%;
+        height: 1px;
+        background-color: currentColor;
+
+        @include mq-motion-allow {
+          transition: $ease-sudden;
+        }
+      }
+    }
+  }
+}
+
+@mixin btn-type--text {
+  color: var(--color-link);
+
+  @include mq-motion-allow {
+    transition: $ease;
+  }
+
+  @include desktop-hover {
+    color: var(--color-link--hover);
+  }
 }
 
 //
@@ -246,7 +362,19 @@ $min-breakpoints: (
   color: var(--color-font--primary);
 }
 
-@mixin ultra-wide($bg-color: $test-bg, $z-index: -1) {
+@mixin width-clamp($max-width: $content-width) {
+  width: 100%;
+  max-width: $max-width;
+  margin-inline: auto;
+}
+
+@mixin width-full {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+@mixin width-ultra-wide($z-index: -1) {
   &::before {
     content: "";
     isolation: isolate;
@@ -256,12 +384,14 @@ $min-breakpoints: (
     translate: -50% 0;
     width: 100vw;
     height: 100%;
-    background-color: $bg-color;
+    background-color: var(--color-background);
     z-index: $z-index;
   }
 }
 
-@mixin full-viewport-section {
+@mixin full-viewport-section($sub-header: false) {
+  --section-height: 100vh;
+
   @include mq-min(xxl) {
     height: clamp(750px, 100vh, 1250px);
   }
@@ -276,6 +406,14 @@ $min-breakpoints: (
     min-height: 500px;
     height: svh(100);
     max-height: 950px;
+  }
+
+  @if $sub-header == true {
+    --section-height: calc(100vh - var(--header-height));
+
+    @include mq-max(md) {
+      height: calc(svh(100) - var(--header-height));
+    }
   }
 }
 
@@ -293,7 +431,7 @@ $min-breakpoints: (
 @mixin left-spacing {
   left: var(--body-padding);
 
-  // This media query should be tied with the $content-width variable, using xxxl would stay at 1920px despite changing to 1512px or whatever
+  // Tying this media query to the $content-width variable, for better responsive compatability.
   @media (min-width: #{$content-width + 1}) {
     left: calc(50% - calc($content-width / 2) + var(--body-padding));
   }
@@ -302,6 +440,7 @@ $min-breakpoints: (
 @mixin right-spacing {
   right: var(--body-padding);
 
+  // Tying this media query to the $content-width variable, for better responsive compatability.
   @media (min-width: #{$content-width + 1}) {
     right: calc(50% - calc($content-width / 2 - var(--body-padding)));
   }
@@ -329,6 +468,12 @@ $min-breakpoints: (
   align-items: flex-end;
 }
 
+@mixin row-stretch($justify-content: center) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: stretch;
+}
+
 @mixin column-center($justify-content: center) {
   display: flex;
   flex-direction: column;
@@ -350,6 +495,13 @@ $min-breakpoints: (
   align-items: flex-end;
 }
 
+@mixin column-stretch($justify-content: center) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify-content;
+  align-items: stretch;
+}
+
 @mixin absolute-center {
   position: absolute;
   top: 50%;
@@ -357,7 +509,21 @@ $min-breakpoints: (
   translate: -50% -50%;
 }
 
+//
 // Other
+//
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 @mixin hide-content {
   opacity: 0;
@@ -374,23 +540,267 @@ $min-breakpoints: (
   box-shadow: 0 0 0 1.5px #275dc5, 0 0 0 3px #fff;
 }
 
-@mixin mask-image($url: null) {
+@mixin mask-image($url: null, $color: currentColor) {
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
   aspect-ratio: 1/1;
-  background: var(--color-font--primary);
+  background: $color;
+  display: inline-block;
+  vertical-align: middle;
 
   @if $url {
     mask-image: url($url);
   }
 }
 
-@mixin border-radient(
-  $deg: 10deg,
-  $col-1: rgba(255, 255, 255, 0.5),
-  $col-2: transparent
+//
+// Library // DELETE ME
+//
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@mixin outline-trace {
+  --animation-duration: 2s;
+
+  isolation: isolate;
+  position: relative;
+  border: none;
+  // overflow: hidden;
+  transition: color 0.3s ease, background-color 0.3s ease;
+
+  &::before {
+    @include absolute-center;
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--trace-color); /* Solid color background */
+    mask: conic-gradient(
+      from var(--angle),
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 25%,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    mask-composite: source-in;
+    z-index: -1;
+    box-shadow: inset 0 0 0 var(--trace-width) var(--trace-color);
+    background: transparent;
+    transition: 0.3s ease;
+    // animation: outline-trace var(--animation-duration) linear infinite;
+  }
+  @keyframes outline-trace {
+    to {
+      --angle: 360deg;
+    }
+  }
+}
+
+@mixin wide-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@mixin slide-solid-btn($direction: right) {
+  @include desktop-hover {
+    &::before {
+      @if $direction == right {
+        height: 100%;
+        width: 0%;
+        right: 0;
+        left: auto;
+      } @else if $direction == left {
+        height: 100%;
+        width: 0%;
+        left: 0;
+        right: auto;
+      } @else if $direction == up {
+        width: 100%;
+        height: 0%;
+        top: 0;
+        bottom: auto;
+      } @else if $direction == down {
+        width: 100%;
+        height: 0%;
+        bottom: 0;
+        top: auto;
+      }
+    }
+  }
+
+  &::before {
+    @if $direction == right {
+      height: 100%;
+      width: 100%;
+      left: 0;
+      right: auto;
+    } @else if $direction == left {
+      height: 100%;
+      width: 100%;
+      right: 0;
+      left: auto;
+    } @else if $direction == up {
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+      top: auto;
+    } @else if $direction == down {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: auto;
+    }
+  }
+}
+
+@mixin slide-outline-btn($direction: right) {
+  @include desktop-hover {
+    &::before {
+      @if $direction == right {
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: auto;
+      } @else if $direction == left {
+        height: 100%;
+        width: 100%;
+        left: auto;
+        right: 0;
+      } @else if $direction == up {
+        width: 100%;
+        height: 100%;
+        top: auto;
+        bottom: 0;
+      } @else if $direction == down {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+      }
+    }
+  }
+
+  &::before {
+    @if $direction == right {
+      height: 100%;
+      width: 0%;
+      left: auto;
+      right: 0;
+    } @else if $direction == left {
+      height: 100%;
+      width: 0%;
+      left: 0;
+      right: auto;
+    } @else if $direction == up {
+      width: 100%;
+      height: 0%;
+      top: 0;
+      bottom: auto;
+    } @else if $direction == down {
+      width: 100%;
+      height: 0%;
+      top: auto;
+      bottom: 0;
+    }
+  }
+}
+
+@mixin text-fill($color: rgba(125, 125, 125, 0.25)) {
+  display: inline; // for fill line-wrap
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(currentColor, currentColor);
+  -webkit-text-fill-color: $color; // color for unfilled text placeholder. Use color css value to change fill color.
+
+  // filter: drop-shadow(0 0 1px grey); // optional for readability
+  // background-size: 100%; // This value is how the effect works. Controlled by js.
+}
+
+@mixin text-gradient(
+  $deg: 45deg,
+  $col-1: var(--color-font--primary),
+  $col-2: var(--color-background),
+  $track-mouse: false,
+  $flashlight: false
 ) {
+  display: inline; // for gradient line-wrap
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 1s ease;
+
+  @if $track-mouse {
+    background-image: radial-gradient(circle at var(--gradient-pos, center), $col-1, $col-2);
+  } @else {
+    background-image: linear-gradient($deg, $col-1, $col-2);
+  }
+
+  @if $flashlight {
+    background-image: radial-gradient(
+      circle at var(--gradient-pos, center),
+      $col-1 10%,
+      $col-2 50%
+    );
+  }
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@mixin text-gradient-animated(
+  $deg: 45deg,
+  $col-1: var(--color-font--primary),
+  $col-2: var(--color-background),
+  $duration: 3s
+) {
+  background: linear-gradient($deg, $col-1, $col-2);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-move $duration linear infinite alternate;
+}
+
+// Helpful for text over images
+@mixin gradient-backdrop(
+  $deg: 0deg,
+  $col-1: rgba(0, 0, 0, 0.5),
+  $col-2: transparent,
+  $full-vw: false
+) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient($deg, $col-1 0%, $col-2 100%);
+
+    @if $full-vw {
+      inset: auto;
+      left: 50%;
+      bottom: 0;
+      translate: -50% 0;
+      width: 100vw;
+      height: 100%;
+    }
+  }
+}
+
+@mixin gradient-border($deg: 10deg, $col-1: var(--color-border-gradient), $col-2: transparent) {
   position: relative;
 
   &::before {
@@ -408,16 +818,9 @@ $min-breakpoints: (
   }
 }
 
-// Library
-
-@mixin fill-text($color: rgba(125, 125, 125, 0.25)) {
-  display: inline; // for fill line-wrap
-  background-repeat: no-repeat;
-  background-clip: text;
-  -webkit-background-clip: text;
-  background-image: linear-gradient(currentColor, currentColor);
-  -webkit-text-fill-color: $color;
-
-  // filter: drop-shadow(0 0 1px grey); // optional for readability
-  // background-size: 100%; // Alter this for the effect
+@mixin gradient-divider($color: var(--color-font--primary)) {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $color 20% 80%, transparent);
+  opacity: 0.25;
 }

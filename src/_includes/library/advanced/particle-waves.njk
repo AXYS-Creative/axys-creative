@@ -1,0 +1,30 @@
+<!-- prettier-ignore -->
+{% set width = particle_waves.width or '40px' %}
+{% set height = particle_waves.height or '25px' %}
+{% set gap = particle_waves.gap or 0.5 %}
+{% set color = particle_waves.color or '#fff' %}
+{% set opacity = particle_waves.opacity or 1 %}
+{% set speed = particle_waves.speed or 0.01 %}
+{% set follow_mouse = particle_waves.follow_mouse or 0 %}
+
+<div
+  class="particle-waves-wrap parallax"
+  data-parallax-y="25%"
+  data-parallax-scrub="0.5"
+  style="
+    --particle-width: {{ width }}; 
+    --particle-height: {{ height }};
+  "
+>
+  <canvas
+    class="particle-waves"
+    id="particle-waves"
+    data-gap="{{ gap }}"
+    data-width="{{ width }}"
+    data-height="{{ height }}"
+    data-color="{{ color }}"
+    data-opacity="{{ opacity }}"
+    data-speed="{{ speed }}"
+    data-follow-mouse="{{ follow_mouse }}"
+  ></canvas>
+</div>

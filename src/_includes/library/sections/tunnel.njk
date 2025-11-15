@@ -1,0 +1,65 @@
+<!-- prettier-ignore -->
+{% set extended = tunnel.extended or false %}
+{% set centered = tunnel.centered or false %}
+{% set img_src = tunnel.img.src or '' %}
+{% set img_alt = tunnel.img.alt or '' %}
+{% set vid_src = tunnel.vid.src or '' %}
+{% set message = tunnel.message | default('No message has been provided.') %}
+{% set parallax_offset = tunnel.parallax.offset or '-75%' %}
+{% set parallax_scrub = tunnel.parallax.scrub or 0 %}
+
+{% set class_modifier = '' %}
+
+{% if extended %}
+  {% set pinned_tag_start = '' %}
+  {% set class_modifier = class_modifier + ' tunnel--extended' %}
+{% endif %}
+
+{% if centered %}
+  {% set class_modifier = class_modifier + ' tunnel--centered' %}
+{% endif %}
+
+<section class="tunnel {{ class_modifier }}">
+  {% if centered %}
+  <div class="tunnel-centered--pin">
+    {% endif %}
+
+    <div class="tunnel-clip">
+      {% if img_src %}
+      <img
+        class="tunnel__img"
+        src="{{ img_src }}"
+        alt="{{ img_alt }}"
+        data-parallax-offset="{{ parallax_offset }}"
+        data-parallax-scrub="{{ parallax_scrub }}"
+      />
+      {% endif %}
+
+      <!-- prettier-ignore -->
+      {% if vid_src %}
+      <video
+        class="tunnel__vid"
+        src="{{ vid_src }}"
+        data-parallax-offset="{{ parallax_offset }}"
+        data-parallax-scrub="{{ parallax_scrub }}"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+      {% endif %}
+    </div>
+
+    {% if centered %}
+  </div>
+  {%endif%}
+
+  <!-- prettier-ignore -->
+  {% if message %}
+  <div class="tunnel__message-wrapper">
+    <p class="tunnel__message text-fill" data-fill-end="bottom 80%">
+      {{ message }}
+    </p>
+  </div>
+  {% endif %}
+</section>

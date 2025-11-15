@@ -1,34 +1,36 @@
-<div class="cta-group disable-bg">
-  {% if cta_1.text and cta_1.url %}
+{% if cta_1 %}
+<div class="cta-group grid-bg-disable">
   <!-- prettier-ignore -->
-  <a
-    class="cta-1 magnet magnet-wide-btn hide-mouse glitch-hover tab-element-page {%if content_start%}content-start{%endif%}"
-    href="{{ cta_1.url }}"
-    {%if cta_1.new_tab%}
-      target="_blank" rel="noopener noreferrer"
-    {%endif%}
-    aria-label="{{ cta_1.text_desc or cta_1.text }}"
-  >
-    {{ cta_1.text }}
-  </a>
+  {% if cta_1 %}
+    {% set btn = ({
+      text: cta_1.text,
+      text_desc: cta_1.text_desc,
+      url: cta_1.url,
+      new_tab: cta_1.new_tab,
+      icon_start: cta_1.icon_start,
+      icon_end: cta_1.icon_end,
+      type: cta_1.type or 'solid',
+      class: cta_1.class or 'cta-1 magnet magnet-wide-btn cursor-hide',
+      attributes: cta_1.attributes or ''
+    }) %}
+    {% include "./btn.njk" %}
   {% endif %}
 
   <!-- prettier-ignore -->
-  {% if cta_2.text and cta_2.url %}
-  <!-- prettier-ignore -->
-  <a
-    class="cta-2 glitch-trigger tab-element-page sibling-hover"
-    data-glitch-target="glitch-target__cta-2"
-    href="{{ cta_2.url }}"
-    {%if cta_2.new_tab%}
-      target="_blank" rel="noopener noreferrer"
-    {%endif%}
-    aria-label="{{ cta_2.text_desc or cta_2.text }}"
-  >
-    <span class="glitch-target__cta-2">
-      {{ cta_2.text }}
-    </span>
-    <span class="cta-2__icon sibling-hover__target"></span>
-  </a>
+  {% if cta_2 %}
+    {% set btn = ({
+      text: cta_2.text,
+      text_desc: cta_2.text_desc,
+      url: cta_2.url,
+      new_tab: cta_2.new_tab,
+      icon_start: cta_2.icon_start,
+      icon_end: cta_2.icon_end,
+      icon_end_class: 'cursor-target__cta-2',
+      type: cta_2.type or 'icon-end',
+      class: cta_2.class or 'cta-2 cursor-trigger cursor-pair',
+      attributes: cta_2.attributes or 'data-cursor-target=cursor-target__cta-2 data-cursor-class=cta-2'
+    }) %}
+    {% include "./btn.njk" %}
   {% endif %}
 </div>
+{% endif %}

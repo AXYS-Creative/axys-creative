@@ -8,35 +8,42 @@
  "fonts",
  "animations";
 
+// // // // // Components
+// prettier-ignore
+
+@import "./components/accordion",
+ "./components/badge",
+ "./components/btn", 
+ "./components/btn-toggle",
+ "./components/cta-group",
+ "./components/alert",
+ "./components/dropdown-link",
+ "./components/icon-svg",
+ "./components/loader",
+ "./components/marquee",
+ "./components/mouse-cursor",
+ "./components/promo-banner",
+ "./components/scroll-progress",
+ "./components/social-media",
+ "./components/theme-toggle",
+ "./components/tooltip";
+
+// // // // // Partials
+// prettier-ignore
+@import "./partials/header-simple",
+ "./partials/footer-simple";
+
 // // // // // Pages
 // prettier-ignore
 @import "./pages/home",
+ "./pages/style-guide",
  "./pages/404";
 
-// // // // // Components
+// // // // // Sections
 // prettier-ignore
-@import "./components/accordion",
-"./components/cta-group",
-"./components/scroll-horizontal",
-"./components/marquee",
-"./components/price-cards",
-"./components/social-media",
-"./components/scroll-stack";
-
-// Library // Delete after pulling files
-// prettier-ignore
-@import "./library/advanced",
-  "./library/blog-archive",
-  "./library/blog-post",
-  "./library/buttons",
-  "./library/carousel-hero",
-  "./library/carousel-swiper",
-  "./library/contact-form",
-  "./library/grid-flow-img",
-  "./library/style-guide",
-  "./library/mouse-cursor",
-  "./library/nav-btns",
-  "./library/tabs",
-  "./library/theme-toggle",
-  "./library/video-overlay",
-  "./library/video-scrub";
+@import "./sections/axys-hero",
+ "./sections/axys-section-faq",
+ "./sections/axys-scroll-horizontal",
+ "./sections/axys-section-plans",
+ "./sections/axys-scroll-stack",
+ "./sections/axys-work";

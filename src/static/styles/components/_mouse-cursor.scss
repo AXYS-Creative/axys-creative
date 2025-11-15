@@ -1,0 +1,147 @@
+.mouse-cursor {
+  $ease-opacity: opacity $ease 0s;
+  $ease-size: width 0.5s ease, height 0.5s ease;
+
+  position: fixed;
+  top: 0;
+  pointer-events: none;
+  translate: -50% -50%;
+  z-index: $z-index--mouse-cursor;
+  transition: opacity 0.3s ease 0.2s; // Initial display
+  // Transition for movement controlled by js for browser compatibility (old safari issues)
+
+  @include mq-touch {
+    display: none;
+  }
+  @include mq-motion-reduce {
+    display: none;
+  }
+
+  &__shape {
+    --size: 48px;
+
+    border: 2px solid var(--color-font--primary);
+    opacity: 0.25;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    transition: background $ease, $ease-opacity, $ease-size;
+  }
+
+  &__message {
+    @include absolute-center;
+    text-align: center;
+  }
+
+  &__icon {
+    --icon-size: 2.5ch; // defaults to 'size sm'
+
+    @include absolute-center;
+    @include hide-content;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    transition: $ease, $ease-opacity, $ease-size;
+
+    &--md {
+      --icon-size: 4ch;
+    }
+    &--lg {
+      --icon-size: 6ch;
+    }
+  }
+
+  // Hide the mouse cursor with any element using the util 'cursor-hide'
+  &.cursor-hidden {
+    div.mouse-cursor__shape {
+      opacity: 0;
+      width: 0px; // scale makes the border thick
+      height: 0px;
+    }
+  }
+
+  // If using the '.cursor-content' class and 'data-cursor-icon' attibute, the icon is shown here
+  &.show-icon {
+    .mouse-cursor__icon {
+      opacity: 1;
+    }
+  }
+
+  // Library modifier classes added via 'data-cursor-class' attribute
+  &.cta-2 {
+    .mouse-cursor__shape {
+      --size: 32px;
+
+      opacity: 1;
+      transition: $ease-size, opacity $ease 0.12s;
+    }
+  }
+
+  &.menu-btn {
+    .mouse-cursor__shape {
+      --size: 64px;
+    }
+  }
+
+  &.cursor-social-media {
+    .mouse-cursor__shape {
+      --size: 36px;
+      opacity: 1;
+    }
+  }
+
+  &.star-icon {
+    .mouse-cursor__shape {
+      --size: 32px;
+
+      border: 1px dashed $blue;
+      rotate: 0deg;
+      scale: 1 1 !important;
+      opacity: 1;
+      transition: 1s ease, opacity 1s 0.12s, scale 0s;
+    }
+  }
+
+  &.cursor-content-1 {
+    .mouse-cursor__shape {
+      --size: 96px;
+
+      background: var(--color-brand--primary);
+      border-color: var(--color-brand--primary);
+      opacity: 1;
+    }
+  }
+
+  &.cursor-content-2 {
+    .mouse-cursor__shape {
+      --size: 64px;
+
+      opacity: 1;
+    }
+  }
+
+  &.cursor-content-3 {
+    .mouse-cursor__shape {
+      --size: 80px;
+
+      opacity: 1;
+      background: var(--color-font--primary);
+    }
+
+    .mouse-cursor__message {
+      color: var(--color-background);
+    }
+  }
+}
+
+body:has(.tooltip-util) {
+  .mouse-cursor {
+    display: block;
+  }
+  @include mq-touch {
+    .mouse-cursor {
+      &__shape {
+        opacity: 0;
+      }
+    }
+  }
+}

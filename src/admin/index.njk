@@ -173,17 +173,17 @@
           return h(
             "section",
             {
-              className: "hero-alert",
+              className: "hero-simple",
             },
-            h("h1", { className: "hero-alert__title" }, data.section_title),
-            h("p", { className: "hero-alert__desc" }, data.section_desc),
+            h("h1", { className: "hero-simple__title" }, data.section_title),
+            h("p", { className: "hero-simple__desc" }, data.section_desc),
             h(
               "div",
               { className: "cta-group" },
               data.cta_1?.text &&
                 h(
                   "a",
-                  { className: "cta-1 outline", href: data.cta_1.url || "#" },
+                  { className: "cta-1", href: data.cta_1.url || "#" },
                   data.cta_1.text
                 ),
               data.cta_2?.text &&

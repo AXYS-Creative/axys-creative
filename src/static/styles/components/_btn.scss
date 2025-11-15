@@ -1,0 +1,97 @@
+.btn {
+  --icon-size: 1em;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-btn-icon);
+  flex-shrink: 0;
+
+  &:has(.btn__icon-end) {
+    --icon-circle-size: 1.5em;
+
+    @include desktop-hover {
+      .btn__icon-circle path {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  // BTN_TYPES // solid | outline | icon-end | underline | text ... Use a 'select' as the CMS config type
+  &-type--solid {
+    @include btn-type--solid;
+  }
+
+  &-type--outline {
+    @include btn-type--outline;
+  }
+
+  // Used to force a specific icon for ALL using this button type. Not to be used with unique right icons per instance. If that is the goal, use a different button type with the icon_end prop.
+  &-type--icon-end {
+    @include btn-type--icon-end;
+  }
+
+  &-type--underline {
+    @include btn-type--underline;
+  }
+
+  &-type--text {
+    @include btn-type--text;
+  }
+  // End Types
+
+  // BTN_SIZE
+  &-size--sm {
+    --font-size: 13px;
+    --padding-btn: var(--padding-btn--sm);
+  }
+
+  // No text prop provided (assumes icon)
+  &--icon-only {
+    --padding-btn: var(--padding-btn-icon);
+
+    .btn__icon-group {
+      --icon-size: 1.25em;
+    }
+
+    &.btn-size--sm {
+      --padding-btn: var(--padding-btn-icon--sm);
+    }
+  }
+
+  &__icon-group {
+    position: relative;
+    display: inline-flex;
+
+    @include mq-motion-allow {
+      transition: $ease, $magnet;
+    }
+  }
+
+  &__icon-start,
+  &__icon-end {
+    background: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
+
+    @include mq-motion-allow {
+      transition: $ease, $magnet;
+    }
+  }
+
+  &__icon-circle {
+    @include absolute-center;
+    width: var(--icon-circle-size);
+    height: var(--icon-circle-size);
+
+    path {
+      stroke-width: 2px;
+      stroke-dashoffset: 203.0511932373047px;
+      stroke-dasharray: 203.0511932373047px;
+      stroke: currentColor;
+
+      @include mq-motion-allow {
+        transition: stroke-dashoffset 1.2s $cubic-ease;
+      }
+    }
+  }
+}

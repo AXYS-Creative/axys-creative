@@ -1,9 +1,16 @@
 autoplay:
   enabled: true
-  interval: 5000
+  interval: 3200
   allow_user_toggle: true
 
-list:
+controls:
+  prev_text: Prev
+  next_text: Next
+  btn_img: /static/img/library/icon-google-right-chevron.svg
+
+pagination: progressbar # [progressbar, bullets]
+
+slides:
   - title: Title 1
     desc: Description 1
     img: /static/img/library/img-sample-1.jpg

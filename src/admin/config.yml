@@ -2,12 +2,12 @@ backend:
   # Use netlify identity as backend
   name: git-gateway
   branch: main
-  repo: "https://github.com/AXYS-Creative/axys-creative.git"
+  repo: "https://github.com/AXYS-Creative/starter-template-cms.git" # CHANGE ME
 media_folder: src/static/img
 public_folder: /static/img
-site_url: https://axyscreative-dev.netlify.app # On admin login page, this adds a 'go back to site' link. Also added in the corner when logged in.
-display_url: https://axyscreative-dev.netlify.app # In admin dashboard, this adds the URL in the corner 'View Live'. Used with 'preview_path' for collection viewing.
-logo_url: https://axyscreative-dev.netlify.app/static/img/icons/admin-logo.svg # On admin login page, this adds a custom logo.
+site_url: https://starter-template-cms.netlify.app # CHANGE ME # On admin login page, this adds a 'go back to site' link. Also added in the corner when logged in.
+display_url: https://starter-template-cms.netlify.app # CHANGE ME # In admin dashboard, this adds the URL in the corner 'View Live'. Used with 'preview_path' for collection viewing.
+logo_url: https://starter-template-cms.netlify.app/static/img/icons/admin-logo.svg # CHANGE ME # On admin login page, this adds a custom logo.
 
 # Please run "npx netlify-cms-proxy-server" for local backend
 local_backend: true
@@ -97,6 +97,30 @@ collections:
         name: cover_image
         widget: "image"
         required: false
+  - name: page_home
+    label: Page - Home
+    description: >
+      (Optional) Home Page Description
+    files:
+      - name: home_hero
+        label: Section - Hero
+        file: src/_data/page_home/hero.yaml
+        preview_path: /
+        editor:
+          preview: true
+        fields:
+          - name: section_title
+            label: Section Title
+            widget: string
+            required: true
+          - name: section_desc
+            label: Section Description
+            widget: markdown
+            button: []
+            modes: ["raw"]
+            minimal: true
+            sanitize_preview: true
+            required: false
   - name: page_library
     label: Page - Library
     description: >
@@ -165,10 +189,10 @@ collections:
                 label: "Content"
                 widget: "text"
                 required: true
-      - name: "carousel_snap"
-        label: "Snap Carousel"
-        file: "src/_data/library/carousel_snap.yaml"
-        preview_path: "/library#carousel-snap"
+      - name: "carousel_swiper"
+        label: "Swiper Carousel"
+        file: "src/_data/library/carousel_swiper.yaml"
+        preview_path: "/library#carousel-swiper"
         editor:
           preview: false
         fields:
@@ -189,9 +213,9 @@ collections:
                 label: "Allow User Toggle"
                 widget: "boolean"
                 hint: "Allow users to toggle autoplay"
-          - name: "list"
-            label: "Carousel Items"
-            label_singular: "Item"
+          - name: "slides"
+            label: "Carousel Slides"
+            label_singular: "Slide"
             widget: "list"
             fields:
               - name: "title"
@@ -464,12 +488,42 @@ collections:
             media_library:
               config:
                 max_file_size: 500000 # 1MB = 1,000,000 bytes
+          - name: defaults
+            label: Defaults
+            widget: object
+            collapsed: true
+            required: true
+            hint: Default meta data for pages without specific settings
+            fields:
+              - name: title
+                label: Page Title (Default)
+                widget: string
+                required: true
+                hint: Shown in browser tab and search engine results. Keep it under 60 characters.
+              - name: description
+                label: Page Description (Default)
+                widget: text
+                required: true
+                hint: Short page summary for SEO and social media. Keep it around 140–160 characters.
+              - name: crawl_page
+                label: Crawl Page (Default)
+                widget: boolean
+                required: false
+                hint: "Uncheck to add 'noindex, nofollow' meta tag"
+              - name: og_image
+                label: Open Graph Image (Default)
+                widget: image
+                required: true
+                hint: Default image for social sharing (See 'page details' below to override per page)
+                media_library:
+                  config:
+                    max_file_size: 8000000
           - name: page_details
             label: Page Details
             allow_add: false
             widget: list
             required: true
-            hint: Used for SEO and social sharing
+            hint: Page specific meta data, used for SEO and social sharing
             fields:
               - name: label
                 label: Label (Admin Dashboard)
@@ -479,29 +533,23 @@ collections:
               - name: title
                 label: Page Title
                 widget: string
-                required: true
+                required: false
                 hint: Shown in browser tab and search engine results. Keep it under 60 characters.
               - name: description
                 label: Page Description
                 widget: text
-                required: true
+                required: false
                 hint: Short page summary for SEO and social media. Keep it around 140–160 characters.
-          - name: og_title
-            label: Open Graph Title
-            widget: string
-            required: true
-            hint: Sample Business | Motto here
-          - name: og_description
-            label: Open Graph Description
-            widget: text
-            required: true
-            hint: Keep at least 100 characters
-          - name: og_image
-            label: Open Graph Image
-            widget: image
-            default: "https://CHANGE-ME.com/static/img/og-image.png"
-            required: true
-            hint: "Recommended formats: PNG or JPG. Recommended image dimensions: 1200 x 630 pixels. File size should be under 8 MB."
-            media_library:
-              config:
-                max_file_size: 8000000 # 1MB = 1,000,000 bytes
+              - name: og_image
+                label: Open Graph Image
+                widget: image
+                required: false
+                hint: Image for social sharing. If not set, the default image will be used. (see 'defaults' above)
+                media_library:
+                  config:
+                    max_file_size: 8000000
+              - name: crawl_page
+                label: Crawl Page (Robots)
+                widget: boolean
+                required: false
+                hint: "Uncheck to add 'noindex, nofollow' meta tag"

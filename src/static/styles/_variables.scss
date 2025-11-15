@@ -1,44 +1,47 @@
+// $brand-font--heading: "Satoshi", source-sans-pro, sans-serif;
+// $brand-font--body: Avenir, Montserrat, Corbel, source-sans-pro, sans-serif; // If not using a 'Modern font stack' just have one fallback
 $brand-font--heading: "Funnel Display", source-sans-pro, sans-serif;
 $brand-font--body: "Funnel Display", source-sans-pro, sans-serif;
+$brand-font--mono: "Geist Mono", source-sans-pro, sans-serif;
 
-// Colors
-$white: #f0f0f0;
-$grey-light: #909090;
-$grey: #3d3d3d;
-$grey-dark: #1e1e1e;
-$black: #101010;
+$black: #0a0a0a;
+$grey-darker: #212121;
+$grey-dark: #313131;
+$grey: #c0c0c0;
+$grey-light: #e0e0e0;
+$grey-lighter: #e7e7e7;
+$white: #fafafa;
 
 $coral: #e48c66;
-$blue: #7ec1d4;
+$red: #dc143c;
+$blue: #ada4e3;
 $green: #a4d1a2;
-$yellow: #fbfaa2;
-$pink: #e1a7b4;
+$yellow: #fdfd96;
 
-$hero: #e48c66;
-$work: #a4d1a2;
-$benefits: #7ec1d4;
-$faq: #fbfaa2;
-
-// Breakpoints
-$content-width: 1512px;
+$content-width: 1364px;
 
 // Layering
 $z-index--nav: 3;
 $z-index--header: 4;
-$z-index--loader: 5;
-$z-index--video-overlay: 6; // Library
+$z-index--btn-back-to-top: 1; // Library DELETE ME
+$z-index--alert: 2; // // // //  Library DELETE ME
+$z-index--scroll-progress: 2; // Library DELETE ME
+$z-index--loader: 5; // // // // Library DELETE ME
+$z-index--video-overlay: 5; // / Library DELETE ME
+$z-index--mouse-cursor: 10; // / Library DELETE ME
 
 // Easing
 $cubic-ease: cubic-bezier(0.18, 0.97, 0.47, 1);
 $cubic-ease-back: cubic-bezier(0.02, 1.14, 0.7, 1.24);
 $cubic-ease-back-strong: cubic-bezier(0, 1.2, 0.56, 1.39);
-$cubic-ease-sudden: cubic-bezier(1, 0.07, 0.2, 1);
+$cubic-ease-sudden: cubic-bezier(0.75, 0, 0.2, 1);
 $cubic-ease-sudden-back: cubic-bezier(0.8, -0.11, 0.11, 1.11);
 $cubic-ease-sudden-back-strong: cubic-bezier(0.77, -0.43, 0.11, 1.11);
 $cubic-ease-slow-finish: cubic-bezier(0.09, 0.9, 0.5, 1);
 
 $ease: 0.24s ease;
 $ease-c: 0.64s $cubic-ease;
+$ease-sudden: 0.64s $cubic-ease-sudden;
 
 // Library
 $magnet: transform 0.5s $cubic-ease;
@@ -49,70 +52,138 @@ $test: 2px dashed rgba(yellow, 0.75);
 $test-bg: rgba(navy, 0.75);
 
 :root {
-  --color-background: #{$black};
-  --color-surface--1: #{$grey-dark};
-
-  --color-font--primary: #{$white};
-  --color-font--secondary: #{$grey-light};
-  --color-font--error: #{$coral};
-
-  // --color-btn-2-bg: var(--color-brand--primary);
-  --color-btn-2-text: #{$white};
-  // --color-btn-2-border: transparent;
-  // --color-btn-2-bg--hover: transparent;
-  --color-btn-2-text--hover: var(--color-brand--primary);
-  // --color-btn-2-border--hover: transparent;
-
-  --link-color: #{$grey-light};
-  --link-color--hover: #{$white};
-
-  --color-border: #{$grey};
-  --color-brand--primary: #{$coral};
-  --color-brand--secondary: #{$blue};
-  --color-brand--tertiary: #{$green};
-
   --font-family--heading: #{$brand-font--heading};
   --font-family--body: #{$brand-font--body};
+  --font-family--mono: #{$brand-font--mono};
 
   --content-width: #{$content-width};
 
   --body-padding: 64px;
   --body-padding-double: calc(var(--body-padding) * 2);
+  --body-padding-half: calc(var(--body-padding) / 2);
 
-  --color-btn-bg: var(--color-brand--primary);
-  --color-btn-text: #{$white};
-  --color-btn-border: var(--color-btn-bg);
-  --color-btn-bg--hover: transparent;
-  --color-btn-text--hover: var(--color-brand--primary);
-  --color-btn-border--hover: var(--color-brand--primary);
-
-  --btn-padding: 8px 16px;
-
-  --spacing--xs: 12px;
-  --spacing--sm: 24px;
-  --spacing: 36px;
-  --spacing--lg: 48px;
-  --spacing--xl: 60px;
-
-  --section-gap: 24px;
-  --section-gap--sm: 8px;
-  --section-gap--lg: 64px;
-
+  --border-width: 1px;
   --border-width--btn: 1px;
   --border-width--bold: 2px;
 
+  --color-brand--primary: #{$coral}; // Generally consistent across themes
+  // --color-brand--on-primary: #{$white};
+  --color-brand--secondary: #{$blue};
+  --color-brand--tertiary: #{$green};
+
+  --color-font--error: #{$red};
+
+  // --color-border: #{$grey-light};
+
+  --color-btn-bg: var(--color-brand--primary);
+  --color-btn-bg--hover: transparent;
+  --color-btn-text: var(--color-font--primary);
+  --color-btn-text--hover: var(--color-brand--primary);
+  --color-btn-border: var(--color-btn-bg);
+  --color-btn-border--hover: var(--color-brand--primary);
+
+  --color-link: var(--color-brand--primary);
+  --color-link--hover: var(--color-font--primary);
+
+  --gap-btn-icon: 0.5ch;
+
+  --color-badge: var(--color-brand--primary);
+
+  --padding-btn: 8px 16px;
+  --padding-btn-icon: 8px;
+  --padding-btn--sm: 6px 12px;
+  --padding-btn-icon--sm: 4px;
+
+  --spacing--xs: 8px;
+  --spacing--sm: 16px;
+  --spacing: 24px;
+  --spacing--lg: 48px;
+  --spacing--xl: 96px;
+
+  --section-gap--sm: 12px;
+  --section-gap: 24px;
+  --section-gap--lg: 64px;
+
+  // Consider radius vars for outter/inner based on spacing (padding)
   --radius: 16px;
   --radius--lg: 24px;
   --radius--sm: 8px;
   --radius--xs: 4px;
-  --radius-btn: var(--radius--xs);
+  --radius--btn: var(--radius--xs);
+
+  --max-width--text: 650px;
+
+  // header
+  --header-children-height: 32px;
 
   @media (max-width: 1512px) {
     --body-padding: 48px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     --body-padding: 24px;
-    --section-gap--lg: 48px;
+    --section-gap--lg: 24px;
+
+    --spacing--xs: 4px;
+    --spacing--sm: 8px;
+    --spacing: 12px;
+    --spacing--lg: 24px;
+    --spacing--xl: 48px;
   }
+}
+
+// axys root
+:root {
+  --max-width--text: 450px;
+}
+
+// Theme Toggle
+@mixin light-theme {
+  --color-background: #{$white};
+  --color-background-alt: #fff;
+  --color-font--primary: #{$black};
+  --color-font--secondary: #{$grey-dark};
+  --color-font--tertiary: #{$grey-light};
+
+  // --color-link: #{$grey-light};
+  // --color-link--hover: #{$white};
+
+  --color-surface--1: #{$grey-light};
+  --color-surface--2: #{$grey-lighter};
+
+  --color-border: #{$grey-light};
+  --color-border-gradient: rgba(0, 0, 0, 0.5); // Library
+  --color-glass-frost: rgba(255, 255, 255, 0.25); // Library
+}
+
+@mixin dark-theme {
+  --color-background: #{$black};
+  --color-background-alt: #000;
+  --color-font--primary: #{$white};
+  --color-font--secondary: #{$grey-light};
+  --color-font--tertiary: #{$grey-dark};
+
+  // --color-link: #{$grey-light};
+  // --color-link--hover: #{$white};
+
+  --color-surface--1: #{$grey-dark};
+  --color-surface--2: #{$grey-darker};
+
+  --color-border: #{$grey-dark};
+  --color-border-gradient: rgba(255, 255, 255, 0.5); // Library
+  --color-glass-frost: rgba(0, 0, 0, 0.25); // Library
+}
+
+html[data-theme="dark"] {
+  @include dark-theme;
+}
+
+html[data-theme="light"] {
+  @include light-theme;
+}
+
+:root {
+  --partial-float-offset: 24px;
+
+  --carousel-snap-gap: 24px;
 }

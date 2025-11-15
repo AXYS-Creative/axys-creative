@@ -1,0 +1,352 @@
+.plan-selection {
+  position: relative;
+  margin-block: var(--spacing--xl);
+
+  @include mq-min(md) {
+    overflow: hidden; // for scroll-snap (overflow)
+  }
+
+  &__inner {
+    @include width-clamp;
+    @include column-center;
+    text-align: center;
+    gap: var(--spacing);
+
+    @include mq-min(xl) {
+      @include section-padding; // padding moved for scroll-snap
+    }
+  }
+
+  &__toggle-wrapper {
+    position: relative;
+    z-index: 2;
+    transition: $ease;
+
+    @include mq-max(lg) {
+      position: sticky;
+      top: var(--body-padding);
+    }
+
+    @include mq-max(md) {
+      width: calc(80% - var(--body-padding-double));
+      translate: 0 100%;
+    }
+
+    .toggle-slider {
+      --toggle-padding: 4px;
+      --toggle-radius: 8px;
+      --option-padding: var(--padding-btn);
+      --accent-color: var(--color-brand--primary);
+      background-color: var(--color-background);
+    }
+
+    .plan-selection__toggle {
+      background: var(--color-background);
+
+      @include mq-max(md) {
+        width: 100%;
+        display: flex;
+
+        &-option {
+          flex: 1;
+        }
+      }
+    }
+
+    .tooltip {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      translate: calc(100% + 1ch) -50%;
+    }
+
+    &.watch-scroll--scrolling-down {
+      @include mq-max(md) {
+        translate: 0 0;
+      }
+    }
+  }
+
+  &__disclaimer {
+    @include font-styles--mono;
+    // color: var(--color-font--secondary);
+    color: $green;
+    margin-block-start: var(--spacing);
+
+    // If using text-reveal
+    display: inline-flex;
+    align-items: center;
+    gap: 1ch;
+
+    .icon-svg {
+      translate: 0 -1px;
+
+      @include mq-motion-allow {
+        opacity: 0;
+        scale: 0.5;
+
+        &.gsap-animated {
+          opacity: 1;
+          scale: 1;
+          transition: 0.8s $cubic-ease 0.5s;
+        }
+      }
+    }
+
+    &-message {
+      line-height: 1; // If using text-reveal
+    }
+
+    .btn {
+      font-family: inherit;
+      line-height: 1; // If using text-reveal
+
+      @include mq-motion-allow {
+        .btn__text::before {
+          opacity: 0;
+        }
+
+        &.gsap-animated {
+          .btn__text::before {
+            opacity: 1;
+            transition: $ease-sudden, opacity 0.8s $cubic-ease 1s;
+          }
+        }
+      }
+    }
+  }
+
+  // if quarterly is selected
+  &:has([data-toggle-option="end"][aria-selected="true"]) {
+    [data-toggle-show="end"] {
+      @include show-content;
+      opacity: 0.8;
+      translate: 0 0;
+    }
+
+    .plan-option {
+      &__price,
+      &__message {
+        color: var(--color-brand--tertiary);
+      }
+
+      &__cta-wrapper--monthly {
+        display: none;
+      }
+      &__cta-wrapper--quarterly {
+        display: block;
+      }
+
+      &--primary {
+        .plan-option__price,
+        .plan-option__message {
+          filter: brightness(1.25);
+        }
+      }
+    }
+  }
+}
+
+.plan-options {
+  $card-gap: var(--spacing--sm);
+  $all-cards-gap: calc(var(--spacing--sm) * 2);
+
+  @include row-stretch(start);
+  gap: var(--spacing--sm);
+  margin-block-start: var(--spacing--lg);
+  width: 100%;
+
+  @include mq-max(xl) {
+    $scroll-bar-color-track: var(--color-brand--primary);
+    $scroll-bar-color-thumb: var(--color-surface--1);
+
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+
+    // Scroll-snap requires a strange mix of padding and margin inline start.
+    padding-inline: var(--body-padding-double);
+    margin-inline-start: var(--body-padding-double);
+    padding-block-end: 24px; // room for scrollbar
+
+    scrollbar-color: $scroll-bar-color-track $scroll-bar-color-thumb;
+    &::-webkit-scrollbar-track {
+      background: $scroll-bar-color-track;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $scroll-bar-color-thumb;
+    }
+  }
+
+  @include mq-max(md) {
+    flex-direction: column;
+    align-items: center;
+    margin-inline-start: 0;
+    padding-inline: var(--body-padding);
+  }
+
+  .plan-option {
+    @include column-center;
+    position: relative;
+    border: var(--border-width) solid var(--color-border);
+    gap: var(--spacing);
+    padding: var(--spacing--xl) var(--spacing) var(--spacing--lg);
+    border-radius: var(--radius--sm);
+    background: var(--color-background);
+    width: 100%;
+    overflow: hidden;
+
+    @media all {
+      @include mq-max(xl) {
+        min-width: 420px;
+        scroll-snap-align: start;
+      }
+
+      @include mq-max(md) {
+        min-width: 0;
+        width: 100%;
+        max-width: 520px;
+      }
+
+      @include mq-max(sm) {
+        padding: var(--spacing--lg) var(--spacing) var(--spacing);
+      }
+    }
+
+    &__title {
+      color: var(--color-font--primary);
+    }
+
+    &__price-group {
+      align-self: stretch;
+
+      [data-toggle-show="end"] {
+        @include hide-content;
+        translate: 0 8px;
+        // scale: 0.9;
+        transition: $ease;
+      }
+    }
+
+    &__line-group {
+      @include row-center;
+      gap: 1ch;
+
+      .plan-option__divider {
+        @include gradient-divider;
+      }
+    }
+
+    &__price {
+      font-size: 24px;
+      display: inline-flex;
+      transition: $ease;
+
+      &-frequency {
+        white-space: nowrap; // fixes issue on firefox
+      }
+    }
+
+    &__total {
+      @include font-styles--body(sm);
+      display: inline-flex;
+
+      &-swap {
+        margin-inline-end: 0.75ch;
+      }
+      &-frequency {
+        margin-inline-start: 0.75ch;
+      }
+    }
+
+    &__perks {
+      @include column-start;
+      gap: 1ch;
+      margin-block: var(--spacing) var(--spacing--lg);
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.5ch;
+      }
+    }
+
+    &__message {
+      @include font-styles--body(sm);
+      @include font-styles--mono;
+    }
+
+    &__cta-wrapper {
+      @include mq-max(sm) {
+        align-self: stretch;
+
+        .btn {
+          @include wide-btn;
+        }
+      }
+    }
+
+    &__cta-wrapper--quarterly {
+      display: none;
+    }
+
+    &:has(.noise) {
+      > * {
+        z-index: 1;
+      }
+
+      .noise {
+        position: absolute;
+        top: 0;
+        opacity: 0.75;
+        pointer-events: none;
+        z-index: 0;
+
+        @include mq-touch {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &--primary {
+      --color-font--primary: #{$black};
+
+      --color-btn-border: #{$white};
+      --color-btn-bg: #{$white};
+      --color-btn-text: #{$black};
+
+      --color-btn-border--hover: #{$white};
+      --color-btn-bg--hover: transparent;
+      --color-btn-text--hover: #{$white};
+
+      background: linear-gradient(
+        110deg,
+        $white -50%,
+        var(--color-brand--primary) 30% 70%,
+        $white 150%
+      );
+
+      *::selection {
+        background-color: rgba($white, 0.5);
+      }
+
+      .plan-option__divider {
+        @include gradient-divider($black);
+      }
+
+      .plan-option__price {
+        color: var(--color-font--primary);
+      }
+    }
+  }
+
+  .gsap-stagger-child {
+    opacity: 0;
+    translate: 0 96px;
+
+    &.gsap-stagger-animate {
+      opacity: 1;
+      translate: 0 0;
+      transition: $ease-sudden;
+    }
+  }
+}

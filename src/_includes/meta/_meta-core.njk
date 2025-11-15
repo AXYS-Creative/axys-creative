@@ -1,0 +1,52 @@
+<!-- Basics -->
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="{{ meta_data.theme_color }}" />
+<meta name="author" content="{{ meta_data.author }}" />
+
+<!-- Title / Description / Robots -->
+<title>{{ pageMeta.title or defaults.title }}</title>
+<meta
+  name="description"
+  content="{{ pageMeta.description or defaults.description }}"
+/>
+<meta
+  name="robots"
+  content="{{ 'index, follow' if pageMeta.crawl_page is not defined or pageMeta.crawl_page else 'noindex, nofollow' }}"
+/>
+
+<!-- Canonical -->
+{% if pageMeta.canonical %}
+<link rel="canonical" href="{{ meta_data.url }}{{ pageMeta.canonical }}" />
+{% endif %}
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link
+  rel="icon"
+  href="{{ meta_data.favicon_light_theme }}"
+  media="(prefers-color-scheme: light)"
+/>
+<link
+  rel="icon"
+  href="{{ meta_data.favicon_dark_theme }}"
+  media="(prefers-color-scheme: dark)"
+/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- font preload -->
+<link
+  rel="preload"
+  href="/static/fonts/FunnelDisplay-variable.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/static/fonts/GeistMono-VariableFont_wght.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>

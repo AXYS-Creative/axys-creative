@@ -1,0 +1,130 @@
+---
+layout: app
+path: library/sections
+# Non public facing DELETE ME CHANGE ME
+---
+
+<!-- prettier-ignore -->
+{% set hero_simple = ({
+  title: 'Sections',
+  desc: 'Prebuilt reusable sections to speed up your build time.'
+ }) %}
+{% include '../_includes/library/sections/hero-simple.njk' %}
+
+<div class="section-width--thin">
+  <h2>[ Carousel 'Hero' - Section ]</h2>
+  <br />
+  <p>Also adding the utility class <code>grid-fade</code> along with it’s associated configs:</p>
+  <br />
+  <br />
+  <ul class="classic-list">
+    <li>
+      <code>data-grid-fade</code> string of either <code>in-out | in</code> depending on scroll
+      preference. Default is
+      <code>in</code>
+    </li>
+    <li>
+      <code>data-grid-tile-size</code> string of either <code>small | medium | large</code> Default
+      is <code>medium</code>
+    </li>
+    <li>
+      <code>data-grid-fade-random</code> boolean to toggle the animation style. Default is
+      <code>true</code>
+    </li>
+  </ul>
+</div>
+<div
+  class="grid-fade"
+  data-grid-fade="in-out"
+  data-grid-tile-size="small"
+  data-grid-fade-random="true"
+>
+  <!-- prettier-ignore -->
+  {% set carousel_hero_autoplay = library.carousel_hero.autoplay %}
+  {% set carousel_hero_slides = library.carousel_hero.slides %}
+  {% include "../_includes/library/sections/carousel-hero.njk" %}
+</div>
+
+<div class="section-hero-simple section-width--thin" style="margin-top: 428px">
+  <h2>[ Hero Simple - Section ]</h2>
+  <br />
+  <p>
+    A basic hero section which includes a title, description, and a cta-group. Comes with the
+    following configs:
+  </p>
+  <br />
+  <br />
+  <ul class="classic-list">
+    <li><code>title</code> A string for the section title</li>
+    <li><code>desc</code> A string (accepts custom markup) for the description</li>
+    <li><code>cta_1</code> Any valide <code>btn.njk</code> prop</li>
+    <li><code>cta_2</code> Any valide <code>btn.njk</code> prop</li>
+    <li><code>class</code> A string for the section's custom class</li>
+  </ul>
+</div>
+<!-- prettier-ignore -->
+{% set hero_simple = ({
+  title: 'Section Title here',
+  desc: 'Section desc (description) here.',
+  class: 'sample-class',
+  cta_1: {
+    text: 'Get Started'
+  },
+  cta_2: {
+    text: 'Learn More'
+  }
+}) %}
+{% include '../_includes/library/sections/hero-simple.njk' %}
+
+<!-- prettier-ignore -->
+{% set plan_selection = library.sections.plan_selection %}
+{% include '../_includes/library/sections/plan-selection.njk' %}
+
+<!-- prettier-ignore -->
+{% set price_cards_data = library.price_cards %}
+{% include '../_includes/library/sections/price-cards.njk' %}
+
+<!-- prettier-ignore -->
+{% set scroll_horizontal = library.sections.scroll_horizontal %} 
+{% include '../_includes/library/sections/scroll-horizontal.njk' %}
+
+<!-- prettier-ignore -->
+{% set scroll_horizontal = ({
+  title: '',
+  desc: '',
+  message: 'This is the scroll_horizontal section uses a message instead of a set of images.'
+}) %} 
+{% include '../_includes/library/sections/scroll-horizontal.njk' %}
+
+<!-- prettier-ignore  -->
+{% set scroll_stack = library.scroll_stack %}
+{% include '../_includes/library/sections/scroll-stack.njk' %}
+
+<div class="library-section library-section-info">
+  <h2 class="text-fill">[ Tunnel ]</h2>
+</div>
+<!-- prettier-ignore -->
+{% set tunnel = library.sections.tunnel %}
+{% include '../_includes/library/sections/tunnel.njk' %}
+
+<br /><br /><br /><br /><br />
+<!-- prettier-ignore -->
+{% set tunnel = ({
+  centered: true,
+  vid: {
+    src: 'https://www.dropbox.com/scl/fi/6sh06eo6b3x84qo823qcq/sample-video-1.mp4?rlkey=0v6dqkra2wk7de0rz849ufm7o&st=0705ulra&dl=0'
+  },
+  message: null
+}) %}
+{% include '../_includes/library/sections/tunnel.njk' %}
+
+<!-- prettier-ignore -->
+{% set work_gallery = library.sections.work_gallery %}
+{% include '../_includes/library/sections/work-gallery.njk' %}
+
+<!-- prettier-ignore -->
+{% set hero_simple = ({
+  title: 'Are you ready?',
+  desc: 'Prebuilt reusable sections to speed up your build time.'
+ }) %}
+{% include '../_includes/library/sections/hero-simple.njk' %}

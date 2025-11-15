@@ -1,10 +1,19 @@
 * {
+  // border: $test;
   margin: 0;
   padding: 0;
   font-family: $brand-font--body;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+  &::selection {
+    background-color: rgba($coral, 1);
+
+    // color: var(--color-font--primary);
+    color: var(--color-background);
+    stroke-width: 0;
+  }
 
   // Autofill for form fields: input, textarea, select, etc. Feel free to delete if there are no forms
   &:-webkit-autofill,
@@ -19,416 +28,37 @@
   input::-webkit-inner-spin-button {
     display: none;
   }
-
-  &::selection {
-    background: rgba($coral, 1);
-    background: rgba($yellow, 0.85);
-    color: $black;
-  }
 }
 
 body {
   background: var(--color-background);
   color: var(--color-font--primary);
+  // padding-block-start: var(--header-height); // layout shift ... lame
 
-  .site-header,
-  .site-footer,
-  section {
-    max-width: $content-width;
-    margin: auto;
+  @include mq-motion-allow {
+    transition: background $ease; // Library, used for theme toggle
   }
 
-  // Loader styles, controlled by having a loader partial present in the html
-  &:has(.site-loader) {
-    $duration: 1s;
-    $delay: 0.25s;
-
-    .hero {
-      h1,
-      p,
-      div {
-        opacity: 0;
-        transition: opacity $duration ease $delay;
-      }
-
-      p {
-        transition-delay: $delay + 0.075s;
-      }
-      div {
-        transition-delay: $delay + 0.125s;
-      }
-    }
-  }
-
-  // Loader complete styles
-  &:has(.load-complete) {
-    .hero {
-      h1,
-      p,
-      div {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-.site-header {
-  // No static content here to allow clickthrough
-  --children-height: 24px;
-
-  & > * {
-    z-index: $z-index--header;
-    position: fixed;
-    transition: opacity 0.5s ease;
-  }
-
-  .header-logo {
-    @include left-spacing;
-    @include row-center;
-    top: var(--body-padding);
-    height: var(--children-height);
-    aspect-ratio: 1;
-  }
-
-  .header-links {
-    --links-gap: 36px;
-
-    @include row-center;
-    @include right-spacing;
-    top: var(--body-padding);
-    gap: var(--links-gap);
-    height: var(--children-height);
-
-    @include mq-max(lg) {
-      display: none;
-    }
-
-    &__link {
-      &:hover,
-      &:focus-visible {
-        &::after {
-          background: var(--color-font--primary);
-        }
-      }
-    }
-  }
-
-  .site-nav-btn-wrapper {
-    display: none;
-
-    @include mq-max(lg) {
-      @include right-spacing;
-      top: var(--body-padding);
-      height: var(--children-height);
-      display: block;
-      transition: opacity $ease;
-    }
-
-    // See _nav-btns.scss for variants
-  }
-
-  // &.away-from-top {
-  //   > * {
-  //     @include hide-content;
+  // &:has(.promo-banner) {
+  //   .site-header > * {
+  //     transition: top $ease, opacity $ease; // for transition
   //   }
   // }
-
-  &.scrolling-down {
-    > * {
-      @include hide-content;
-    }
-
-    &:focus-within {
-      > * {
-        @include show-content;
-      }
-    }
-  }
-
-  // &.near-bottom {
-
-  // }
-
-  &.nav-active {
-    > * {
-      @include show-content;
-    }
-  }
-
-  .skip-to-content {
-    position: fixed;
-    top: -40px;
-    left: 0;
-    color: #fff;
-    padding: 8px;
-    z-index: 10;
-    transition: top 0.3s ease;
-
-    &:focus {
-      top: 0;
-    }
-
-    @include mq-max(xl) {
-      display: none;
-    }
-  }
-}
-
-.site-nav {
-  @include hide-content;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  overflow: auto;
-  z-index: $z-index--nav;
-
-  @include mq-min(lg) {
-    display: none;
-  }
-
-  .width-constraint {
-    position: relative;
-    max-width: $content-width;
-    height: 100vh;
-    height: 100dvh;
-    min-height: 768px;
-    margin: auto;
-
-    @include mq-max(xxl) {
-      min-height: 640px;
-    }
-
-    @include mq-max(sm) {
-      min-height: 520px;
-    }
-  }
-
-  .nav-links,
-  .nav-footer-links {
-    position: absolute;
-
-    li {
-      a {
-        font-family: $brand-font--body;
-      }
-    }
-  }
-
-  .nav-links {
-    @include left-spacing;
-    @include column-start;
-    gap: 12px;
-    top: 50%;
-    translate: 0 -50%;
-
-    li {
-      display: flex;
-      overflow: hidden;
-
-      &:focus-within {
-        border-radius: 4px;
-        box-shadow: 0 0 0 3px rgba(#2353c1, 0.75), 0 0 0 5px rgba(#fff, 0.75);
-      }
-    }
-
-    .nav-link {
-      @include h3;
-      height: 100%;
-      translate: 0 100%;
-      border-left: 4px solid transparent;
-      // transition: 0.2s ease, translate 0.3s ease 0.6s;
-
-      &:hover,
-      &:focus-visible {
-        padding-left: 24px;
-        border-color: var(--primary-accent-color);
-
-        @include mq-max(xxl) {
-          padding-left: 16px;
-        }
-      }
-    }
-  }
-
-  .nav-footer-links {
-    @include left-spacing;
-    @include row-center;
-    bottom: var(--body-padding);
-    gap: 48px;
-
-    @include mq-max(lg) {
-      gap: 24px;
-    }
-
-    @include mq-max(md) {
-      @include column-start;
-      gap: 12px;
-    }
-
-    @include mq-max(sm) {
-      gap: 4px;
-    }
-
-    li {
-      .nav-footer-link {
-        padding: 4px;
-        border-bottom: 2px solid transparent;
-        transition: 0.2s ease;
-
-        &:hover,
-        &:focus-visible {
-          border-color: var(--primary-accent-color);
-        }
-      }
-    }
-  }
-
-  .social-media-links {
-    @include right-spacing;
-    position: absolute;
-    bottom: var(--body-padding);
-  }
-
-  &[aria-hidden="false"] {
-    @include show-content;
-    background: var(--color-background);
-    transition: background 0s ease;
-
-    .nav-links li {
-      @for $i from 1 through 10 {
-        &:nth-of-type(#{$i}) {
-          $transition: 0.25s + $i * 0.16s;
-          $delay: 0.2s + $i * 0.04s;
-
-          .nav-link {
-            transition: 0.2s ease, translate $transition ease $delay;
-          }
-        }
-      }
-    }
-
-    .nav-links,
-    .nav-footer-links,
-    .nav-social-media {
-      opacity: 1;
-      pointer-events: all;
-      // transition: opacity 0s ease 0.3s;
-
-      .nav-link {
-        translate: 0 0;
-      }
-    }
-  }
-}
-
-.site-footer {
-  display: flex;
-  flex-direction: column;
-  gap: var(--section-gap--lg);
-  padding: var(--body-padding);
-
-  .link-title {
-    font-size: 20px;
-    letter-spacing: -1px;
-    margin-bottom: 12px;
-    color: var(--color-brand--secondary);
-  }
-
-  .footer-links {
-    @include column-start;
-    gap: 8px;
-  }
-
-  .site-footer-top {
-    @include row-center(space-between);
-
-    @include mq-max(lg) {
-      @include column-start;
-      gap: var(--section-gap--lg);
-    }
-
-    &__left {
-      @include column-start;
-      gap: var(--section-gap);
-    }
-
-    &__right {
-      @include row-start(space-between);
-      gap: var(--section-gap--lg);
-    }
-  }
-
-  .site-footer-bottom {
-    @include row-center(space-between);
-    border-top: 1px solid var(--color-border);
-    padding-block-start: var(--section-gap--lg);
-
-    @include mq-max(lg) {
-      flex-direction: column-reverse;
-      align-items: flex-start;
-      gap: var(--section-gap);
-    }
-  }
 }
 
 .site-logo {
-  height: 20px;
-  width: auto;
+  // --logo-size: 20px; // aspect ration not working as exptected.
 
-  @include mq-max(xxl) {
-    height: 18px;
-  }
-
-  @include mq-max(xl) {
-    height: 16px;
-  }
-}
-
-.site-loader {
-  @include row-center;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  translate: -50% 0;
-  width: 100vw;
-  height: 100dvh;
-  background: var(--color-background);
-  z-index: $z-index--loader;
-
-  &__text {
-    @include h6;
-    color: var(--color-font--primary);
-  }
-
-  &.load-complete {
-    @include hide-content;
-    transition: 0.5s ease;
-  }
-}
-
-#grid-bg {
-  width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
-
-  @include mq-mouse {
-    opacity: 0.25;
-  }
-
-  @include mq-touch {
-    opacity: 0.5;
-  }
-}
-
-section {
-  @include section-padding;
+  display: block;
+  width: 128px;
+  // width: var(--logo-size);
+  // height: var(--logo-size);
 }
 
 h1,
 .h1 {
   @include h1;
+  // text-transform: uppercase;
 }
 h2,
 .h2 {
@@ -451,19 +81,32 @@ h6,
   @include h6;
 }
 
+p {
+  display: inline;
+}
+
 p,
 a,
+button,
 figcaption,
 blockquote,
 input,
 textarea,
 label,
 li {
-  @include body-font-styles;
+  @include font-styles--body;
   text-decoration: none;
 
   &.body-lg {
-    @include body-font-styles(lg);
+    @include font-styles--body(lg);
+  }
+}
+
+a {
+  color: var(--color-link);
+
+  @include desktop-hover {
+    color: var(--color-link--hover);
   }
 }
 
@@ -482,11 +125,12 @@ span {
 }
 
 small {
+  // FYI: Dropping below 12px results in a11y pentalty.
   font-family: $brand-font--body;
   font-size: 14px;
 
-  @include mq-max(xl) {
-    font-size: 14px;
+  @include mq-max(lg) {
+    font-size: 12px;
   }
 }
 
@@ -501,8 +145,17 @@ video {
   height: auto;
 }
 
-ul {
+ul,
+menu {
   list-style: none;
+}
+
+figure {
+  font-size: 0; // Chrome's user agent stylesheet adds 1em padding-block-end
+}
+
+fieldset {
+  border: none;
 }
 
 hr {
@@ -510,10 +163,10 @@ hr {
   width: 100%;
   height: 1px;
   background: var(--color-font--primary);
-}
 
-figure {
-  font-size: 0; // Chrome's user agent stylesheet adds 1em padding-block-end
+  &.hr--gradient {
+    @include gradient-divider;
+  }
 }
 
 // Partials
@@ -521,3 +174,61 @@ figure {
 // .hero {
 
 // }
+
+#grid-bg {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  pointer-events: none;
+
+  @include mq-mouse {
+    opacity: 0.25;
+  }
+
+  @include mq-touch {
+    opacity: 0.5;
+  }
+}
+
+.grid-show {
+  @include column-center;
+  gap: 24px;
+  height: 120vh;
+
+  p {
+    max-width: 950px;
+    text-align: center;
+    text-wrap: balance;
+  }
+}
+
+// Libary
+
+.style-guide__heading {
+  margin-block: 48px;
+}
+
+ul:has(code),
+ol:has(code) {
+  code {
+    font-size: 14px;
+  }
+}
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-font--primary);
+  background: var(--color-surface--1);
+  padding: 4px 8px;
+  border-radius: var(--radius--sm);
+
+  @include mq-min(md) {
+    white-space: nowrap; // avoid lengthy code strings. Causes overflow scroll.
+  }
+
+  &.codearea {
+    display: inline-block;
+    padding: 12px 16px;
+  }
+}

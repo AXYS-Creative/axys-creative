@@ -1,0 +1,437 @@
+$message-font-size: 14px;
+$tooltip-text-underline-offset: 0.5ch;
+$tooltip-void: 12px; // gap between trigger and message bubble
+$tooltip-bubble-translate-distance: 12px;
+
+$bubble-point-size: 16px; // keep divisible by 4
+$bubble-point-size-half: $bubble-point-size / 2;
+$bubble-point-size-quart: $bubble-point-size-half / 2;
+
+$point-rotate-bottom: 135deg;
+$point-rotate-top: -45deg;
+$point-rotate-left: -135deg;
+$point-rotate-right: 45deg;
+$point-shift: 15%; // How much extends out, 50% is max
+$point-radius: 2px;
+
+$mq-swap: lg; // When to move right and left bubbles above or below
+
+@mixin tooltip-text-decoration {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-brand--secondary);
+  text-underline-offset: $tooltip-text-underline-offset;
+}
+
+// Component (fixed)
+.tooltip {
+  $icon-size: 20px;
+  $message-offset: calc(100% + $tooltip-void);
+
+  position: relative;
+  display: inline-block;
+
+  @mixin message-top {
+    bottom: $message-offset;
+    left: 50%;
+    translate: -50% $tooltip-bubble-translate-distance;
+    text-align: center;
+
+    &:hover {
+      translate: -50% 0;
+    }
+
+    &::after {
+      bottom: 0;
+      left: 50%;
+      translate: -50% $point-shift;
+      rotate: $point-rotate-bottom;
+    }
+    &::before {
+      // helper for hovering message bubble (across gap)
+      margin-block-end: -$tooltip-void;
+    }
+  }
+
+  @mixin message-top-right {
+    bottom: $message-offset;
+    left: 0;
+    translate: -$bubble-point-size-quart $tooltip-bubble-translate-distance;
+
+    &:hover {
+      translate: -$bubble-point-size-quart 0;
+    }
+
+    &::after {
+      bottom: 0;
+      left: $bubble-point-size-half;
+      translate: 0 $point-shift;
+      rotate: $point-rotate-bottom;
+    }
+    &::before {
+      // helper for hovering message bubble (across gap)
+      margin-block-end: -$tooltip-void;
+    }
+  }
+
+  @mixin message-top-left {
+    bottom: $message-offset;
+    right: 0;
+    translate: $bubble-point-size-quart $tooltip-bubble-translate-distance;
+
+    &:hover {
+      translate: $bubble-point-size-quart 0;
+    }
+
+    &::after {
+      bottom: 0;
+      right: $bubble-point-size-half;
+      translate: 0 $point-shift;
+      rotate: $point-rotate-bottom;
+    }
+    &::before {
+      // helper for hovering message bubble (across gap)
+      margin-block-end: -$tooltip-void;
+    }
+  }
+
+  @mixin message-bottom {
+    top: $message-offset;
+    left: 50%;
+    translate: -50% #{-$tooltip-bubble-translate-distance}; // interpolate so it's not 0 - 12px
+    text-align: center;
+
+    &:hover {
+      translate: -50% 0;
+    }
+
+    &::after {
+      top: 0;
+      left: 50%;
+      translate: -50% #{-$point-shift};
+      rotate: $point-rotate-top;
+    }
+    &::before {
+      // helper for hovering message bubble (across gap)
+      margin-block-start: -$tooltip-void;
+    }
+  }
+
+  @mixin message-bottom-right {
+    top: $message-offset;
+    left: 0;
+    translate: -$bubble-point-size-quart #{-$tooltip-bubble-translate-distance};
+
+    &:hover {
+      translate: -$bubble-point-size-quart 0;
+    }
+
+    &::after {
+      top: 0;
+      left: $bubble-point-size-half;
+      translate: 0 #{-$point-shift};
+      rotate: $point-rotate-top;
+    }
+    &::before {
+      // helper for hovering message bubble (across gap)
+      margin-block-start: -$tooltip-void;
+    }
+  }
+
+  @mixin message-bottom-left {
+    top: $message-offset;
+    right: 0;
+    translate: $bubble-point-size-quart #{-$tooltip-bubble-translate-distance};
+
+    &:hover {
+      translate: $bubble-point-size-quart 0;
+    }
+
+    &::after {
+      top: 0;
+      right: $bubble-point-size-half;
+      translate: 0 #{-$point-shift};
+      rotate: $point-rotate-top;
+    }
+    &::before {
+      // helper for hovering message bubble (across gap)
+      margin-block-start: -$tooltip-void;
+    }
+  }
+
+  &__btn {
+    padding: 0;
+    cursor: help;
+
+    &:hover + .tooltip__message,
+    &:focus + .tooltip__message {
+      @include show-content;
+
+      @include mq-min($mq-swap) {
+        &--top,
+        &--bottom {
+          translate: -50% 0;
+        }
+        &--top-right,
+        &--bottom-right {
+          translate: -$bubble-point-size-quart 0;
+        }
+        &--top-left,
+        &--bottom-left {
+          translate: $bubble-point-size-quart 0;
+        }
+        &--right,
+        &--left {
+          translate: 0 -50%;
+        }
+      }
+
+      @include mq-max($mq-swap) {
+        // Not including right or left on mobile since it will likely flow off the page
+        &--mobile-top,
+        &--mobile-bottom {
+          translate: -50% 0;
+        }
+        &--mobile-top-right,
+        &--mobile-bottom-right {
+          translate: -$bubble-point-size-quart 0;
+        }
+        &--mobile-top-left,
+        &--mobile-bottom-left {
+          translate: $bubble-point-size-quart 0;
+        }
+      }
+    }
+
+    &-text {
+      @include tooltip-text-decoration;
+      padding-inline: 0.5ch;
+    }
+
+    &-icon {
+      display: inline-block;
+      width: $icon-size;
+      height: $icon-size;
+      aspect-ratio: 1;
+    }
+  }
+
+  &__message {
+    @include hide-content;
+    position: absolute;
+
+    background: var(--color-surface--1);
+    padding: var(--padding-btn);
+    border-radius: var(--radius--btn);
+    width: 100vw;
+    text-align: start;
+    z-index: 1;
+    transition: $ease;
+
+    &:hover {
+      @include show-content;
+    }
+
+    &::before {
+      // helper for hovering message bubble (across gap)
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    p {
+      font-size: $message-font-size;
+    }
+
+    @include mq-min($mq-swap) {
+      &--top {
+        @include message-top;
+      }
+      &--top-right {
+        @include message-top-right;
+      }
+      &--top-left {
+        @include message-top-left;
+      }
+      &--bottom {
+        @include message-bottom;
+      }
+      &--bottom-right {
+        @include message-bottom-right;
+      }
+      &--bottom-left {
+        @include message-bottom-left;
+      }
+      &--right {
+        left: $message-offset;
+        top: 50%;
+        translate: -$tooltip-bubble-translate-distance -50%;
+
+        &:hover {
+          translate: 0 -50%;
+        }
+        &::after {
+          top: 50%;
+          left: 0;
+          translate: -$point-shift -50%;
+          rotate: $point-rotate-left;
+        }
+        &::before {
+          // helper for hovering message bubble (across gap)
+          margin-inline-start: -$tooltip-void;
+        }
+      }
+      &--left {
+        right: $message-offset;
+        top: 50%;
+        translate: $tooltip-bubble-translate-distance -50%;
+        text-align: center;
+
+        &:hover {
+          translate: 0 -50%;
+        }
+
+        &::after {
+          top: 50%;
+          right: 0;
+          translate: $point-shift -50%;
+          rotate: $point-rotate-right;
+        }
+        &::before {
+          // helper for hovering message bubble (across gap)
+          margin-inline-end: -$tooltip-void;
+        }
+      }
+    }
+
+    @include mq-max($mq-swap) {
+      &--mobile-top {
+        @include message-top;
+      }
+      &--mobile-bottom {
+        @include message-bottom;
+      }
+      &--mobile-top-right {
+        @include message-top-right;
+      }
+      &--mobile-top-left {
+        @include message-top-left;
+      }
+      &--mobile-bottom-right {
+        @include message-bottom-right;
+      }
+      &--mobile-bottom-left {
+        @include message-bottom-left;
+      }
+    }
+
+    &--lg {
+      max-width: 650px;
+
+      @include mq-max(lg) {
+        max-width: 450px;
+      }
+      @include mq-max(md) {
+        max-width: 360px;
+      }
+      @include mq-max(sm) {
+        max-width: 250px;
+      }
+    }
+    &--md {
+      max-width: 420px;
+
+      @include mq-max(md) {
+        max-width: 360px;
+      }
+      @include mq-max(sm) {
+        max-width: 250px;
+      }
+    }
+    &--sm {
+      max-width: 250px;
+    }
+    &--xs {
+      max-width: 140px;
+    }
+  }
+
+  &--include-point {
+    .tooltip__message::after {
+      // bubble point
+      content: "";
+      border-top: $bubble-point-size solid var(--color-surface--1);
+      border-left: $bubble-point-size solid transparent;
+      border-bottom: none;
+      background: inherit;
+      position: absolute;
+      // modifiers handle placement
+      pointer-events: none;
+      border-radius: $point-radius;
+      z-index: -1;
+    }
+  }
+}
+
+// Util (Follows mouse)
+.tooltip-util {
+  @include tooltip-text-decoration;
+  cursor: help;
+}
+
+// Appended with mouse-cursor.njk
+.tooltip-util-message {
+  @include hide-content;
+  position: fixed;
+  top: 0;
+  background: var(--color-surface--1);
+  border-radius: var(--radius--btn);
+  padding: var(--padding-btn);
+  font-size: $message-font-size;
+  transition: $ease;
+
+  &.active {
+    opacity: 1;
+  }
+
+  // Viewport zones/quadrants
+  $offset: 20px;
+  $default-position: $offset $offset;
+
+  &.top-left {
+    translate: $default-position;
+  }
+
+  &.top {
+    translate: -50% $offset;
+  }
+
+  &.top-right {
+    translate: calc(-100% - $offset) $offset;
+  }
+
+  &.left {
+    translate: $default-position;
+  }
+
+  &.center {
+    translate: -50% $offset;
+  }
+
+  &.right {
+    translate: calc(-100% - $offset) $offset;
+  }
+
+  &.bottom-left {
+    translate: $offset calc(-100% - $offset);
+  }
+
+  &.bottom {
+    translate: -50% calc(-100% - $offset);
+  }
+
+  &.bottom-right {
+    translate: calc(-100% - $offset) calc(-100% - $offset);
+  }
+}

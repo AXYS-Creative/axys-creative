@@ -1,22 +1,22 @@
 import "./util.js";
+import "./global/loader.js";
 
 import "./global/animations.js";
-import "./global/background.js";
 import "./global/header.js";
-import "./global/loader.js";
-import "./global/nav.js";
+import "./global/footer.js";
 import "./global/scroll.js";
 
-import "./library/advanced.js";
-import "./library/accordion.js";
-import "./library/buttons.js";
-import "./library/carousel-hero.js";
-import "./library/carousel-swiper.js";
-import "./library/form-feedback.js";
-import "./library/form-redirect.js";
-import "./library/grid-flow-img.js";
-import "./library/magnet.js";
-import "./library/mouse-cursor.js";
-import "./library/tabs.js";
-import "./library/theme-toggle.js";
-import "./library/video-overlay.js";
+import "./components/accordion.js";
+import "./components/alert.js";
+import "./components/buttons.js";
+import "./components/scroll-progress.js";
+import "./components/tooltip.js";
+
+import "./utils/clipboard-copy.js";
+import "./utils/dots-fill.js";
+import "./utils/magnet.js";
+import "./utils/mouse-cursor.js";
+import "./utils/tabs.js";
+import "./utils/theme-toggle.js";
+import "./utils/toggle-slider.js";
+import "./utils/velocity-push.js";

@@ -1,0 +1,112 @@
+// Libary display
+.alert-section {
+  &__group {
+    @include row-center(flex-start);
+    gap: var(--section-gap);
+
+    @include mq-max(md) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+.alert {
+  --alert-spacing: var(--spacing--xs);
+  --icon-size: 2ch;
+
+  @include row-center;
+  gap: var(--alert-spacing);
+  background-color: var(--color-surface--1);
+  padding: var(--alert-spacing);
+  position: fixed;
+  bottom: var(--spacing--sm);
+  right: var(--spacing--sm);
+  max-width: 420px;
+  border-radius: var(--radius--xs);
+  z-index: $z-index--alert;
+  translate: 0 200%;
+  transition: 0.5s cubic-bezier(0.75, -0.05, 0.75, -0.5) 0.125s;
+
+  &:has(.alert__close-btn) {
+    @include mq-min(sm) {
+      min-width: 296px;
+    }
+
+    .alert-content {
+      margin-inline-end: auto;
+    }
+  }
+
+  @include mq-max(sm) {
+    width: calc(100% - calc(var(--spacing--sm) * 2));
+  }
+
+  &-content {
+    @include column-start;
+    gap: var(--alert-spacing);
+    margin-inline-end: var(--spacing--xs);
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__message {
+      opacity: 0.85;
+    }
+
+    &__links {
+      @include row-center;
+      gap: var(--alert-spacing);
+    }
+  }
+
+  &__icon {
+    background: var(--accent-color, var(--color-font--primary));
+    width: var(--icon-size);
+    height: var(--icon-size);
+  }
+
+  // Modifiers
+
+  &[data-alert-type="success"] {
+    --accent-color: #{$green};
+  }
+
+  &[data-alert-type="info"] {
+    --accent-color: #{$blue};
+  }
+
+  &[data-alert-type="warning"] {
+    --accent-color: #{$yellow};
+  }
+
+  &[data-alert-type="error"] {
+    --accent-color: #{$red};
+  }
+
+  &[aria-hidden="false"] {
+    translate: 0 0;
+    transition: 0.5s cubic-bezier(0.25, 1.5, 0.25, 1.05);
+  }
+
+  &--has-content {
+    align-items: flex-start;
+  }
+
+  &--left-border {
+    border-left: 6px solid var(--accent-color);
+  }
+
+  &--timer {
+    .alert-timer {
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background: var(--accent-color);
+      // border-radius: var(--radius--xs) var(--radius--xs) 0 0;
+    }
+  }
+}

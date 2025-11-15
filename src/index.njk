@@ -3,71 +3,34 @@ layout: app
 path: home
 ---
 
-<section class="hero full-screen-section">
-  {% set section_title_glitch = page_home.hero.section_title_glitch %}
-
-  <h1 class="hero__title">
-    <span
-      class="glitch-text glitch-cycle"
-      data-glitch-cycle-words="{{ section_title_glitch.words }}"
-      data-glitch-cycle-colors="{{ section_title_glitch.colors }}"
-      data-glitch-cycle-interval="{{ section_title_glitch.interval }}"
-      aria-hidden="true"
-    ></span>
-    {{ page_home.hero.section_title }}
-  </h1>
-  <small class="hero__desc">{{ page_home.hero.section_desc }}</small>
-  <!-- prettier-ignore -->
-  {% set content_start = true %}
-  {% set cta_1 = page_home.hero.cta_1 %}
-  {% set cta_2 = page_home.hero.cta_2 %}
-  {% include "./_includes/components/cta-group.njk" %}
-</section>
+<!-- prettier-ignore -->
+{% set axys_hero = playground.section_hero %}
+{% include "./_includes/sections/axys-hero.njk" %}
 
 <!-- prettier-ignore -->
-{% set marquee = global.marquee.marquee %}
-{% include "./_includes/components/marquee.njk" %}
+{% set scroll_horizontal = ({
+  title: '',
+  desc: '',
+  message: true
+}) %} 
+{% include './_includes/sections/axys-scroll-horizontal.njk' %}
 
-<section class="section-work" id="section-work">
-  <h2>
-    Our
-    <span class="glitch-scroll color--work">Work</span>
-  </h2>
-  <p class="text-balance">
-    We diligently collaborate with our clients to create exceptional experiences
-    for their audiences.
-  </p>
-</section>
 <!-- prettier-ignore -->
-{% set hs_title = page_home.scroll_horizontal.title %} 
-{% set hs_desc = page_home.scroll_horizontal.desc %}
-{% set hs_message = page_home.scroll_horizontal.message %}
-{% set hs_imgs = page_home.scroll_horizontal.imgs %}
-{% set hs_img_parallax = page_home.scroll_horizontal.img_parallax %}
-{% include './_includes/components/scroll-horizontal.njk' %}
+{% set work_gallery = playground.section_work %}
+{% include "./_includes/sections/axys-work.njk" %}
 
 <!-- prettier-ignore  -->
-{% set scroll_stack_data = page_home.scroll_stack %}
-{% include './_includes/components/scroll-stack.njk' %}
+{% set scroll_stack = playground.section_scroll_stack %}
+{% include './_includes/sections/axys-scroll-stack.njk' %}
 
-<!-- prettier-ignore  -->
-{% set price_cards_data = page_home.price_cards %}
-{% include './_includes/components/price-cards.njk' %}
+<!-- prettier-ignore -->
+{% set plan_selection = playground.section_plans %}
+{% include './_includes/sections/axys-plans.njk' %}
 
-<section class="section-faq section-thin" id="section-faq">
-  <h2 class="section-faq__title">
-    {{ page_home.section_faq.title }}
-  </h2>
-  <p>
-    {{ page_home.section_faq.desc }}
-  </p>
-  <!-- prettier-ignore -->
-  {% set accordion_data = page_home.section_faq.accordion %}
-  {% include './_includes/components/accordion.njk' %}
+<!-- prettier-ignore -->
+{% set faq_section = playground.section_faq %}
+{% include './_includes/sections/axys-faq-section.njk' %}
 
-  <!-- prettier-ignore -->
-  {% set cta_1 = page_home.section_faq.cta_1 %}
-  {% include "./_includes/components/cta-group.njk" %}
-</section>
-
-{% include './_includes/partials/loader.njk' %}
+<!-- prettier-ignore -->
+{% set marquee = library.marquee.marquee_2 %}
+{% include './_includes/library/components/marquee.njk' %}

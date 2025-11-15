@@ -1,0 +1,65 @@
+<!-- prettier-ignore -->
+{% set a11y_tab = '' %}
+
+{% if tab_nav %}
+  {% set a11y_tab = 'tab-element-nav' %}
+{% else %}
+  {% set a11y_tab = 'tab-element-page' %}
+{% endif %}
+
+{% set mod_class = '' %}
+
+{% if toggle_slider %}
+  {% set mod_class = mod_class + " toggle-slider" %}
+{% endif %}
+
+
+{% if menu_links %}
+<menu
+  class="
+    menu-links 
+    cursor-hide 
+    {{ menu_links_class }}
+    {{ mod_class }}
+  "
+  aria-label="navigation links"
+>
+  <!-- prettier-ignore -->
+  {% for menu_link in menu_links %}
+  {% set is_active = (menu_link.path == path) %}
+  {% set has_children = menu_link.inner_links %}
+  {% set has_active_child = false %}
+
+  {% if has_children %}
+    {% for child in menu_link.inner_links %}
+      {% if child.path == path %} 
+        {% set has_active_child = true %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <!-- prettier-ignore -->
+  <li
+    class="
+    menu-links__li
+    {% if toggle_slider %}menu-link__option{% endif %} 
+    {% if is_active or has_active_child %} option-active{% endif %}
+    "
+  >
+    <!-- prettier-ignore -->
+    {% if has_children %} 
+      {% set dropdown_link = menu_link %} 
+      {% include "./dropdown-link.njk" %} 
+    {% else %} 
+      {% set btn = menu_link %} 
+      {% include "./btn.njk" %} 
+    {% endif %}
+  </li>
+  {% endfor %}
+
+  <!-- prettier-ignore -->
+  {% if toggle_slider %}
+  <li class="menu-links__slider"></li>
+  {% endif %}
+</menu>
+{% endif %}

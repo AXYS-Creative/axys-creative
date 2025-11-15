@@ -1,5 +1,4 @@
-import { tabElementsPage } from "../global/nav.js";
-import { headerLogo, menuBtn } from "../global/header.js";
+import { headerLogoLink, menuBtn, tabElementsPage } from "../global/header.js";
 import { lenis } from "../util.js";
 
 const videoOverlay = document.querySelector(".video-overlay"),
@@ -8,81 +7,80 @@ const videoOverlay = document.querySelector(".video-overlay"),
 
 const videoToggle = document.querySelectorAll(".video-toggle");
 
-let nonVideoOverlayTabElements = [...tabElementsPage, headerLogo, menuBtn];
+const nonVideoOverlayTabElements = [
+  ...tabElementsPage,
+  headerLogoLink,
+  menuBtn,
+];
 
+videoPlayer?.setAttribute("tabindex", "-1");
 videoCloseBtn?.setAttribute("tabindex", "-1");
 
 // For Dropbox, replace end of link's string to allow video embed
 if (videoToggle) {
   videoToggle.forEach((btn) => {
-    const updatedSrc = btn.getAttribute("data-src").replace("dl=0", "raw=1");
-    btn.setAttribute("data-src", updatedSrc);
+    const updatedSrc = btn
+      .getAttribute("data-vid-src")
+      .replace("dl=0", "raw=1");
+    btn.setAttribute("data-vid-src", updatedSrc);
   });
 }
 
-export let isvideoOverlayOpen = false;
-
-export const openvideoOverlay = (src) => {
-  isvideoOverlayOpen = true;
-
-  videoOverlay.setAttribute("aria-hidden", !isvideoOverlayOpen);
-  videoOverlay.classList.remove("video-overlay--inactive");
+export const openVideoOverlay = (src) => {
+  videoOverlay.setAttribute("aria-hidden", "false");
+  videoOverlay.hidden = false;
 
   if (src) videoPlayer.src = src; // Inject video source
 
   videoCloseBtn.focus();
 
   videoOverlay.setAttribute("tabindex", "0");
+  videoPlayer.setAttribute("tabindex", "0");
   videoCloseBtn.setAttribute("tabindex", "0");
-  nonVideoOverlayTabElements.forEach((el) => el.setAttribute("tabindex", "-1"));
+  nonVideoOverlayTabElements.forEach((el) =>
+    el?.setAttribute("tabindex", "-1")
+  );
 
   lenis.stop();
-
-  // // Notify other modules about the state change (from old sunder site)
-  // document.dispatchEvent(
-  //   new CustomEvent("videoOverlayStateChange", {
-  //     detail: isvideoOverlayOpen,
-  //   })
-  // );
 };
 
 videoToggle?.forEach((btn) => {
-  let vidSrc = btn.getAttribute("data-src");
+  let vidSrc = btn.getAttribute("data-vid-src");
 
   btn.addEventListener("click", () => {
-    openvideoOverlay(vidSrc);
+    openVideoOverlay(vidSrc);
+    btn.setAttribute("aria-expanded", "true");
   });
 });
 
-export const closevideoOverlay = () => {
-  isvideoOverlayOpen = false;
-
+export const closeVideoOverlay = () => {
   videoOverlay.setAttribute("aria-hidden", "true");
-  videoOverlay.classList.add("video-overlay--inactive");
+  videoOverlay.hidden = true;
+
+  videoToggle?.forEach((btn) => {
+    btn.setAttribute("aria-expanded", "false");
+    btn.focus(); // Since overlay exists outside of main, this helps restore focus when closing overlay (vs going to footer)
+  });
+
+  videoPlayer.pause();
 
   setTimeout(() => {
-    videoPlayer.src = ""; // Remove src to stop the video
+    videoPlayer.removeAttribute("src");
+    videoPlayer.load();
   }, 300);
 
   videoOverlay.setAttribute("tabindex", "-1");
   videoCloseBtn.setAttribute("tabindex", "-1");
-  nonVideoOverlayTabElements.forEach((el) => el.setAttribute("tabindex", "0"));
+  nonVideoOverlayTabElements.forEach((el) => el?.setAttribute("tabindex", "0"));
 
   lenis.start();
-
-  // // Notify other modules about the state change
-  // document.dispatchEvent(
-  //   new CustomEvent("videoOverlayStateChange", {
-  //     detail: isvideoOverlayOpen,
-  //   })
-  // );
 };
 
 // Close the video player when clicking outside the embed
 videoOverlay?.addEventListener("click", (e) => {
   if (e.target.classList.contains("video-overlay")) {
-    closevideoOverlay();
+    closeVideoOverlay();
   }
 });
 
-videoCloseBtn?.addEventListener("click", () => closevideoOverlay());
+videoCloseBtn?.addEventListener("click", () => closeVideoOverlay());

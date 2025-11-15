@@ -2,11 +2,12 @@
   $gap-offset: 0.5ch; // inline padding start and in-between duplicate span
 
   @include h2; // Setting font here to use ch units above
-  @include section-padding;
+  line-height: 1.5;
   padding-inline: 0;
   overflow: hidden;
   // width: 100vw; // causing x overflow scroll?
   width: 100%;
+  // max-width: $content-width; // Clip at content-width
   margin: auto;
 
   // The slider
@@ -16,10 +17,21 @@
     width: fit-content;
     // will-change: transform; // use sparingly.
 
-    // nested siblings (should have two divs/spans)
+    .alternate-img {
+      display: inline-block;
+      transition: $ease;
+    }
+
+    &:nth-of-type(odd) {
+      .alternate-img {
+        // rotate: 180deg;
+        transform: scaleX(-1);
+      }
+    }
+
+    // nested targets (should have two divs/spans)
     &__split {
       @include inherit-font;
-      line-height: 100%;
       text-wrap: nowrap;
       display: inline-flex;
       gap: $gap-offset;
@@ -43,6 +55,20 @@
 
       img {
         height: 100%;
+      }
+    }
+  }
+
+  &--alternated {
+    .alternate-img {
+      // rotate: 180deg;
+      transform: scaleX(-1);
+    }
+
+    .marquee-inner:nth-of-type(odd) {
+      .alternate-img {
+        // rotate: 0deg;
+        transform: scaleX(1);
       }
     }
   }

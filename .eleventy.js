@@ -32,10 +32,8 @@ module.exports = async function (eleventyConfig) {
       const url = item.url || "";
       const inputPath = item.inputPath || "";
 
-      const isAdmin =
-        url.startsWith("/admin/") || inputPath.includes("/admin/");
-      const isEmails =
-        url.startsWith("/emails/") || inputPath.includes("/emails/");
+      const isAdmin = url.startsWith("/admin/") || inputPath.includes("/admin/");
+      const isEmails = url.startsWith("/emails/") || inputPath.includes("/emails/");
       const is404 = url.includes("404");
       const isFormSubmit = url.includes("form-submit");
       const isStyleGuide = url.includes("style-guide");
@@ -87,6 +85,12 @@ module.exports = async function (eleventyConfig) {
     return value.replace(/\[%.*?%\]/g, "");
   });
 
+  // Slugfiy paths (see app.njk <main> tag — useful for nested pathnames: '/library/advanced' becomes '.main-library-advanced')
+  eleventyConfig.addFilter("slugifyPath", function (path) {
+    if (typeof path !== "string") return "";
+    return path.replace(/\//g, "-");
+  });
+
   // Token Replacement at build time vs client (prevent tokens from showing up briefly)
   eleventyConfig.addTransform("tokenReplace", function (content, outputPath) {
     if (outputPath && outputPath.endsWith(".html")) {
@@ -101,18 +105,15 @@ module.exports = async function (eleventyConfig) {
             }
           )
           // Handle self-closing tokens like [%br.class%]
-          .replace(
-            /\[\%(\/?)(\w+)(?:\.([\w\- ]+))?\%\]/g,
-            (match, slash, tag, className) => {
-              if (slash) {
-                return `</${tag}>`;
-              }
-
-              const classAttr = className ? ` class="${className}"` : "";
-              const ariaHidden = tag === "br" ? ` aria-hidden="true"` : "";
-              return `<${tag}${classAttr}${ariaHidden}>`;
+          .replace(/\[\%(\/?)(\w+)(?:\.([\w\- ]+))?\%\]/g, (match, slash, tag, className) => {
+            if (slash) {
+              return `</${tag}>`;
             }
-          )
+
+            const classAttr = className ? ` class="${className}"` : "";
+            const ariaHidden = tag === "br" ? ` aria-hidden="true"` : "";
+            return `<${tag}${classAttr}${ariaHidden}>`;
+          })
       );
     }
     return content;

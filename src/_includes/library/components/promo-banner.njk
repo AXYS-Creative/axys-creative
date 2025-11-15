@@ -1,0 +1,39 @@
+{% set message = promo_banner_data.message or '' %}
+{% set close_on_click = promo_banner_data.close_on_click or false %}
+{% set btn_url = promo_banner_data.btn_url %}
+{% set marquee_data = promo_banner_data.marquee %}
+{% set initial_hide = promo_banner_data.initial_hide or 0 %}
+{% set modifiers = promo_banner_data.modifiers or [] %}
+
+{% set classList = 'promo-banner' %}
+{% for mod in modifiers %}
+{% set classList = classList + ' promo-banner--' + mod %}
+{% endfor %}
+
+{% set dataDelay = '' %}
+{% if initial_hide %}
+  {% set dataDelay = 'data-initial-hide=' + initial_hide %}
+{% endif %}
+
+{% if btn_url %}
+  <a href="{{ btn_url }}" class="{{ classList }}" {{ dataDelay }} aria-live="polite">
+{% elseif close_on_click %}
+  <button class="{{ classList }} promo-banner--close-on-click" {{ dataDelay }} aria-live="polite">
+{% else %}
+  <div class="{{ classList }}" {{ dataDelay }} aria-live="polite" role="banner">
+{% endif %}
+
+  {% if marquee_data %}
+    {% set marquee = marquee_data %}
+    {% include "./marquee.njk" %}
+  {% else %}
+    <p class="promo-banner__message">{{ message | safe }}</p>
+  {% endif %}
+
+{% if btn_url and not close_on_click %}
+  </a>
+{% elseif close_on_click %}
+  </button>
+{% else %}
+  </div>
+{% endif %}

@@ -1,0 +1,33 @@
+# Set to 2 orbits
+# between 3 - 6 badges (widget)
+
+orbit_image: /static/img/library/img-sample-1.jpg
+orbits:
+  - orbit_ring:
+      badges:
+        - text: Creative
+          icon: /static/img/library/icon-google-palette.svg
+        - text: Responsive
+          icon: /static/img/library/icon-google-mobile.svg
+        - text: Accessible
+          icon: /static/img/library/icon-google-accessible.svg
+        - text: Engaging
+          icon: /static/img/library/icon-google-target.svg
+        - text: Speedy
+          icon: /static/img/library/icon-google-bolt.svg
+        - text: Unlimited
+          icon: /static/img/library/icon-google-infinity.svg
+      orbit_ring:
+        badges:
+          - text: HTML5
+            icon:
+          - text: CSS3/SCSS
+            icon:
+          - text: JavaScript
+            icon:
+          - text: HTML5
+            icon:
+          - text: CSS3/SCSS
+            icon:
+          # - text: JavaScript
+          #   icon:

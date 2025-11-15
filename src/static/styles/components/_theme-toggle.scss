@@ -1,0 +1,60 @@
+.theme-toggle {
+  @include row-center;
+  gap: 8px;
+
+  &__option {
+    position: relative;
+    @include row-center;
+    padding: 6px;
+    border-radius: var(--radius--xs);
+    cursor: pointer;
+    transition: $ease;
+
+    &:hover {
+      background: rgba(darkslategrey, 0.25);
+    }
+
+    &:has(input:focus-visible) {
+      @include a11y-focus;
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__icon {
+    background-color: var(--color-font--primary);
+    width: 16px;
+    pointer-events: none;
+    transition: $ease;
+
+    &--desktop {
+      display: none;
+
+      // @include mq-mouse
+      @include mq-min(lg) {
+        display: block;
+      }
+    }
+
+    &--mobile {
+      display: none;
+
+      // @include mq-touch
+      @include mq-max(lg) {
+        display: block;
+      }
+    }
+  }
+
+  &.toggle-slider--solid,
+  .toggle-slider {
+    --toggle-padding: 2px;
+    --toggle-radius: 4px;
+    --toggle-radius--inner: calc(var(--toggle-radius) - var(--toggle-padding));
+    --option-padding: 4px; // btn size
+  }
+}

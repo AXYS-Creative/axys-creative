@@ -1,0 +1,63 @@
+show_skip_to_content: true
+float: false
+glass: false
+
+logo: true
+
+# menu-links.njk
+menu_links:
+  - text: Home
+    url: "/"
+    path: "home"
+    new_tab: false
+    type: underline
+    class: menu-links__link btn--split-text
+  - text: Blog
+    url: "/blog"
+    path: "archive-blog"
+    new_tab: false
+    type: underline
+    class: menu-links__link btn--split-text
+
+link_placement: center # start | center | end
+
+cta_1:
+  text: Browse Plans
+  text_desc:
+  url: "https://axyscreative.com"
+  new_tab: true
+  type: outline # visit _btn.scss for all types
+  class: btn--split-text
+  attributes: "data-hover-alt"
+  # icon_end: /static/img/library/icon-google-chevron-right.svg
+  # icon_start: /static/img/library/icon-google-info-circle.svg
+
+cta_2:
+  text: Client Login
+  # text_desc:
+  url: "https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
+  icon_end: ""
+  new_tab: true
+  type: underline
+  class: btn--split-text
+  attributes: 'data-test-1=no-quotes data-test-2="with-quotes"'
+
+# mobile nav specific content
+lock_body_scroll: true # nav.njk Locks body scroll when nav is open
+
+nav_btn:
+  text: menu
+  symbol: burger # burger | chocolate | kebab
+  shape: square # square | round
+  # display: md # Dev use only
+
+nav_footer:
+  links:
+    - text: Privacy Policy
+      url: "/privacy-policy"
+      new_tab: false
+    - text: Terms of Service
+      url: "/terms-of-service"
+      new_tab: false
+  social_media: true
+  admin_login: true

@@ -1,0 +1,81 @@
+<!-- props -->
+<!-- prettier-ignore -->
+{% set text = btn.text or '' %}
+{% set text_desc = btn.text_desc or '' %}
+{% set url = btn.url or '' %}
+{% set new_tab = btn.new_tab or false %}
+{% set type = btn.type or 'text' %}
+{% set size = btn.size or 'md' %}
+{% set class = btn.class or '' %}
+{% set attributes = btn.attributes or '' %}
+{% set icon_start = btn.icon_start or '' %}
+{% set icon_end = btn.icon_end or '' %}
+{% set icon_end_class = btn.icon_end_class or '' %}
+{% set icon_circle = btn.icon_circle or false %}
+
+<!-- prettier-ignore -->
+{% if type == 'icon-end' %}
+  {% set icon_end = '/static/img/library/icon-google-chevron-right.svg' %}
+{% endif %}
+
+{% set element_to_use = 'button' %}
+{% if url %}
+{% set element_to_use = 'a' %}
+{% endif %}
+
+{% if not text %}
+  {% set class = class + ' btn--icon-only' %}
+{% endif %}
+
+{% set size_class = '' %}
+{% if size == 'sm' %}
+  {% set size_class = 'btn-size--sm' %}
+{% endif %}
+
+<!-- prettier-ignore -->
+<{{element_to_use}}
+  class="btn btn-type--{{ type }} {{ class }} {{size_class}} {{a11y_tab or 'tab-element-page'}}"
+  {%if content_start %}
+    id="content-start"
+  {%endif%}
+  {%if url %}
+    href="{{ url }}"
+  {%endif%}
+  {%if url and new_tab%}
+    target="_blank" rel="noopener noreferrer"
+  {%endif%}
+  {% if not text or text_desc %}
+    aria-label="{{ text_desc or 'no text, please provide a text_desc' }}"
+  {% endif %}
+  {% if attributes %}
+    {{ attributes | safe }}
+  {% endif %}
+>
+  {% if icon_start %}
+    {% set icon_svg = ({ src: icon_start, class: 'btn__icon-start' }) %}
+    {% include "./icon-svg.njk" %}
+  {% endif %}
+
+  {% if text %}
+    <span class="btn__text">{{ text }}</span>
+  {% endif %}
+  {% if icon_end or type == 'icon_end' %}
+  <span class="btn__icon-group {{ icon_end_class }}">
+    {% set icon_svg = ({ src: icon_end, class: 'btn__icon-end'}) %}
+    {% include "./icon-svg.njk" %}
+
+    {% if icon_circle %}
+      <svg
+        class="btn__icon-circle"
+        viewBox="0 0 48 48"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M24.014 1C36.7101 1.00759 47 11.3021 47 24C47 36.7025 36.7025 47 24 47C11.2975 47 1 36.7025 1 24C1 11.3021 11.2899 1.00759 23.986 1"
+        ></path>
+      </svg>
+    {% endif %}
+  </span>
+  {% endif %}
+</{{element_to_use}}>

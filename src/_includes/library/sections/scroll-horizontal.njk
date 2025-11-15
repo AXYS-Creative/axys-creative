@@ -1,0 +1,62 @@
+<!-- prettier-ignore -->
+{% set title = scroll_horizontal.title or '' %} 
+{% set desc = scroll_horizontal.desc or '' %}
+{% set message = scroll_horizontal.message or '' %}
+{% set imgs = scroll_horizontal.imgs or [] %}
+{% set img_parallax = scroll_horizontal.img_parallax or true %}
+
+{% set modifier_class = '' %} 
+{% if message %} 
+  {% set modifier_class = modifier_class + ' scroll-horizontal--message' %} 
+{% endif %}
+
+{% set img_parallax_class = '' %} 
+{% if img_parallax %} 
+  {% set img_parallax_class = 'scroll-horizontal__figure--parallax' %} 
+{% endif %}
+
+<section class="scroll-horizontal {{ modifier_class }}">
+  <div class="scroll-horizontal__pin">
+    {% if title or desc %}
+    <header class="scroll-horizontal__header">
+      {% if title %}
+      <h2 class="scroll-horizontal__header-title">{{ title }}</h2>
+      {% endif %}
+
+      <!-- prettier-ignore -->
+      {% if desc %}
+      <p class="scroll-horizontal__header-desc">{{ desc }}</p>
+      {% endif %}
+    </header>
+    {% endif %}
+
+    <div class="scroll-horizontal__container">
+      <div class="scroll-horizontal__slider gsap-stagger">
+        <!-- prettier-ignore -->
+        {% if imgs %} 
+          {% for img in imgs %}
+        <figure
+          class="figure scroll-horizontal__figure {{ img_parallax_class }} gsap-stagger-child"
+        >
+          <img src="{{ img.src }}" alt="" />
+          <figcaption class="scroll-horizontal__figure-caption">
+            <h3>
+              {{ img.title }}
+            </h3>
+            •
+            <small>
+              {{ img.desc }}
+            </small>
+          </figcaption>
+        </figure>
+        <!-- prettier-ignore -->
+        {% endfor %} 
+        {% endif %}
+  
+        {% if message %}
+        <h3 class="scroll-horizontal__message">{{ message | safe }}</h3>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
