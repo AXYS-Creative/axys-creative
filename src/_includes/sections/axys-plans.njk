@@ -44,7 +44,7 @@
         place_sm: 'bottom-left',
         include_point: true
       }) %}
-      {% include "../library/components/tooltip.njk" %}
+      {% include "../components/tooltip.njk" %}
     </div>
     {% endif %}
 
@@ -99,7 +99,7 @@
           <li>
             <!-- prettier-ignore -->
             {% set icon_svg = ({
-              src: '/static/img/library/icon-google-check-circle.svg', 
+              src: '/static/img/icons/icon-google-check-circle.svg', 
               class: '' 
             }) %}
             {% include "../components/icon-svg.njk" %}
@@ -120,7 +120,7 @@
           <!-- prettier-ignore -->
           {% set btn = ({
             text: plan.cta_monthly.text,
-            icon_end: '/static/img/library/icon-google-new-tab.svg',
+            icon_end: '/static/img/icons/icon-google-new-tab.svg',
             url: plan.cta_monthly.url,
             type: 'solid',
             class: 'btn--split-text',
@@ -133,7 +133,7 @@
           <!-- prettier-ignore -->
           {% set btn = ({
             text: plan.cta_quarterly.text,
-            icon_end: '/static/img/library/icon-google-new-tab.svg',
+            icon_end: '/static/img/icons/icon-google-new-tab.svg',
             url: plan.cta_quarterly.url,
             type: 'solid',
             class: 'btn--split-text',
@@ -148,7 +148,7 @@
           id: plan.noise.id,
           color: plan.noise.color
         }) %}
-        {% include "../library/components/noise.njk" %}
+        {% include "../components/noise.njk" %}
         {% endif %}
       </div>
       {% endfor %}

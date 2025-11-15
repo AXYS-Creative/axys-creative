@@ -1,0 +1,9 @@
+text: Where elegant [%span.text-stroke%]design[%span%] meets modern [%span.text-stroke%]development[%span%]. [%span.alternate-img%]→[%span%] Where elegant [%span.text-stroke%]design[%span%] meets modern [%span.text-stroke%]development[%span%]. [%span.alternate-img%]→[%span%]
+# imgs:
+count: 2
+scroll_alternate: true
+velocity: 5
+speed: 60
+speed_md: 30
+speed_sm: 25
+scrub: false

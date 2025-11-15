@@ -12,9 +12,21 @@ menu_links:
     new_tab: false
     type: underline
     class: menu-links__link btn--split-text
-  - text: Blog
-    url: "/blog"
-    path: "archive-blog"
+  - text: Membership
+    url: "/membership"
+    path: "membership"
+    new_tab: false
+    type: underline
+    class: menu-links__link btn--split-text
+  - text: Contact
+    url: "/contact"
+    path: "contact"
+    new_tab: false
+    type: underline
+    class: menu-links__link btn--split-text
+  - text: Tokens
+    url: "/tokens"
+    path: "tokens"
     new_tab: false
     type: underline
     class: menu-links__link btn--split-text
@@ -29,8 +41,8 @@ cta_1:
   type: outline # visit _btn.scss for all types
   class: btn--split-text
   attributes: "data-hover-alt"
-  # icon_end: /static/img/library/icon-google-chevron-right.svg
-  # icon_start: /static/img/library/icon-google-info-circle.svg
+  # icon_end: /static/img/icons/icon-google-chevron-right.svg
+  # icon_start: /static/img/icons/icon-google-info-circle.svg
 
 cta_2:
   text: Client Login

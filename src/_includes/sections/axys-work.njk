@@ -29,7 +29,7 @@
         <a
           href="{{ item.url }}"
           class="work-gallery__figure-link cursor-content glitch-trigger"
-          data-cursor-icon="/static/img/library/icon-google-arrow-tr.svg"
+          data-cursor-icon="/static/img/icons/icon-google-arrow-tr.svg"
           data-cursor-icon-size="md"
           data-cursor-class="cursor-content-1"
           data-glitch-target="glitch-target__work-gallery-caption"
@@ -39,7 +39,7 @@
             text: ''~item.year~'',
             type: 'glass'
           }) %}
-          {% include "../library/components/badge.njk" %}
+          {% include "../components/badge.njk" %}
           <img class="work-gallery__figure-img" src="{{ item.img.src }}" alt="" />
         </a>
         <figcaption

@@ -8,7 +8,7 @@
   // width: 100vw; // causing x overflow scroll?
   width: 100%;
   // max-width: $content-width; // Clip at content-width
-  margin: auto;
+  margin: 0 auto var(--body-padding-double);
 
   // The slider
   &-inner {

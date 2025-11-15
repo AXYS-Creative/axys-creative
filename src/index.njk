@@ -4,7 +4,7 @@ path: home
 ---
 
 <!-- prettier-ignore -->
-{% set axys_hero = playground.section_hero %}
+{% set axys_hero = page_home.section_hero %}
 {% include "./_includes/sections/axys-hero.njk" %}
 
 <!-- prettier-ignore -->
@@ -16,21 +16,22 @@ path: home
 {% include './_includes/sections/axys-scroll-horizontal.njk' %}
 
 <!-- prettier-ignore -->
-{% set work_gallery = playground.section_work %}
+{% set work_gallery = page_home.section_work %}
 {% include "./_includes/sections/axys-work.njk" %}
 
 <!-- prettier-ignore  -->
-{% set scroll_stack = playground.section_scroll_stack %}
+{% set scroll_stack = page_home.section_scroll_stack %}
 {% include './_includes/sections/axys-scroll-stack.njk' %}
 
 <!-- prettier-ignore -->
-{% set plan_selection = playground.section_plans %}
+{% set plan_selection = page_home.section_plans %}
 {% include './_includes/sections/axys-plans.njk' %}
 
 <!-- prettier-ignore -->
-{% set faq_section = playground.section_faq %}
+{% set faq_section = page_home.section_faq %}
 {% include './_includes/sections/axys-faq-section.njk' %}
 
 <!-- prettier-ignore -->
-{% set marquee = library.marquee.marquee_2 %}
-{% include './_includes/library/components/marquee.njk' %}
+{% set marquee = global.marquee %}
+
+{% include './_includes/components/marquee.njk' %}

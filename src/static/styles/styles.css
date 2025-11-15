@@ -6543,7 +6543,7 @@ body[data-body-loading-complete] .hero-simple.home-hero .cta-group {
   padding-inline: 0;
   overflow: hidden;
   width: 100%;
-  margin: auto;
+  margin: 0 auto var(--body-padding-double);
 }
 @media (max-width: 768px) {
   .marquee {

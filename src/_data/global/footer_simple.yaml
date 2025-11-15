@@ -11,47 +11,32 @@ linkset_1:
     url: "/"
     new_tab: false
     type: underline
-  - text: Blog
-    url: "/blog"
+  - text: Portfolio
+    url: "/"
+    new_tab: false
+    type: underline
+  - text: Contact
+    url: "/contact"
     new_tab: false
     type: underline
   - text: Style Guide
     url: "/style-guide"
     new_tab: false
     type: underline
-  - text: Playground
-    url: "/playground"
-    new_tab: false
-    type: underline
-  # - text: Library
-  #   icon: "/static/img/library/icon-google-chevron-down.svg"
-  #   trigger_class: btn--underline
-  #   inner_links:
-  #     - text: Components
-  #       url: "/library/components"
-  #       new_tab: false
 
-linkset_2_title: Library
+linkset_2_title: Membership
 linkset_2:
-  - text: Utility Classes
-    url: "/library/utils"
-    new_tab: false
+  - text: Benefits
+    url: "https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
+    new_tab: true
     type: underline
-  - text: Components
-    url: "/library/components"
-    new_tab: false
+  - text: Pricing
+    url: "/tokens"
+    new_tab: true
     type: underline
-  - text: Combos
-    url: "/library/combos"
-    new_tab: false
-    type: underline
-  - text: Sections
-    url: "/library/sections"
-    new_tab: false
-    type: underline
-  - text: Advanced
-    url: "/library/advanced"
-    new_tab: false
+  - text: FAQ
+    url: "/tokens"
+    new_tab: true
     type: underline
 
 linkset_3_title: Client Links
@@ -74,7 +59,7 @@ divider_width_full: false
 #   url: "#"
 #   class: "back-to-top"
 #   type: underline
-#   icon_end: /static/img/library/icon-google-chevron-up.svg
+#   icon_end: /static/img/icons/icon-google-chevron-up.svg
 
 # copyright: ""
 
