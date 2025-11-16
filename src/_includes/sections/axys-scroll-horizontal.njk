@@ -16,20 +16,10 @@
 {% endif %}
 
 <section class="scroll-horizontal {{ modifier_class }}">
+  <div class="scroll-horizontal__mobile-container">
+    <h2>This should show on mobile!</h2>
+  </div>
   <div class="scroll-horizontal__pin">
-    {% if title or desc %}
-    <header class="scroll-horizontal__header">
-      {% if title %}
-      <h2 class="scroll-horizontal__header-title">{{ title }}</h2>
-      {% endif %}
-
-      <!-- prettier-ignore -->
-      {% if desc %}
-      <p class="scroll-horizontal__header-desc">{{ desc }}</p>
-      {% endif %}
-    </header>
-    {% endif %}
-
     <div class="scroll-horizontal__container">
       <div class="scroll-horizontal__slider gsap-stagger">
         <!-- prettier-ignore -->
@@ -54,7 +44,7 @@
         {% endif %}
   
         {% if message %}
-        <h3 class="scroll-horizontal__message">
+        <h2 class="scroll-horizontal__message">
           <span class="sanity-check split-chars sh-split-chars-1"> We </span>
           <span class="split-chars sh-split-chars-2">are</span>
           <span class="split-chars sh-split-chars-3 text-stroke">committed</span>
@@ -78,12 +68,11 @@
           </span>
           <span class="split-chars sh-split-chars-7"> experiences </span>
           <span class="color--coral pin-spin__star">✦</span>
-        </h3>
+        </h2>
         {% endif %}
       </div>
     </div>
   </div>
-
   <div class="scroll-horizontal__pin-steps pin-steps" aria-hidden="true">
     {% for i in range(0, 8) %}
     <div

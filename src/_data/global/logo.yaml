@@ -2,7 +2,7 @@
 theme_src: # Works with theme-toggle.njk
   light: /static/img/icons/axys-logo-full-dark.svg
   dark: /static/img/icons/axys-logo-full-light.svg
-text: Sample Business
+text: axys creative
 url: /
 new_tab: false
 class: cursor-hide

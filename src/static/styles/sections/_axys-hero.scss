@@ -156,7 +156,7 @@
       height: 40vw;
       max-width: 650px;
       max-height: 650px;
-      filter: blur(7px);
+      filter: blur(7px) brightness(2);
       // opacity: 0.5;
 
       @include mq-max(lg) {

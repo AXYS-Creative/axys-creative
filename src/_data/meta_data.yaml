@@ -1,5 +1,5 @@
-site_name: "Sample Business"
-url: "https://starter-template-cms.netlify.app" # CHANGE ME #Ensure no end slash
+site_name: "axys creative"
+url: "https://axyscreative-dev.netlify.app" # CHANGE ME #Ensure no end slash
 author: Sample Author
 contact_email: info@sample.com
 theme_color: "#000000"
@@ -7,7 +7,7 @@ favicon_light_theme: "/static/img/favicon-dark.svg"
 favicon_dark_theme: "/static/img/favicon-light.svg"
 
 defaults:
-  title: "Sample Business | Motto Here"
+  title: "axys creative | Motto Here"
   description: "Open Graph Description Here"
   crawl_page: true
   og_image: "/static/img/og-image.png"
@@ -15,23 +15,23 @@ defaults:
 page_details:
   - path: ""
     label: Home
-    title: Home | Business Name
-    description: Home page description
+    title: axys creative | Unlimited web design + development services
+    description: We specialize in designing and developing unique websites made for user experience, accessibility, performance, and search engine optimization.
     crawl_page: true
     og_image: "/static/img/og-image-alt.png"
-  - path: blog
-    label: Blog
-    title: Blog | Business Name
-    description: Blog description
+  - path: membership
+    label: Membership
+    title: Membership | axys creative
+    description: Membership description
     crawl_page: true
   - path: library/components
     label: Components
-    title: Components | Business Name
+    title: Components | axys creative
     description: The UI component library and utility collection.
     crawl_page: true
   - path: style-guide
     label: Style Guide
-    title: Style Guide | Business Name
+    title: Style Guide | axys creative
     description: Style guide description...
     crawl_page: false
   - path: "404"

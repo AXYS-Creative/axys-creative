@@ -125,6 +125,12 @@ $min-breakpoints: ();
   @include mq-max(md) {
     font-size: 56px;
   }
+  @include mq-max(sm) {
+    font-size: 48px;
+  }
+  @include mq-max(xs) {
+    font-size: 40px;
+  }
 }
 @mixin h2 {
   @include font-styles--heading($sz: 48px);
@@ -133,12 +139,18 @@ $min-breakpoints: ();
   @include mq-max(md) {
     font-size: 36px;
   }
+  @include mq-max(sm) {
+    font-size: 32px;
+  }
 }
 @mixin h3 {
   @include font-styles--heading($sz: 40px);
 
   @include mq-max(md) {
     font-size: 28px;
+  }
+  @include mq-max(sm) {
+    font-size: 24px;
   }
 }
 @mixin h4 {
@@ -147,6 +159,9 @@ $min-breakpoints: ();
   @include mq-max(md) {
     font-size: 24px;
   }
+  @include mq-max(sm) {
+    font-size: 20px;
+  }
 }
 @mixin h5 {
   @include font-styles--heading($sz: 24px);
@@ -154,6 +169,9 @@ $min-breakpoints: ();
 
   @include mq-max(md) {
     font-size: 20px;
+  }
+  @include mq-max(sm) {
+    font-size: 18px;
   }
 }
 @mixin h6 {

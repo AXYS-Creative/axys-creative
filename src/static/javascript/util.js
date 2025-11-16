@@ -1,4 +1,4 @@
-export const root = document.documentElement; // See portfolio for examples
+export const root = document.documentElement;
 
 export const mqMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 export const mqMotionAllow = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
@@ -11,10 +11,6 @@ export const mqMaxMd = window.matchMedia("(max-width: 768px)").matches;
 export const lenis = new Lenis({
   autoRaf: true,
 });
-
-//
-// Library DELETE ME
-//
 
 // Global config shared everywhere
 export const globalConfig = {
@@ -51,28 +47,6 @@ export const cubicBezier = (p0, p1, p2, p3) => {
   };
 };
 
-// Back to top
-export const btnBackToTop = document.querySelector(".btn-back-to-top"); // floating page button
-{
-  const returnToTop = document.querySelectorAll(".back-to-top"),
-    logo = document.querySelector(".site-header .site-logo");
-
-  const customEase = cubicBezier(0.6, 0, 0.25, 1);
-
-  returnToTop.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      lenis.scrollTo(0, {
-        duration: 1.5,
-        easing: customEase,
-      });
-
-      logo.focus({ preventScroll: true });
-    });
-  });
-}
-
 // Browser Check
 export const isSafari = () => {
   const ua = navigator.userAgent.toLowerCase();
@@ -91,18 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
   currentYearElements.forEach((currentYearElement) => {
     currentYearElement.textContent = currentYear;
     currentYearElement.setAttribute("datetime", currentYear);
-  });
-}
-
-// Dropbox video url fix
-{
-  document.querySelectorAll("video").forEach((vid) => {
-    const src = vid.getAttribute("src");
-
-    if (src && src.includes("dropbox")) {
-      const updatedSrc = src.replace("dl=0", "raw=1");
-      vid.setAttribute("src", updatedSrc);
-    }
   });
 }
 
@@ -165,17 +127,17 @@ const setViewportUnits = (() => {
 //
 // Title change on tab move
 //
-{
-  const originalTitle = document.title;
+// {
+//   const originalTitle = document.title;
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      document.title = "👋 Hey, come back!";
-    } else {
-      document.title = originalTitle;
-    }
-  });
-}
+//   document.addEventListener("visibilitychange", () => {
+//     if (document.hidden) {
+//       document.title = "👋 Hey, come back!";
+//     } else {
+//       document.title = originalTitle;
+//     }
+//   });
+// }
 
 console.clear();
 console.log("visit axyscreative.com for more info");

@@ -5,9 +5,9 @@ backend:
   repo: "https://github.com/AXYS-Creative/starter-template-cms.git" # CHANGE ME
 media_folder: src/static/img
 public_folder: /static/img
-site_url: https://starter-template-cms.netlify.app # CHANGE ME # On admin login page, this adds a 'go back to site' link. Also added in the corner when logged in.
-display_url: https://starter-template-cms.netlify.app # CHANGE ME # In admin dashboard, this adds the URL in the corner 'View Live'. Used with 'preview_path' for collection viewing.
-logo_url: https://starter-template-cms.netlify.app/static/img/icons/admin-logo.svg # CHANGE ME # On admin login page, this adds a custom logo.
+site_url: https://axyscreative-dev.netlify.app # CHANGE ME # On admin login page, this adds a 'go back to site' link. Also added in the corner when logged in.
+display_url: https://axyscreative-dev.netlify.app # CHANGE ME # In admin dashboard, this adds the URL in the corner 'View Live'. Used with 'preview_path' for collection viewing.
+logo_url: https://axyscreative-dev.netlify.app/static/img/icons/admin-logo.svg # CHANGE ME # On admin login page, this adds a custom logo.
 
 # Please run "npx netlify-cms-proxy-server" for local backend
 local_backend: true
@@ -449,7 +449,7 @@ collections:
             label: Site Name
             widget: string
             required: true
-            hint: Sample Business Co
+            hint: axys creative Co
           - name: url
             label: URL
             widget: string

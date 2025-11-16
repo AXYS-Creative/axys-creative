@@ -34,7 +34,7 @@ menu_links:
 link_placement: center # start | center | end
 
 cta_1:
-  text: Browse Plans
+  text: View Plans
   text_desc:
   url: "https://axyscreative.com"
   new_tab: true

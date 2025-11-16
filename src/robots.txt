@@ -4,4 +4,4 @@ Disallow: /404.html
 Disallow: /form-submit.html
 
 # CHANGE ME
-Sitemap: https://starter-template-cms.netlify.app/sitemap.xml
+Sitemap: https://axyscreative-dev.netlify.app/sitemap.xml

@@ -1,5 +1,5 @@
 cta_1:
-  text: Browse Plans
+  text: View Plans
   type: solid
   text_desc: Visit our component library
   url: /library/components
@@ -8,7 +8,7 @@ cta_1:
   # icon_start: /static/img/icons/icon-google-copy.svg
   # icon_end: /static/img/icons/icon-google-chevron-right.svg
 cta_2:
-  text: Explore Portfolio
+  text: Our Work
   text_desc: Get started with AXYS Creative
   url: https://axyscreative.com/
   new_tab: true
