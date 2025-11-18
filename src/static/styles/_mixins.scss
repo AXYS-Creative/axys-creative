@@ -110,7 +110,7 @@ $min-breakpoints: ();
 // FYI: Dropping below 12px results in a11y pentalty.
 //
 
-@mixin font-styles--heading($sz: 72px, $wt: 300, $lh: 1.1, $ls: -1px) {
+@mixin font-styles--heading($sz: 72px, $wt: 300, $lh: 1.11, $ls: -1px) {
   color: var(--color-font--primary);
   font-family: var(--font-family--heading);
   font-size: $sz;
@@ -134,7 +134,6 @@ $min-breakpoints: ();
 }
 @mixin h2 {
   @include font-styles--heading($sz: 48px);
-  opacity: 0.75;
 
   @include mq-max(md) {
     font-size: 36px;
@@ -201,7 +200,7 @@ $min-breakpoints: ();
 
     line-height: 1.5;
 
-    @include mq-max(sm) {
+    @include mq-max(md) {
       --font-size: 18px;
     }
   }
@@ -818,7 +817,7 @@ $min-breakpoints: ();
   }
 }
 
-@mixin gradient-border($deg: 10deg, $col-1: var(--color-border-gradient), $col-2: transparent) {
+@mixin gradient-border($deg: 135deg, $col-1: var(--color-border-gradient), $col-2: transparent) {
   position: relative;
 
   &::before {

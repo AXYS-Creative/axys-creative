@@ -4,6 +4,7 @@
 
   @include width-clamp;
   @include section-padding;
+  padding-block-end: 0;
 
   position: relative;
 
@@ -88,18 +89,19 @@
   }
 
   &__panel {
-    @include gradient-border(45deg);
+    @include gradient-border;
     @include column-start(flex-start);
     gap: var(--section-gap);
     position: absolute;
     // See component modifiers for placement
-    border: 1px solid var(--color-border);
+    // border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius--sm);
     height: max($panel-height, 400px);
     width: calc(100% - var(--body-padding-double));
     padding: var(--body-padding);
     transform-origin: top center;
-    background: var(--color-background);
+    // background: var(--color-background);
+    background: var(--color-surface--1);
     // background: rgba($black, 0.75);
     // backdrop-filter: blur(4px);
     // transform-origin: bottom center;
@@ -154,8 +156,8 @@
 
     // Panel linger options — May need to adjust the Stack Link highlight
     // gap: 320px; // all but last panel linger
-    padding-bottom: 480px; // Last panel linger
-    // padding-block: 320px;
+    // padding-bottom: 480px; // Last panel linger
+    padding-block: 64px 128px;
 
     .pin-step {
       scroll-margin-top: -24px;

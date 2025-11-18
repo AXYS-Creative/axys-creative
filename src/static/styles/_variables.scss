@@ -4,30 +4,29 @@ $brand-font--heading: "Funnel Display", source-sans-pro, sans-serif;
 $brand-font--body: "Funnel Display", source-sans-pro, sans-serif;
 $brand-font--mono: "Geist Mono", source-sans-pro, sans-serif;
 
-$black: #0a0a0a;
-$grey-darker: #212121;
-$grey-dark: #313131;
-$grey: #c0c0c0;
-$grey-light: #e0e0e0;
-$grey-lighter: #e7e7e7;
-$white: #fafafa;
+$black: #101010;
+// $grey-darker: #212121;
+$grey-dark: #1e1e1e;
+$grey: #3d3d3d;
+$grey-light: #909090;
+// $grey-lighter: #e7e7e7;
+$white: #f0f0f0;
 
 $coral: #e48c66;
-$red: #dc143c;
-$blue: #ada4e3;
+$red: #f82a58;
+$blue: #7ec1d4;
 $green: #a4d1a2;
-$yellow: #fdfd96;
+$yellow: #fbfaa2;
+$pink: #e1a7b4;
 
 $content-width: 1364px;
 
 // Layering
 $z-index--nav: 3;
 $z-index--header: 4;
-$z-index--btn-back-to-top: 1; // Library DELETE ME
 $z-index--alert: 2; // // // //  Library DELETE ME
 $z-index--scroll-progress: 2; // Library DELETE ME
 $z-index--loader: 5; // // // // Library DELETE ME
-$z-index--video-overlay: 5; // / Library DELETE ME
 $z-index--mouse-cursor: 10; // / Library DELETE ME
 
 // Easing
@@ -71,9 +70,16 @@ $test-bg: rgba(navy, 0.75);
   --color-brand--secondary: #{$blue};
   --color-brand--tertiary: #{$green};
 
+  // Used in data- props
+  --color-brand--coral: #{$coral};
+  --color-brand--blue: #{$blue};
+  --color-brand--green: #{$green};
+  --color-brand--yellow: #{$yellow};
+  --color-brand--pink: #{$pink};
+
   --color-font--error: #{$red};
 
-  // --color-border: #{$grey-light};
+  --color-border: #{$grey};
 
   --color-btn-bg: var(--color-brand--primary);
   --color-btn-bg--hover: transparent;
@@ -99,6 +105,7 @@ $test-bg: rgba(navy, 0.75);
   --spacing: 24px;
   --spacing--lg: 48px;
   --spacing--xl: 96px;
+  --spacing--xxl: 180px;
 
   --section-gap--sm: 12px;
   --section-gap: 24px;
@@ -111,7 +118,7 @@ $test-bg: rgba(navy, 0.75);
   --radius--xs: 4px;
   --radius--btn: var(--radius--xs);
 
-  --max-width--text: 650px;
+  --max-width--text: 450px;
 
   // header
   --header-children-height: 32px;
@@ -132,13 +139,9 @@ $test-bg: rgba(navy, 0.75);
   }
 }
 
-// axys root
-:root {
-  --max-width--text: 450px;
-}
-
 // Theme Toggle
 @mixin light-theme {
+  --color-dots-logo: #{$black};
   --color-background: #{$white};
   --color-background-alt: #fff;
   --color-font--primary: #{$black};
@@ -149,14 +152,15 @@ $test-bg: rgba(navy, 0.75);
   // --color-link--hover: #{$white};
 
   --color-surface--1: #{$grey-light};
-  --color-surface--2: #{$grey-lighter};
+  // --color-surface--2: #{$grey-lighter};
 
-  --color-border: #{$grey-light};
+  // --color-border: #{$grey-light};
   --color-border-gradient: rgba(0, 0, 0, 0.5); // Library
   --color-glass-frost: rgba(255, 255, 255, 0.25); // Library
 }
 
 @mixin dark-theme {
+  --color-dots-logo: #{$coral};
   --color-background: #{$black};
   --color-background-alt: #000;
   --color-font--primary: #{$white};
@@ -167,9 +171,9 @@ $test-bg: rgba(navy, 0.75);
   // --color-link--hover: #{$white};
 
   --color-surface--1: #{$grey-dark};
-  --color-surface--2: #{$grey-darker};
+  // --color-surface--2: #{$grey-darker};
 
-  --color-border: #{$grey-dark};
+  // --color-border: #{$grey-dark};
   --color-border-gradient: rgba(255, 255, 255, 0.5); // Library
   --color-glass-frost: rgba(0, 0, 0, 0.25); // Library
 }

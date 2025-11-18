@@ -80,132 +80,363 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
         "--body-padding"
       );
 
-      // Utility
-      // Shuffle an array in place (used for grid-fade)
-      function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
-      }
-
       // Track loader state
       let loaderHasCompleted = false;
       window.addEventListener("loader:complete", () => {
         loaderHasCompleted = true;
       });
 
-      // Library - Lift any desired code blocks out, then delete from production
+      // GSAP SplitText utility // Custom animations — require dev work (Consider placement of code block. Sometimes may need to be placed above or beneath others)
       {
-        // Page specific scrollTrigger fix (delay refresh)
-        // if (document.querySelector(".main-library")) {
-        //   window.addEventListener("load", () => {
-        //     setTimeout(() => {
-        //       ScrollTrigger.refresh();
-        //     }, 500); // try 200–500ms if needed
-        //   });
-        // }
+        const splitTextElements = document.querySelectorAll(".split-text");
 
-        // Glitch Text (Uses gsap scrambleText) TODO: Consider making shared configs across glitch effects, e.g. data-glitch-chars could be used for all instances.
-        {
-          let alphaNumberic = "0123456789abcedfghijklmnopqrstuvwxyz";
-          // const glitchTextElems = document.querySelectorAll(".glitch-text");
+        splitTextElements.forEach((el) => {
+          const splitType = el.dataset.splitType || "words"; // e.g. "words", "chars", "lines", "words,chars"
+          const customClass = el.dataset.splitClass || "";
 
-          // glitchTextElems.forEach((el) => {
-          //   setTimeout(() => {
-          //     // Helps with preventing inline shifting (center aligned text)
-          //     const width = el.offsetWidth;
-          //     el.style.width = `${width}px`;
-          //   }, 1000);
-          // });
+          const types = splitType.split(",").map((t) => t.trim());
+          const config = {
+            type: splitType, // SplitText accepts "words,chars" etc.
+            tag: "span",
+          };
 
-          // Scroll-based glitch
-          document.querySelectorAll(".glitch-scroll").forEach((el) => {
-            const originalText = el.textContent;
-            const chars = el.dataset.glitchChars || "upperAndLowerCase";
-            const revealDelay = parseFloat(el.dataset.glitchRevealDelay) || 0.05;
-            const duration = parseFloat(el.dataset.glitchDuration) || 0.75;
-            const playOnceAttr = el.dataset.glitchOnce;
-            const playOnce = playOnceAttr === "true"; // Default is false (repeat), only true if explicitly set
-            const glitchTrigger = el.dataset.glitchTrigger || el; // Requires . or #
-            const glitchStart = el.dataset.glitchStart || "top 98%";
-            const glitchEnd = el.dataset.glitchEnd || "bottom 2%"; // Only on "playOnce = false"
-            const glitchMarkers = el.dataset.glitchMarkers === "true";
+          if (types.includes("chars")) {
+            config.charsClass = `${customClass} split-text__char++`;
+          }
 
-            if (playOnce) {
-              // 🔁 Play once on scroll
-              gsap
-                .timeline({
-                  scrollTrigger: {
-                    trigger: glitchTrigger,
-                    start: glitchStart,
-                    once: true,
-                    markers: glitchMarkers,
-                  },
-                })
-                .to(el, {
-                  scrambleText: {
-                    text: originalText,
-                    chars,
-                    revealDelay,
-                  },
-                  duration,
-                });
-            } else {
-              // 🔁 Repeat on scroll in both directions
-              const animateScramble = () => {
-                el.textContent = originalText;
+          if (types.includes("words")) {
+            config.wordsClass = `${customClass} split-text__word++`;
+          }
 
-                gsap.to(el, {
-                  scrambleText: {
-                    text: originalText,
-                    chars,
-                    revealDelay,
-                  },
-                  duration,
-                });
-              };
+          if (types.includes("lines")) {
+            config.linesClass = `${customClass} split-text__line++`;
+          }
 
-              gsap.to(el, {
+          new SplitText(el, config);
+        });
+      }
+
+      // Scroll Horizontal (pinned section) NEEDS TO BE BELOW 'split-text' util for desktop animation (the word 'building')
+      {
+        const scrollHorizontal = document.querySelectorAll(".scroll-horizontal");
+
+        let scrollHorizontalScrub = 0.75;
+
+        scrollHorizontal.forEach((el) => {
+          let container = el.querySelector(".scroll-horizontal__container");
+          let pin = el.querySelector(".scroll-horizontal__pin");
+          let slider = el.querySelector(".scroll-horizontal__slider");
+
+          const sliderWidth = slider.scrollWidth;
+          const containerWidth = container.offsetWidth;
+          const distanceToTranslate = sliderWidth - containerWidth;
+
+          let duration = maxSm ? "+=150%" : "+=200%";
+
+          // Actual Pinning
+          gsap.to(pin, {
+            scrollTrigger: {
+              trigger: pin,
+              start: "center center",
+              end: duration,
+              pin: true,
+            },
+          });
+
+          // Slider Along X-Axis
+          gsap.fromTo(
+            slider,
+            { x: 0 },
+            {
+              x: () => -distanceToTranslate,
+              ease: "none",
+              scrollTrigger: {
+                trigger: pin,
+                start: "center center",
+                end: duration,
+                scrub: scrollHorizontalScrub,
+              },
+            }
+          );
+
+          // Individual words animation
+          const wordDistance = "-150%";
+
+          gsap.from(".sh-word-1", {
+            y: wordDistance,
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-1",
+              start: "-10% center",
+              end: "140% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          gsap.from(".sh-word-2", {
+            y: wordDistance,
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-1",
+              start: "0 center",
+              end: "150% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          gsap.from(".sh-word-3", {
+            y: wordDistance,
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-1",
+              start: "10% center",
+              end: "160% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          gsap.from(".sh-word-4", {
+            y: wordDistance,
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-1",
+              start: "20% center",
+              end: "170% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          // Letter animations
+          const letterStagger = 0.05;
+
+          // word "building"
+          const tlBuilding = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-2",
+              start: "top center",
+              end: "225% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          tlBuilding.from(".sh-word-5 .split-text__char", {
+            y: "120%",
+            opacity: 0,
+            ease: "back.out(1)",
+            stagger: {
+              each: letterStagger,
+            },
+          });
+
+          // word "enjoyable"
+          const tlEnjoyable = gsap.timeline({
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-3",
+              start: "25% center",
+              end: "275% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          tlEnjoyable.from(".sh-word-6 .split-text__char", {
+            y: "120%",
+            opacity: 0,
+            ease: "back.out(1)",
+            stagger: {
+              each: letterStagger,
+            },
+          });
+
+          // icon animations
+          gsap.from(".sh-icon-mobile", {
+            y: "-96px",
+            rotate: "-32deg",
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-6",
+              start: "top center",
+              end: "bottom center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          gsap.from(".sh-icon-desktop", {
+            y: "-96px",
+            rotate: "32deg",
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-6",
+              start: "20% center",
+              end: "120% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+
+          gsap.from(".sh-icon-star", {
+            y: "-96px",
+            rotate: "32deg",
+            opacity: 0,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".scroll-horizontal__pin-step-6",
+              start: "20% center",
+              end: "120% center",
+              scrub: scrollHorizontalScrub,
+            },
+          });
+        });
+      }
+
+      // Scroll Stack — Duration and Delays can be controls via pin-steps in _scroll-stack.scss
+      {
+        const scrollStackSections = document.querySelectorAll(".scroll-stack");
+
+        let panelToTop = maxSm ? "96px" : "200px"; // Match with $panel-to-top in _scroll-stack.scss
+        let panelScrub = 0.5;
+
+        scrollStackSections.forEach((section) => {
+          const panels = section.querySelectorAll(".scroll-stack__panel");
+          const pinContainer = section.querySelector(".scroll-stack__pin");
+          const pinSteps = section.querySelectorAll(".scroll-stack__pin-step");
+
+          const stackDuration = `${panels.length * 80}%`;
+
+          // Pin the entire panel container
+          gsap.to(pinContainer, {
+            scrollTrigger: {
+              trigger: pinContainer,
+              start: `top ${bodyPadding}`,
+              end: stackDuration,
+              pin: true,
+            },
+          });
+
+          // Slide and scale panels
+          panels.forEach((panel, i) => {
+            const panelIndex = i + 1;
+            const nextPanel = panels[i + 1];
+            const triggerStep = section.querySelector(`.scroll-stack__pin-step-${panelIndex + 1}`);
+
+            if (!triggerStep || !nextPanel) return;
+
+            let startPoint = "top 112%";
+            let endPoint = "bottom 112%";
+
+            // Scale panels
+            gsap.fromTo(
+              `.scroll-stack__panel-${panelIndex}`,
+              { scale: 1 },
+              {
+                scale: 0.94,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: triggerStep,
+                  start: startPoint,
+                  end: endPoint,
+                  scrub: panelScrub,
+                },
+              }
+            );
+
+            // Slide in panels
+            gsap.fromTo(
+              `.scroll-stack__panel-${panelIndex + 1}`,
+              {
+                top: "120%",
+              },
+              {
+                top: panelToTop,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: triggerStep,
+                  start: startPoint,
+                  end: endPoint,
+                  scrub: panelScrub,
+                },
+              }
+            );
+          });
+
+          // Link highlight
+          if (document.querySelector(".scroll-stack__nav-link")) {
+            const stackLinks = document.querySelectorAll(".scroll-stack__nav-link");
+
+            pinSteps.forEach((marker, index) => {
+              const link = stackLinks[index];
+
+              ScrollTrigger.create({
+                trigger: marker,
+                start: "-30% top",
+                end: "50% top",
+                onEnter: () => link.classList.add("active"),
+                onEnterBack: () => link.classList.add("active"),
+                onLeave: () => link.classList.remove("active"),
+                onLeaveBack: () => link.classList.remove("active"),
+              });
+            });
+          }
+        });
+      }
+
+      // Glitch Text (Uses gsap scrambleText) TODO: Consider making shared configs across glitch effects, e.g. data-glitch-chars could be used for all instances.
+      {
+        let alphaNumberic = "0123456789abcedfghijklmnopqrstuvwxyz";
+        // const glitchTextElems = document.querySelectorAll(".glitch-text");
+
+        // glitchTextElems.forEach((el) => {
+        //   setTimeout(() => {
+        //     // Helps with preventing inline shifting (center aligned text)
+        //     const width = el.offsetWidth;
+        //     el.style.width = `${width}px`;
+        //   }, 1000);
+        // });
+
+        // Scroll-based glitch
+        document.querySelectorAll(".glitch-scroll").forEach((el) => {
+          const originalText = el.textContent;
+          const chars = el.dataset.glitchChars || "upperAndLowerCase";
+          const revealDelay = parseFloat(el.dataset.glitchRevealDelay) || 0.05;
+          const duration = parseFloat(el.dataset.glitchDuration) || 0.75;
+          const playOnceAttr = el.dataset.glitchOnce;
+          const playOnce = playOnceAttr === "true"; // Default is false (repeat), only true if explicitly set
+          const glitchTrigger = el.dataset.glitchTrigger || el; // Requires . or #
+          const glitchStart = el.dataset.glitchStart || "top 98%";
+          const glitchEnd = el.dataset.glitchEnd || "bottom 2%"; // Only on "playOnce = false"
+          const glitchMarkers = el.dataset.glitchMarkers === "true";
+
+          if (playOnce) {
+            // 🔁 Play once on scroll
+            gsap
+              .timeline({
                 scrollTrigger: {
                   trigger: glitchTrigger,
                   start: glitchStart,
-                  end: glitchEnd,
-                  onEnter: animateScramble,
-                  onEnterBack: animateScramble,
+                  once: true,
                   markers: glitchMarkers,
                 },
-              });
-            }
-          });
-
-          // Hover-based glitch
-          document.querySelectorAll(".glitch-hover").forEach((el) => {
-            // Decide what to glitch
-            const target = el.querySelector(".btn__text") || el;
-
-            const originalText = target.textContent;
-            const newText = el.dataset.glitchNewText;
-            const chars = el.dataset.glitchChars || "upperAndLowerCase";
-            const duration = parseFloat(el.dataset.glitchDuration) || 0.5;
-            const revealDelay = parseFloat(el.dataset.glitchRevealDelay) || 0.125;
-            const glitchOut = el.dataset.glitchOut === "true"; // Default is false (hover in, hover out)
-
-            // Prevent layout shift (measure width of target, not full button)
-            if (!newText) {
-              const width = target.scrollWidth;
-              target.style.display = "inline-block";
-
-              setTimeout(() => {
-                target.style.width = `${width}px`;
-              }, 1000);
-            }
-
-            const glitchTo = (text = originalText) => {
-              target.textContent = text; // Reset to base before scrambling
-              gsap.to(target, {
+              })
+              .to(el, {
                 scrambleText: {
-                  text,
+                  text: originalText,
+                  chars,
+                  revealDelay,
+                },
+                duration,
+              });
+          } else {
+            // 🔁 Repeat on scroll in both directions
+            const animateScramble = () => {
+              el.textContent = originalText;
+
+              gsap.to(el, {
+                scrambleText: {
+                  text: originalText,
                   chars,
                   revealDelay,
                 },
@@ -213,324 +444,248 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
               });
             };
 
-            el.addEventListener("mouseenter", () => glitchTo(newText));
-            el.addEventListener("focus", () => glitchTo(newText));
-
-            if (glitchOut || newText) {
-              el.addEventListener("mouseleave", () => glitchTo(originalText));
-              el.addEventListener("blur", () => glitchTo(originalText));
-            }
-          });
-
-          // Glitch Target, uses 'glitch-trigger' and 'glitch-target__arbitrary' — 'glitch-trigger' needs data-glitch-target attribute with the unique target class
-          document.querySelectorAll(".glitch-trigger").forEach((trigger) => {
-            const targetClass = trigger.dataset.glitchTarget;
-            if (!targetClass) return;
-
-            const wrapper = trigger.closest(".glitch-pair");
-            const target = wrapper?.querySelector(`.${targetClass}`);
-            if (!target) return;
-
-            if (!target.dataset.originalText) {
-              target.dataset.originalText = target.textContent;
-              target.style.display = "inline-block";
-
-              setTimeout(() => {
-                target.style.width = `${target.scrollWidth}px`;
-              }, 1000);
-            }
-
-            const runGlitch = () => {
-              const originalText = target.dataset.originalText;
-
-              target.textContent = originalText;
-
-              gsap.to(target, {
-                scrambleText: {
-                  text: originalText,
-                  chars: "upperAndLowerCase",
-                },
-                duration: 0.75,
-                revealDelay: 0.125,
-              });
-            };
-
-            trigger.addEventListener("mouseenter", runGlitch);
-            trigger.addEventListener("focus", runGlitch);
-          });
-
-          // Cycle-based glitch
-          document.querySelectorAll(".glitch-cycle").forEach((el) => {
-            const words = el.dataset.glitchCycleWords?.split(",").map((w) => w.trim()) || [];
-            const colorValues = el.dataset.glitchCycleColors?.split(",").map((c) => c.trim());
-            const hasColors = Array.isArray(colorValues) && colorValues.length > 0;
-
-            let index = 0;
-            const glitchCycleInterval = parseInt(el.dataset.glitchCycleInterval) || 2000;
-
-            if (words.length === 0) return;
-
-            const cycle = () => {
-              const color = hasColors ? colorValues[index % colorValues.length] : null;
-
-              gsap.to(el, {
-                scrambleText: {
-                  text: words[index],
-                  chars: alphaNumberic,
-                  duration: 1.25,
-                  revealDelay: 0.125,
-                },
-                color: color,
-                duration: 0.5,
-                onComplete: () => {
-                  index = (index + 1) % words.length;
-                  setTimeout(cycle, glitchCycleInterval);
-                },
-              });
-            };
-
-            cycle();
-          });
-
-          // Toggle-based glitch
-          {
-            const toggleBtns = document.querySelectorAll(".plan-selection__toggle-option");
-            const swapElems = document.querySelectorAll("[data-toggle-target]");
-
-            // store initial text
-            swapElems.forEach((el) => {
-              if (!el.dataset.toggleStart) {
-                el.dataset.toggleStart = el.textContent.trim();
-              }
-            });
-
-            const runGlitch = (el, newText) => {
-              if (!el) return;
-
-              el.textContent = newText;
-
-              gsap.to(el, {
-                scrambleText: {
-                  text: newText,
-                  chars: "0123456789#X%*",
-                  revealDelay: 0.125,
-                },
-                duration: 0.5,
-              });
-            };
-
-            toggleBtns.forEach((btn) => {
-              btn.addEventListener("click", () => {
-                toggleBtns.forEach((b) => b.setAttribute("aria-selected", "false"));
-                btn.setAttribute("aria-selected", "true");
-
-                const mode = btn.dataset.toggleOption; // "start" or "end"
-
-                swapElems.forEach((el) => {
-                  const newText = mode === "start" ? el.dataset.toggleStart : el.dataset.toggleEnd;
-                  if (newText) runGlitch(el, newText);
-                });
-              });
+            gsap.to(el, {
+              scrollTrigger: {
+                trigger: glitchTrigger,
+                start: glitchStart,
+                end: glitchEnd,
+                onEnter: animateScramble,
+                onEnterBack: animateScramble,
+                markers: glitchMarkers,
+              },
             });
           }
-        }
+        });
 
-        // // Parallax Util
-        // {
-        //   document.querySelectorAll(".parallax").forEach((el) => {
-        //     const dataY = el.dataset.parallaxY || "15%";
-        //     const dataScrub = parseFloat(el.dataset.parallaxScrub) || 1;
-        //     const dataStart = el.dataset.parallaxStart || "top bottom";
-        //     const dataEnd = el.dataset.parallaxEnd || "bottom top";
-        //     const dataHero = el.dataset.parallaxHero === "true";
+        // Hover-based glitch
+        document.querySelectorAll(".glitch-hover").forEach((el) => {
+          // Decide what to glitch
+          const target = el.querySelector(".btn__text") || el;
 
-        //     gsap.to(el, {
-        //       y: dataY,
-        //       ease: "none",
-        //       scrollTrigger: {
-        //         trigger: el,
-        //         start: dataHero ? `top ${headerHeight}` : dataStart,
-        //         end: dataEnd,
-        //         scrub: dataScrub,
-        //       },
-        //     });
-        //   });
-        // }
+          const originalText = target.textContent;
+          const newText = el.dataset.glitchNewText;
+          const chars = el.dataset.glitchChars || "upperAndLowerCase";
+          const duration = parseFloat(el.dataset.glitchDuration) || 0.5;
+          const revealDelay = parseFloat(el.dataset.glitchRevealDelay) || 0.125;
+          const glitchOut = el.dataset.glitchOut === "true"; // Default is false (hover in, hover out)
 
-        // Scroll Horizontal (pinned section)
-        {
-          const scrollHorizontal = document.querySelectorAll(".scroll-horizontal");
+          // Prevent layout shift (measure width of target, not full button)
+          if (!newText) {
+            const width = target.scrollWidth;
+            target.style.display = "inline-block";
 
-          let scrollHorizontalScrub = maxSm ? 1 : 0.5;
+            setTimeout(() => {
+              target.style.width = `${width}px`;
+            }, 1000);
+          }
 
-          scrollHorizontal.forEach((el) => {
-            let container = el.querySelector(".scroll-horizontal__container");
-            let pin = el.querySelector(".scroll-horizontal__pin");
-            let slider = el.querySelector(".scroll-horizontal__slider");
-            let imgs = el.querySelectorAll(".scroll-horizontal__figure--parallax img");
+          const glitchTo = (text = originalText) => {
+            target.textContent = text; // Reset to base before scrambling
+            gsap.to(target, {
+              scrambleText: {
+                text,
+                chars,
+                revealDelay,
+              },
+              duration,
+            });
+          };
 
-            const sliderWidth = slider.scrollWidth;
-            const containerWidth = container.offsetWidth;
-            const distanceToTranslate = sliderWidth - containerWidth;
+          el.addEventListener("mouseenter", () => glitchTo(newText));
+          el.addEventListener("focus", () => glitchTo(newText));
 
-            let duration = maxSm ? "+=150%" : "+=200%";
+          if (glitchOut || newText) {
+            el.addEventListener("mouseleave", () => glitchTo(originalText));
+            el.addEventListener("blur", () => glitchTo(originalText));
+          }
+        });
 
-            // Actual Pinning
-            gsap.to(pin, {
-              scrollTrigger: {
-                trigger: pin,
-                start: "center center",
-                end: duration,
-                pin: true,
+        // Glitch Target, uses 'glitch-trigger' and 'glitch-target__arbitrary' — 'glitch-trigger' needs data-glitch-target attribute with the unique target class
+        document.querySelectorAll(".glitch-trigger").forEach((trigger) => {
+          const targetClass = trigger.dataset.glitchTarget;
+          if (!targetClass) return;
+
+          const wrapper = trigger.closest(".glitch-pair");
+          const target = wrapper?.querySelector(`.${targetClass}`);
+          if (!target) return;
+
+          if (!target.dataset.originalText) {
+            target.dataset.originalText = target.textContent;
+            target.style.display = "inline-block";
+
+            setTimeout(() => {
+              target.style.width = `${target.scrollWidth}px`;
+            }, 1000);
+          }
+
+          const runGlitch = () => {
+            const originalText = target.dataset.originalText;
+
+            target.textContent = originalText;
+
+            gsap.to(target, {
+              scrambleText: {
+                text: originalText,
+                chars: "upperAndLowerCase",
+              },
+              duration: 0.75,
+              revealDelay: 0.125,
+            });
+          };
+
+          trigger.addEventListener("mouseenter", runGlitch);
+          trigger.addEventListener("focus", runGlitch);
+        });
+
+        // Cycle-based glitch
+        document.querySelectorAll(".glitch-cycle").forEach((el) => {
+          const words = el.dataset.glitchCycleWords?.split(",").map((w) => w.trim()) || [];
+          const colorValues = el.dataset.glitchCycleColors?.split(",").map((c) => c.trim());
+          const hasColors = Array.isArray(colorValues) && colorValues.length > 0;
+
+          let index = 0;
+          const glitchCycleInterval = parseInt(el.dataset.glitchCycleInterval) || 2000;
+
+          if (words.length === 0) return;
+
+          const cycle = () => {
+            const color = hasColors ? colorValues[index % colorValues.length] : null;
+
+            gsap.to(el, {
+              scrambleText: {
+                text: words[index],
+                chars: alphaNumberic,
+                duration: 1.25,
+                revealDelay: 0.125,
+              },
+              color: color,
+              duration: 0.5,
+              onComplete: () => {
+                index = (index + 1) % words.length;
+                setTimeout(cycle, glitchCycleInterval);
               },
             });
+          };
 
-            // Slider Along X-Axis
-            gsap.fromTo(
-              slider,
-              { x: 0 },
-              {
-                x: () => -distanceToTranslate,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: pin,
-                  start: "center center",
-                  end: duration,
-                  scrub: scrollHorizontalScrub,
-                },
-              }
-            );
+          cycle();
+        });
 
-            // Optional parallax effect on images (use landscape images in portrait view)
-            imgs.forEach((img) => {
-              gsap.fromTo(
-                img,
-                { x: 0 },
-                {
-                  x: "25%", // Adjust this value for more or less parallax effect
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: pin,
-                    start: "center center",
-                    end: duration,
-                    scrub: scrollHorizontalScrub,
-                  },
-                }
-              );
-            });
-          });
-        }
-
-        // Scroll Stack (Overlapping Panels) — Duration and Delays can be controls via pin-steps in _scroll-stack.scss
+        // Toggle-based glitch
         {
-          const scrollStackSections = document.querySelectorAll(".scroll-stack");
+          const toggleBtns = document.querySelectorAll(".plan-selection__toggle-option");
+          const swapElems = document.querySelectorAll("[data-toggle-target]");
 
-          let panelToTop = maxSm ? "96px" : "200px"; // Match with $panel-to-top in _scroll-stack.scss
-          let panelScrub = 0.5;
-
-          scrollStackSections.forEach((section) => {
-            const panels = section.querySelectorAll(".scroll-stack__panel");
-            const pinContainer = section.querySelector(".scroll-stack__pin");
-            const pinSteps = section.querySelectorAll(".scroll-stack__pin-step");
-
-            const stackDuration = `${panels.length * 80}%`;
-
-            // Pin the entire panel container
-            gsap.to(pinContainer, {
-              scrollTrigger: {
-                trigger: pinContainer,
-                start: `top ${bodyPadding}`,
-                end: stackDuration,
-                pin: true,
-              },
-            });
-
-            // Slide and scale panels
-            panels.forEach((panel, i) => {
-              const panelIndex = i + 1;
-              const nextPanel = panels[i + 1];
-              const triggerStep = section.querySelector(
-                `.scroll-stack__pin-step-${panelIndex + 1}`
-              );
-
-              if (!triggerStep || !nextPanel) return;
-
-              let startPoint = "top 112%";
-              let endPoint = "bottom 112%";
-
-              // Scale panels
-              gsap.fromTo(
-                `.scroll-stack__panel-${panelIndex}`,
-                { scale: 1 },
-                {
-                  scale: 0.94,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: triggerStep,
-                    start: startPoint,
-                    end: endPoint,
-                    scrub: panelScrub,
-                  },
-                }
-              );
-
-              // Slide in panels
-              gsap.fromTo(
-                `.scroll-stack__panel-${panelIndex + 1}`,
-                {
-                  top: "120%",
-                },
-                {
-                  top: panelToTop,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: triggerStep,
-                    start: startPoint,
-                    end: endPoint,
-                    scrub: panelScrub,
-                  },
-                }
-              );
-            });
-
-            // Link highlight
-            if (document.querySelector(".scroll-stack__nav-link")) {
-              const stackLinks = document.querySelectorAll(".scroll-stack__nav-link");
-
-              pinSteps.forEach((marker, index) => {
-                const link = stackLinks[index];
-
-                ScrollTrigger.create({
-                  trigger: marker,
-                  start: "-30% top",
-                  end: "50% top",
-                  onEnter: () => link.classList.add("active"),
-                  onEnterBack: () => link.classList.add("active"),
-                  onLeave: () => link.classList.remove("active"),
-                  onLeaveBack: () => link.classList.remove("active"),
-                });
-              });
+          // store initial text
+          swapElems.forEach((el) => {
+            if (!el.dataset.toggleStart) {
+              el.dataset.toggleStart = el.textContent.trim();
             }
           });
+
+          const runGlitch = (el, newText) => {
+            if (!el) return;
+
+            el.textContent = newText;
+
+            gsap.to(el, {
+              scrambleText: {
+                text: newText,
+                chars: "0123456789#X%*",
+                revealDelay: 0.125,
+              },
+              duration: 0.5,
+            });
+          };
+
+          toggleBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              toggleBtns.forEach((b) => b.setAttribute("aria-selected", "false"));
+              btn.setAttribute("aria-selected", "true");
+
+              const mode = btn.dataset.toggleOption; // "start" or "end"
+
+              swapElems.forEach((el) => {
+                const newText = mode === "start" ? el.dataset.toggleStart : el.dataset.toggleEnd;
+                if (newText) runGlitch(el, newText);
+              });
+            });
+          });
         }
+      }
 
-        // Marquee component
-        {
-          gsap.utils.toArray(".marquee").forEach((marqueeBlock) => {
-            const marqueeInners = marqueeBlock.querySelectorAll(".marquee-inner");
-            const velocity = parseFloat(marqueeBlock.getAttribute("data-marquee-velocity"));
-            const speedDefault = parseFloat(marqueeBlock.getAttribute("data-marquee-speed"));
-            const speedMd = parseFloat(marqueeBlock.getAttribute("data-marquee-speed-md"));
-            const speedSm = parseFloat(marqueeBlock.getAttribute("data-marquee-speed-sm"));
-            const scrubEnabled = marqueeBlock.hasAttribute("data-marquee-scrub");
+      // // Parallax Util
+      // {
+      //   document.querySelectorAll(".parallax").forEach((el) => {
+      //     const dataY = el.dataset.parallaxY || "15%";
+      //     const dataScrub = parseFloat(el.dataset.parallaxScrub) || 1;
+      //     const dataStart = el.dataset.parallaxStart || "top bottom";
+      //     const dataEnd = el.dataset.parallaxEnd || "bottom top";
+      //     const dataHero = el.dataset.parallaxHero === "true";
 
-            const scrollAlternate = marqueeBlock.hasAttribute("data-marquee-scroll-alternate");
+      //     gsap.to(el, {
+      //       y: dataY,
+      //       ease: "none",
+      //       scrollTrigger: {
+      //         trigger: el,
+      //         start: dataHero ? `top ${headerHeight}` : dataStart,
+      //         end: dataEnd,
+      //         scrub: dataScrub,
+      //       },
+      //     });
+      //   });
+      // }
 
-            let marqueeSpeed = maxSm ? speedSm : maxMd ? speedMd : speedDefault;
+      // Marquee component
+      {
+        gsap.utils.toArray(".marquee").forEach((marqueeBlock) => {
+          const marqueeInners = marqueeBlock.querySelectorAll(".marquee-inner");
+          const velocity = parseFloat(marqueeBlock.getAttribute("data-marquee-velocity"));
+          const speedDefault = parseFloat(marqueeBlock.getAttribute("data-marquee-speed"));
+          const speedMd = parseFloat(marqueeBlock.getAttribute("data-marquee-speed-md"));
+          const speedSm = parseFloat(marqueeBlock.getAttribute("data-marquee-speed-sm"));
+          const scrubEnabled = marqueeBlock.hasAttribute("data-marquee-scrub");
 
-            if (scrubEnabled) {
-              // Scrub disables marquee animation, ties x directly to scroll
-              marqueeInners.forEach((inner, index) => {
+          const scrollAlternate = marqueeBlock.hasAttribute("data-marquee-scroll-alternate");
+
+          let marqueeSpeed = maxSm ? speedSm : maxMd ? speedMd : speedDefault;
+
+          if (scrubEnabled) {
+            // Scrub disables marquee animation, ties x directly to scroll
+            marqueeInners.forEach((inner, index) => {
+              gsap.fromTo(
+                inner,
+                { x: index % 2 === 0 ? "0%" : `-${velocity}%` },
+                {
+                  x: index % 2 === 0 ? `-${velocity}%` : "0%",
+                  scrollTrigger: {
+                    trigger: marqueeBlock,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                  },
+                }
+              );
+            });
+          } else {
+            const marqueeTweens = [];
+
+            marqueeInners.forEach((inner, index) => {
+              // Always baseline animation
+              const tween = gsap
+                .to(inner, {
+                  xPercent: -50,
+                  repeat: -1,
+                  duration: marqueeSpeed,
+                  ease: "linear",
+                })
+                .totalProgress(0.5)
+                .timeScale(index % 2 === 0 ? 1 : -1);
+
+              marqueeTweens.push(tween);
+
+              // If velocity is set > 0, overlay velocity scrub
+              if (velocity > 0) {
                 gsap.fromTo(
                   inner,
                   { x: index % 2 === 0 ? "0%" : `-${velocity}%` },
@@ -545,515 +700,453 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
                     },
                   }
                 );
-              });
-            } else {
-              const marqueeTweens = [];
+              }
+            });
 
-              marqueeInners.forEach((inner, index) => {
-                // Always baseline animation
-                const tween = gsap
-                  .to(inner, {
-                    xPercent: -50,
-                    repeat: -1,
-                    duration: marqueeSpeed,
-                    ease: "linear",
+            // Scroll direction swap
+            if (scrollAlternate) {
+              let currentScroll = window.scrollY;
+
+              const adjustTimeScale = () => {
+                const isScrollingDown = window.scrollY > currentScroll;
+
+                marqueeTweens.forEach((tween, index) =>
+                  gsap.to(tween, {
+                    timeScale: (index % 2 === 0) === isScrollingDown ? 1 : -1,
+                    duration: 0.3,
+                    ease: "power2.out",
                   })
-                  .totalProgress(0.5)
-                  .timeScale(index % 2 === 0 ? 1 : -1);
+                );
 
-                marqueeTweens.push(tween);
+                // Toggle class based on scroll direction
+                marqueeBlock.classList.toggle("marquee--alternated", !isScrollingDown);
 
-                // If velocity is set > 0, overlay velocity scrub
-                if (velocity > 0) {
-                  gsap.fromTo(
-                    inner,
-                    { x: index % 2 === 0 ? "0%" : `-${velocity}%` },
-                    {
-                      x: index % 2 === 0 ? `-${velocity}%` : "0%",
-                      scrollTrigger: {
-                        trigger: marqueeBlock,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1,
-                        invalidateOnRefresh: true,
-                      },
-                    }
-                  );
-                }
-              });
-
-              // Scroll direction swap
-              if (scrollAlternate) {
-                let currentScroll = window.scrollY;
-
-                const adjustTimeScale = () => {
-                  const isScrollingDown = window.scrollY > currentScroll;
-
-                  marqueeTweens.forEach((tween, index) =>
-                    gsap.to(tween, {
-                      timeScale: (index % 2 === 0) === isScrollingDown ? 1 : -1,
-                      duration: 0.3,
-                      ease: "power2.out",
-                    })
-                  );
-
-                  // Toggle class based on scroll direction
-                  marqueeBlock.classList.toggle("marquee--alternated", !isScrollingDown);
-
-                  currentScroll = window.scrollY;
-                };
-
-                window.addEventListener("scroll", adjustTimeScale, {
-                  passive: true,
-                });
-              }
-            }
-          });
-        }
-
-        // Text Reveal
-        {
-          const revealElems = document.querySelectorAll(".text-reveal");
-
-          revealElems.forEach((el) => {
-            const revealType = el.dataset.revealType || "words";
-            const revealFrom = el.dataset.revealFrom || "bottom";
-            const revealDuration = parseFloat(el.dataset.revealDuration) || 0.2;
-            const revealDelay = parseFloat(el.dataset.revealDelay) || 0;
-            const revealStagger = parseFloat(el.dataset.revealStagger) || 0.05;
-            const revealEase = el.dataset.revealEase || "easeSudden";
-            const revealScrub = el.dataset.revealScrub === "true";
-            const revealOnce = !revealScrub && el.dataset.revealOnce === "true";
-            const revealTrigger = el.dataset.revealTrigger || el; // Requires . or #
-            const revealStart = el.dataset.revealStart || "top 98%";
-            const revealEnd = el.dataset.revealEnd || "bottom 2%";
-            const revealMarkers = el.dataset.revealMarkers === "true";
-
-            const split = new SplitText(el, {
-              type: revealType,
-              [`${revealType}Class`]: `text-reveal__${revealType}`,
-              tag: "span",
-            });
-
-            const targets =
-              revealType === "lines"
-                ? split.lines
-                : revealType === "words"
-                ? split.words
-                : split.chars;
-
-            targets.forEach((target) => {
-              const wrapper = document.createElement("span");
-              wrapper.classList.add("outer-span");
-              target.parentNode.insertBefore(wrapper, target);
-              wrapper.appendChild(target);
-            });
-
-            // Track state to support loader delay
-            let hasLeftViewportAfterLoad = false;
-            let currentTimeline = null;
-
-            // Function to create the timeline
-            const createTimeline = (useAdjustedDelay) => {
-              // Kill existing timeline if it exists
-              if (currentTimeline) {
-                currentTimeline.scrollTrigger?.kill();
-                currentTimeline.kill();
-              }
-
-              const scrollTriggerConfig = {
-                trigger: revealTrigger,
-                start: revealStart,
-                end: revealEnd,
-                scrub: revealScrub,
-                markers: revealMarkers,
+                currentScroll = window.scrollY;
               };
 
-              if (!revealScrub) {
-                scrollTriggerConfig.toggleActions = revealOnce
-                  ? "play none none none"
-                  : "play reset play reset";
-                scrollTriggerConfig.onEnter = () => {
-                  el.classList.add("text-reveal--active");
-                };
-                scrollTriggerConfig.onEnterBack = () => {
-                  el.classList.add("text-reveal--active");
-                };
-                scrollTriggerConfig.onLeaveBack = () => {
-                  if (!revealOnce) el.classList.remove("text-reveal--active");
-                };
-                scrollTriggerConfig.onLeave = () => {
-                  if (!revealOnce) el.classList.remove("text-reveal--active");
-                };
-                scrollTriggerConfig.once = revealOnce;
-              }
-
-              const tl = gsap.timeline({ scrollTrigger: scrollTriggerConfig });
-
-              const finalDelay = useAdjustedDelay
-                ? revealDelay + globalConfig.loadDuration
-                : revealDelay;
-
-              tl.fromTo(
-                targets,
-                { y: revealFrom === "top" ? "-100%" : "100%" },
-                {
-                  y: "0",
-                  duration: revealDuration,
-                  delay: finalDelay,
-                  stagger: revealStagger,
-                  ease: revealEase,
-                }
-              );
-
-              currentTimeline = tl;
-              return tl;
-            };
-
-            // Create initial timeline with adjusted delay if loading
-            createTimeline(isLoading && el.dataset.loaderAware !== undefined);
-
-            // Set up IntersectionObserver for loader-aware elements
-            if (el.dataset.loaderAware !== undefined) {
-              const observer = new IntersectionObserver(
-                (entries) => {
-                  entries.forEach((entry) => {
-                    if (!entry.isIntersecting && loaderHasCompleted && !hasLeftViewportAfterLoad) {
-                      hasLeftViewportAfterLoad = true;
-                      createTimeline(false); // Rebuild with original delay
-                      observer.disconnect(); // Only need this once
-                    }
-                  });
-                },
-                { threshold: 0 }
-              );
-              observer.observe(el);
+              window.addEventListener("scroll", adjustTimeScale, {
+                passive: true,
+              });
             }
+          }
+        });
+      }
+
+      // Text Reveal
+      {
+        const revealElems = document.querySelectorAll(".text-reveal");
+
+        revealElems.forEach((el) => {
+          const revealType = el.dataset.revealType || "words";
+          const revealFrom = el.dataset.revealFrom || "bottom";
+          const revealDuration = parseFloat(el.dataset.revealDuration) || 0.2;
+          const revealDelay = parseFloat(el.dataset.revealDelay) || 0;
+          const revealStagger = parseFloat(el.dataset.revealStagger) || 0.05;
+          const revealEase = el.dataset.revealEase || "easeSudden";
+          const revealScrub = el.dataset.revealScrub === "true";
+          const revealOnce = !revealScrub && el.dataset.revealOnce === "true";
+          const revealTrigger = el.dataset.revealTrigger || el; // Requires . or #
+          const revealStart = el.dataset.revealStart || "top 98%";
+          const revealEnd = el.dataset.revealEnd || "bottom 2%";
+          const revealMarkers = el.dataset.revealMarkers === "true";
+
+          const split = new SplitText(el, {
+            type: revealType,
+            [`${revealType}Class`]: `text-reveal__${revealType}`,
+            tag: "span",
           });
-        }
 
-        // Text Scale
-        {
-          const scaleElems = document.querySelectorAll(".text-scale");
+          const targets =
+            revealType === "lines"
+              ? split.lines
+              : revealType === "words"
+              ? split.words
+              : split.chars;
 
-          scaleElems.forEach((el) => {
-            const scaleType = el.dataset.scaleType || "words"; // "chars" or "words"
-            const scaleStyle = el.dataset.scaleStyle || "random"; // "linear" or "random"
-            const scaleDuration = parseFloat(el.dataset.scaleDuration) || 0.25;
-            const scaleScrub = el.dataset.scaleScrub === "true";
-            const scaleOnce = !scaleScrub && el.dataset.scaleOnce === "true";
-            const scaleTrigger = el.dataset.scaleTrigger || el; // Requires . or #
-            const scaleStart = el.dataset.scaleStart || "top 98%";
-            const scaleEnd = el.dataset.scaleEnd || "bottom 2%";
-            const scaleMarkers = el.dataset.scaleMarkers || false;
+          targets.forEach((target) => {
+            const wrapper = document.createElement("span");
+            wrapper.classList.add("outer-span");
+            target.parentNode.insertBefore(wrapper, target);
+            wrapper.appendChild(target);
+          });
 
-            const split = new SplitText(el, {
-              type: scaleType,
-              [`${scaleType}Class`]: `text-scale__${scaleType}`,
-              tag: "span",
-            });
+          // Track state to support loader delay
+          let hasLeftViewportAfterLoad = false;
+          let currentTimeline = null;
 
-            const targets = scaleType === "words" ? split.words : split.chars;
-
-            // Calculate transform-origin based on each element’s position
-            const parentBox = el.getBoundingClientRect();
-            targets.forEach((word) => {
-              const box = word.getBoundingClientRect();
-              const centerX = (box.left + box.width / 2 - parentBox.left) / parentBox.width;
-
-              // Map 0–1 range to useful values for transform-origin
-              // left edge = "0% 50%", right edge = "100% 50%", middle = "50% 50%"
-              const originX = `${Math.round((1 - centerX) * 100)}%`;
-              word.style.transformOrigin = `${originX} 50%`;
-            });
+          // Function to create the timeline
+          const createTimeline = (useAdjustedDelay) => {
+            // Kill existing timeline if it exists
+            if (currentTimeline) {
+              currentTimeline.scrollTrigger?.kill();
+              currentTimeline.kill();
+            }
 
             const scrollTriggerConfig = {
-              trigger: scaleTrigger,
-              start: scaleStart,
-              end: scaleEnd,
-              scrub: scaleScrub || false,
-              markers: scaleMarkers,
+              trigger: revealTrigger,
+              start: revealStart,
+              end: revealEnd,
+              scrub: revealScrub,
+              markers: revealMarkers,
             };
 
-            if (!scaleScrub) {
-              scrollTriggerConfig.toggleActions = scaleOnce
+            if (!revealScrub) {
+              scrollTriggerConfig.toggleActions = revealOnce
                 ? "play none none none"
                 : "play reset play reset";
-
-              scrollTriggerConfig.onEnter = () => el.classList.add("text-scale--active");
-
-              scrollTriggerConfig.onLeaveBack = () => {
-                if (!scaleOnce) el.classList.remove("text-scale--active");
+              scrollTriggerConfig.onEnter = () => {
+                el.classList.add("text-reveal--active");
               };
-
-              scrollTriggerConfig.once = scaleOnce;
+              scrollTriggerConfig.onEnterBack = () => {
+                el.classList.add("text-reveal--active");
+              };
+              scrollTriggerConfig.onLeaveBack = () => {
+                if (!revealOnce) el.classList.remove("text-reveal--active");
+              };
+              scrollTriggerConfig.onLeave = () => {
+                if (!revealOnce) el.classList.remove("text-reveal--active");
+              };
+              scrollTriggerConfig.once = revealOnce;
             }
 
             const tl = gsap.timeline({ scrollTrigger: scrollTriggerConfig });
 
+            const finalDelay = useAdjustedDelay
+              ? revealDelay + globalConfig.loadDuration
+              : revealDelay;
+
             tl.fromTo(
-              scaleStyle === "random" ? gsap.utils.shuffle(targets) : targets,
-              { scale: 0, opacity: 0 },
+              targets,
+              { y: revealFrom === "top" ? "-100%" : "100%" },
               {
-                scale: 1,
-                opacity: 1,
-                duration: scaleDuration,
-                stagger: 0.0125,
-                ease: "linear",
+                y: "0",
+                duration: revealDuration,
+                delay: finalDelay,
+                stagger: revealStagger,
+                ease: revealEase,
               }
             );
+
+            currentTimeline = tl;
+            return tl;
+          };
+
+          // Create initial timeline with adjusted delay if loading
+          createTimeline(isLoading && el.dataset.loaderAware !== undefined);
+
+          // Set up IntersectionObserver for loader-aware elements
+          if (el.dataset.loaderAware !== undefined) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting && loaderHasCompleted && !hasLeftViewportAfterLoad) {
+                    hasLeftViewportAfterLoad = true;
+                    createTimeline(false); // Rebuild with original delay
+                    observer.disconnect(); // Only need this once
+                  }
+                });
+              },
+              { threshold: 0 }
+            );
+            observer.observe(el);
+          }
+        });
+      }
+
+      // Text Scale
+      {
+        const scaleElems = document.querySelectorAll(".text-scale");
+
+        scaleElems.forEach((el) => {
+          const scaleType = el.dataset.scaleType || "words"; // "chars" or "words"
+          const scaleStyle = el.dataset.scaleStyle || "random"; // "linear" or "random"
+          const scaleDuration = parseFloat(el.dataset.scaleDuration) || 0.25;
+          const scaleScrub = el.dataset.scaleScrub === "true";
+          const scaleOnce = !scaleScrub && el.dataset.scaleOnce === "true";
+          const scaleTrigger = el.dataset.scaleTrigger || el; // Requires . or #
+          const scaleStart = el.dataset.scaleStart || "top 98%";
+          const scaleEnd = el.dataset.scaleEnd || "bottom 2%";
+          const scaleMarkers = el.dataset.scaleMarkers || false;
+
+          const split = new SplitText(el, {
+            type: scaleType,
+            [`${scaleType}Class`]: `text-scale__${scaleType}`,
+            tag: "span",
           });
-        }
 
-        // Tunnel
-        {
-          document.querySelectorAll(".tunnel").forEach((el) => {
-            const tunnelClip = el.querySelector(".tunnel-clip");
-            const tunnelImg = el.querySelector(".tunnel__img");
-            const tunnelVid = el.querySelector(".tunnel__vid");
-            const tunnelMedia = tunnelImg || tunnelVid;
+          const targets = scaleType === "words" ? split.words : split.chars;
 
-            const offset = tunnelMedia.dataset.parallaxOffset;
-            const scrub = parseFloat(tunnelMedia.dataset.parallaxScrub) || 0;
-            const centered = el.classList.contains("tunnel--centered");
+          // Calculate transform-origin based on each element’s position
+          const parentBox = el.getBoundingClientRect();
+          targets.forEach((word) => {
+            const box = word.getBoundingClientRect();
+            const centerX = (box.left + box.width / 2 - parentBox.left) / parentBox.width;
 
-            if (centered) {
-              const tunnelPin = el.querySelector(".tunnel-centered--pin");
-              const clipDuration = "+=100%"; // 50% finishes before message comes
+            // Map 0–1 range to useful values for transform-origin
+            // left edge = "0% 50%", right edge = "100% 50%", middle = "50% 50%"
+            const originX = `${Math.round((1 - centerX) * 100)}%`;
+            word.style.transformOrigin = `${originX} 50%`;
+          });
 
-              gsap.to(tunnelPin, {
-                scrollTrigger: {
-                  trigger: tunnelPin,
-                  start: `center center`,
-                  end: "+=100%",
-                  pin: true,
-                },
-              });
+          const scrollTriggerConfig = {
+            trigger: scaleTrigger,
+            start: scaleStart,
+            end: scaleEnd,
+            scrub: scaleScrub || false,
+            markers: scaleMarkers,
+          };
 
-              gsap.to(tunnelClip, {
-                width: "100%",
-                height: "100vh",
-                borderRadius: 1,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: el,
-                  start: `top top`,
-                  end: clipDuration,
-                  scrub,
-                },
-              });
+          if (!scaleScrub) {
+            scrollTriggerConfig.toggleActions = scaleOnce
+              ? "play none none none"
+              : "play reset play reset";
 
-              gsap.to(tunnelMedia, {
-                rotate: "0deg",
-                filter: "brightness(1)",
-                scrollTrigger: {
-                  trigger: tunnelPin,
-                  start: `top top`,
-                  end: clipDuration,
-                  scrub,
-                },
-              });
-            } else {
-              gsap.to(tunnelClip, {
-                width: "100%",
-                ease: "none",
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 70%", // Control when the image gets wider
-                  end: "top top",
-                  scrub,
-                },
-              });
+            scrollTriggerConfig.onEnter = () => el.classList.add("text-scale--active");
+
+            scrollTriggerConfig.onLeaveBack = () => {
+              if (!scaleOnce) el.classList.remove("text-scale--active");
+            };
+
+            scrollTriggerConfig.once = scaleOnce;
+          }
+
+          const tl = gsap.timeline({ scrollTrigger: scrollTriggerConfig });
+
+          tl.fromTo(
+            scaleStyle === "random" ? gsap.utils.shuffle(targets) : targets,
+            { scale: 0, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: scaleDuration,
+              stagger: 0.0125,
+              ease: "linear",
             }
+          );
+        });
+      }
 
-            // Parallax on image (defaut for both)
-            gsap.from(tunnelMedia, {
-              y: offset,
-              rotate: "-1deg",
-              filter: "brightness(0.75)",
+      // Tunnel
+      {
+        document.querySelectorAll(".tunnel").forEach((el) => {
+          const tunnelClip = el.querySelector(".tunnel-clip");
+          const tunnelImg = el.querySelector(".tunnel__img");
+          const tunnelVid = el.querySelector(".tunnel__vid");
+          const tunnelMedia = tunnelImg || tunnelVid;
+
+          const offset = tunnelMedia.dataset.parallaxOffset;
+          const scrub = parseFloat(tunnelMedia.dataset.parallaxScrub) || 0;
+          const centered = el.classList.contains("tunnel--centered");
+
+          if (centered) {
+            const tunnelPin = el.querySelector(".tunnel-centered--pin");
+            const clipDuration = "+=100%"; // 50% finishes before message comes
+
+            gsap.to(tunnelPin, {
+              scrollTrigger: {
+                trigger: tunnelPin,
+                start: `center center`,
+                end: "+=100%",
+                pin: true,
+              },
+            });
+
+            gsap.to(tunnelClip, {
+              width: "100%",
+              height: "100vh",
+              borderRadius: 1,
               ease: "none",
               scrollTrigger: {
                 trigger: el,
-                start: "top bottom",
+                start: `top top`,
+                end: clipDuration,
+                scrub,
+              },
+            });
+
+            gsap.to(tunnelMedia, {
+              rotate: "0deg",
+              filter: "brightness(1)",
+              scrollTrigger: {
+                trigger: tunnelPin,
+                start: `top top`,
+                end: clipDuration,
+                scrub,
+              },
+            });
+          } else {
+            gsap.to(tunnelClip, {
+              width: "100%",
+              ease: "none",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 70%", // Control when the image gets wider
                 end: "top top",
                 scrub,
               },
             });
+          }
+
+          // Parallax on image (defaut for both)
+          gsap.from(tunnelMedia, {
+            y: offset,
+            rotate: "-1deg",
+            filter: "brightness(0.75)",
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top bottom",
+              end: "top top",
+              scrub,
+            },
           });
-        }
+        });
       }
 
-      // Custom animations — require dev work (Consider placement of code block. Sometimes may need to be placed above or beneath others)
+      // Animate any element with the class 'gsap-animate' using the 'gsap-animated' companion class. Comes with different data attributes for customization.
       {
-        // Animate any element with the class 'gsap-animate' using the 'gsap-animated' companion class. Comes with different data attributes for customization.
-        {
-          const gsapElems = document.querySelectorAll(".gsap-animate");
+        const gsapElems = document.querySelectorAll(".gsap-animate");
 
-          gsapElems.forEach((gsapElem) => {
-            const animOnce = gsapElem.dataset.gsapOnce === "true";
-            const animTrigger = gsapElem.dataset.gsapTrigger || gsapElem;
-            const animStart = gsapElem.dataset.gsapStart || "top 98%";
-            const animEnd = gsapElem.dataset.gsapEnd || "bottom 2%";
-            const animMarkers = gsapElem.dataset.gsapMarkers === "true";
-            const animDelay = parseFloat(gsapElem.dataset.gsapDelay) || 0;
+        gsapElems.forEach((gsapElem) => {
+          const animOnce = gsapElem.dataset.gsapOnce === "true";
+          const animTrigger = gsapElem.dataset.gsapTrigger || gsapElem;
+          const animStart = gsapElem.dataset.gsapStart || "top 98%";
+          const animEnd = gsapElem.dataset.gsapEnd || "bottom 2%";
+          const animMarkers = gsapElem.dataset.gsapMarkers === "true";
+          const animDelay = parseFloat(gsapElem.dataset.gsapDelay) || 0;
 
-            // Track state for loader-aware elements
-            let hasLeftViewportAfterLoad = false;
-            let currentScrollTrigger = null;
-            let pendingTimeout = null; // Track pending setTimeout
+          // Track state for loader-aware elements
+          let hasLeftViewportAfterLoad = false;
+          let currentScrollTrigger = null;
+          let pendingTimeout = null; // Track pending setTimeout
 
-            // Function to create the ScrollTrigger
-            const createScrollTrigger = (useAdjustedDelay) => {
-              // Clear any pending timeouts
+          // Function to create the ScrollTrigger
+          const createScrollTrigger = (useAdjustedDelay) => {
+            // Clear any pending timeouts
+            if (pendingTimeout) {
+              clearTimeout(pendingTimeout);
+              pendingTimeout = null;
+            }
+
+            if (currentScrollTrigger) {
+              currentScrollTrigger.kill();
+            }
+
+            const finalDelay = useAdjustedDelay ? animDelay + globalConfig.loadDuration : animDelay;
+
+            // Create a wrapper function that applies delay
+            const addClassWithDelay = () => {
+              pendingTimeout = setTimeout(() => {
+                gsapElem.classList.add("gsap-animated");
+                pendingTimeout = null;
+              }, finalDelay * 1000);
+            };
+
+            const removeClassImmediate = () => {
               if (pendingTimeout) {
                 clearTimeout(pendingTimeout);
                 pendingTimeout = null;
               }
-
-              if (currentScrollTrigger) {
-                currentScrollTrigger.kill();
-              }
-
-              const finalDelay = useAdjustedDelay
-                ? animDelay + globalConfig.loadDuration
-                : animDelay;
-
-              // Create a wrapper function that applies delay
-              const addClassWithDelay = () => {
-                pendingTimeout = setTimeout(() => {
-                  gsapElem.classList.add("gsap-animated");
-                  pendingTimeout = null;
-                }, finalDelay * 1000);
-              };
-
-              const removeClassImmediate = () => {
-                if (pendingTimeout) {
-                  clearTimeout(pendingTimeout);
-                  pendingTimeout = null;
-                }
-                gsapElem.classList.remove("gsap-animated");
-              };
-
-              if (animOnce) {
-                currentScrollTrigger = ScrollTrigger.create({
-                  trigger: animTrigger,
-                  start: animStart,
-                  end: animEnd,
-                  once: true,
-                  onEnter: addClassWithDelay,
-                  markers: animMarkers,
-                });
-              } else {
-                currentScrollTrigger = ScrollTrigger.create({
-                  trigger: animTrigger,
-                  start: animStart,
-                  end: animEnd,
-                  onEnter: addClassWithDelay,
-                  onLeave: removeClassImmediate,
-                  onEnterBack: addClassWithDelay,
-                  onLeaveBack: removeClassImmediate,
-                  markers: animMarkers,
-                });
-              }
-
-              return currentScrollTrigger;
+              gsapElem.classList.remove("gsap-animated");
             };
 
-            // Handle animation with site "loading" delay
-            const isLoading = getLoadState().isLoading;
-            createScrollTrigger(isLoading && gsapElem.dataset.loaderAware !== undefined);
-
-            // Set up IntersectionObserver for loader-aware elements
-            if (gsapElem.dataset.loaderAware !== undefined) {
-              const observer = new IntersectionObserver(
-                (entries) => {
-                  entries.forEach((entry) => {
-                    if (!entry.isIntersecting && loaderHasCompleted && !hasLeftViewportAfterLoad) {
-                      hasLeftViewportAfterLoad = true;
-
-                      setTimeout(() => {
-                        createScrollTrigger(false);
-                      }, 100);
-
-                      observer.disconnect();
-                    }
-                  });
-                },
-                { threshold: 0 }
-              );
-              observer.observe(gsapElem);
+            if (animOnce) {
+              currentScrollTrigger = ScrollTrigger.create({
+                trigger: animTrigger,
+                start: animStart,
+                end: animEnd,
+                once: true,
+                onEnter: addClassWithDelay,
+                markers: animMarkers,
+              });
+            } else {
+              currentScrollTrigger = ScrollTrigger.create({
+                trigger: animTrigger,
+                start: animStart,
+                end: animEnd,
+                onEnter: addClassWithDelay,
+                onLeave: removeClassImmediate,
+                onEnterBack: addClassWithDelay,
+                onLeaveBack: removeClassImmediate,
+                markers: animMarkers,
+              });
             }
-          });
-        }
 
-        // GSAP Stagger util
-        {
-          const staggerGroups = document.querySelectorAll(".gsap-stagger");
+            return currentScrollTrigger;
+          };
 
-          staggerGroups.forEach((group) => {
-            const children = group.querySelectorAll(".gsap-stagger-child");
-            if (!children.length) return;
+          // Handle animation with site "loading" delay
+          const isLoading = getLoadState().isLoading;
+          createScrollTrigger(isLoading && gsapElem.dataset.loaderAware !== undefined);
 
-            // Use css to control duration and initial delay (not stagger delay)
-            const staggerDelay = parseFloat(group.dataset.staggerDelay) || 0.1;
-            const staggerStart = group.dataset.staggerStart || "top 96%";
-            const staggerOnce = group.dataset.staggerOnce === "true";
-            const staggerMarkers = group.dataset.markers === "true";
+          // Set up IntersectionObserver for loader-aware elements
+          if (gsapElem.dataset.loaderAware !== undefined) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (!entry.isIntersecting && loaderHasCompleted && !hasLeftViewportAfterLoad) {
+                    hasLeftViewportAfterLoad = true;
 
-            const animateIn = () => {
-              children.forEach((child, i) => {
-                setTimeout(() => {
-                  child.classList.add("gsap-stagger-animate");
-                }, i * staggerDelay * 1000);
-              });
-            };
+                    setTimeout(() => {
+                      createScrollTrigger(false);
+                    }, 100);
 
-            const animateOut = () => {
-              children.forEach((child) => {
-                child.classList.remove("gsap-stagger-animate");
-              });
-            };
-
-            ScrollTrigger.create({
-              trigger: group,
-              start: staggerStart,
-              markers: staggerMarkers,
-              onEnter: animateIn,
-              // Uncomment these if you want 'animation on leave/enter back'
-              // onEnterBack: () => {
-              //   if (!staggerOnce) animateIn();
-              // },
-              // onLeave: () => {
-              //   if (!staggerOnce) animateOut();
-              // },
-              onLeaveBack: () => {
-                if (!staggerOnce) animateOut();
+                    observer.disconnect();
+                  }
+                });
               },
-            });
-          });
-        }
+              { threshold: 0 }
+            );
+            observer.observe(gsapElem);
+          }
+        });
+      }
 
-        // GSAP SplitText (characters & words)
-        {
-          const splitCharacters = document.querySelectorAll(".split-chars");
-          const splitWords = document.querySelectorAll(".split-words");
+      // GSAP Stagger util
+      {
+        const staggerGroups = document.querySelectorAll(".gsap-stagger");
 
-          splitCharacters.forEach((el) => {
-            new SplitText(el, {
-              type: "chars",
-              charsClass: "split-chars__char++",
-              tag: "span",
-            });
-          });
+        staggerGroups.forEach((group) => {
+          const children = group.querySelectorAll(".gsap-stagger-child");
+          if (!children.length) return;
 
-          splitWords.forEach((el) => {
-            new SplitText(el, {
-              type: "words",
-              wordsClass: "split-words__word++",
-              tag: "span",
+          // Use css to control duration and initial delay (not stagger delay)
+          const staggerDelay = parseFloat(group.dataset.staggerDelay) || 0.1;
+          const staggerStart = group.dataset.staggerStart || "top 96%";
+          const staggerOnce = group.dataset.staggerOnce === "true";
+          const staggerMarkers = group.dataset.markers === "true";
+
+          const animateIn = () => {
+            children.forEach((child, i) => {
+              setTimeout(() => {
+                child.classList.add("gsap-stagger-animate");
+              }, i * staggerDelay * 1000);
             });
+          };
+
+          const animateOut = () => {
+            children.forEach((child) => {
+              child.classList.remove("gsap-stagger-animate");
+            });
+          };
+
+          ScrollTrigger.create({
+            trigger: group,
+            start: staggerStart,
+            markers: staggerMarkers,
+            onEnter: animateIn,
+            // Uncomment these if you want 'animation on leave/enter back'
+            // onEnterBack: () => {
+            //   if (!staggerOnce) animateIn();
+            // },
+            // onLeave: () => {
+            //   if (!staggerOnce) animateOut();
+            // },
+            onLeaveBack: () => {
+              if (!staggerOnce) animateOut();
+            },
           });
-        }
+        });
       }
     }
   );
@@ -1073,7 +1166,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
   }
 
   // Any page specific scrollTrigger fix (Optional)
-  // if (document.querySelector(".main-library")) {
+  // if (document.querySelector(".main-home")) {
   //   window.addEventListener("load", () => {
   //     setTimeout(() => {
   //       ScrollTrigger.refresh();

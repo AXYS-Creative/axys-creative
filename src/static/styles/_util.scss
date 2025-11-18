@@ -1,5 +1,3 @@
-// axyscreative.com utils
-
 .shift-title {
   @include mq-motion-allow {
     @include mq-min(sm) {
@@ -674,76 +672,6 @@
     }
   }
 
-  .text-curve {
-    // @include font-styles--mono;
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-
-    span {
-      @include absolute-center;
-      display: inline-block;
-      transform-origin: center;
-    }
-
-    &--rotate {
-      animation: infinite-rotate 10s linear infinite;
-    }
-    &--rotate-left {
-      animation: infinite-rotate-left 12s linear infinite;
-    }
-
-    @keyframes infinite-rotate {
-      to {
-        rotate: 360deg;
-      }
-    }
-
-    @keyframes infinite-rotate-left {
-      to {
-        rotate: -360deg;
-      }
-    }
-  }
-
-  .text-fade {
-    .text-fade__words,
-    .text-fade__chars {
-      display: inline-block;
-    }
-
-    // &.text-fade--active {
-
-    // }
-  }
-
-  .text-fill,
-  .text-fill-hover {
-    @include text-fill;
-
-    &:is(.text-fill-hover) {
-      background-size: 0%;
-      // -webkit-text-fill-color: rgba(255, 255, 255, 0.5);
-      transition: $ease;
-
-      @include desktop-hover {
-        background-size: 100%;
-      }
-    }
-  }
-
-  .text-glare {
-    @include text-gradient($col-1: var(--color-font--primary), $col-2: var(--color-font--tertiary));
-
-    &[data-track-mouse] {
-      @include text-gradient($track-mouse: true);
-    }
-
-    &[data-flashlight] {
-      @include text-gradient($track-mouse: true, $flashlight: true);
-    }
-  }
-
   .text-gradient {
     @include text-gradient;
   }
@@ -768,16 +696,6 @@
 
     // }
   }
-  .text-reveal-list {
-    li {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 0.5ch;
-    }
-    code {
-      display: inline-flex;
-    }
-  }
 
   .text-scale {
     .text-scale__words,
@@ -788,22 +706,6 @@
     // &.text-scale--active {
 
     // }
-  }
-
-  .typing-cycle,
-  .typing-scroll {
-    .typing-text-cursor {
-      animation: typing-flicker 1s infinite;
-    }
-
-    @keyframes typing-flicker {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-    }
   }
 
   .velocity-push {
@@ -820,67 +722,6 @@
       img {
         height: 100%;
         object-fit: cover;
-      }
-    }
-  }
-
-  .video-bg-section {
-    .video-bg--sample-1 {
-      @include gradient-border(130deg);
-      @include column-center(end);
-      gap: var(--spacing);
-      width: 100%;
-      padding: 364px 64px 64px;
-      border-radius: var(--radius--lg);
-
-      @include mq-max(lg) {
-        padding: 296px 40px 40px;
-      }
-
-      @include mq-max(md) {
-        align-items: start;
-        padding: 148px 24px;
-      }
-    }
-  }
-
-  .video-bg-group {
-    display: flex;
-    gap: var(--spacing);
-    width: 100%;
-
-    @include mq-max(lg) {
-      flex-direction: column;
-    }
-
-    .video-bg--sample-2 {
-      @include column-start(flex-start);
-      border: var(--border-width) solid var(--color-border);
-      gap: var(--spacing);
-      flex: 1;
-      min-height: 580px;
-      padding: var(--spacing--lg);
-      border-radius: var(--radius--lg);
-
-      @include mq-max(lg) {
-        padding: var(--spacing);
-      }
-
-      h3 {
-        margin-bottom: auto;
-      }
-    }
-
-    .video-bg--sample-3 {
-      @include column-center(flex-start);
-      gap: var(--spacing);
-      flex: 1 1 auto;
-      min-height: 580px;
-      padding: 48px;
-      border-radius: var(--radius--lg);
-
-      @include mq-min(lg) {
-        max-width: 420px;
       }
     }
   }
@@ -976,6 +817,22 @@
   }
   .color-secondary {
     color: var(--hero-color--secondary);
+  }
+
+  .color-coral {
+    color: var(--color-brand--coral);
+  }
+  .color-blue {
+    color: var(--color-brand--blue);
+  }
+  .color-green {
+    color: var(--color-brand--green);
+  }
+  .color-yellow {
+    color: var(--color-brand--yellow);
+  }
+  .color-pink {
+    color: var(--color-brand--pink);
   }
 
   .text-balance {

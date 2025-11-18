@@ -17,7 +17,28 @@
 
 <section class="scroll-horizontal {{ modifier_class }}">
   <div class="scroll-horizontal__mobile-container">
-    <h2>This should show on mobile!</h2>
+    <h2
+      class="scroll-horizontal__mobile-container-message split-text"
+      data-split-type="words"
+      data-split-class="gsap-animate"
+    >
+      <span class="split-text__word split-text__word1 gsap-animate" aria-hidden="true"> We </span>
+      <span class="split-text__word split-text__word2 gsap-animate" aria-hidden="true"> are </span>
+      <span class="split-text__word split-text__word3 gsap-animate text-stroke" aria-hidden="true">
+        committed
+      </span>
+      <span class="split-text__word split-text__word3 gsap-animate" aria-hidden="true"> to </span>
+      <span class="split-text__word split-text__word4 gsap-animate" aria-hidden="true">
+        building
+      </span>
+      <span class="split-text__word split-text__word5 gsap-animate text-stroke" aria-hidden="true">
+        enjoyable
+      </span>
+      <span class="split-text__word split-text__word6 gsap-animate" aria-hidden="true">web</span>
+      <span class="split-text__word split-text__word7 gsap-animate" aria-hidden="true">
+        experiences
+      </span>
+    </h2>
   </div>
   <div class="scroll-horizontal__pin">
     <div class="scroll-horizontal__container">
@@ -44,30 +65,39 @@
         {% endif %}
   
         {% if message %}
-        <h2 class="scroll-horizontal__message">
-          <span class="sanity-check split-chars sh-split-chars-1"> We </span>
-          <span class="split-chars sh-split-chars-2">are</span>
-          <span class="split-chars sh-split-chars-3 text-stroke">committed</span>
-          <span class="split-chars sh-split-chars-4">to</span>
-          <span class="split-chars sh-split-chars-5 color--yellow"> building </span>
-          <span class="split-chars sh-split-chars-6 text-stroke"> enjoyable </span>
-          <span class="split-chars sh-split-chars-7"> web </span>
-          <span class="icons">
-            <!-- prettier-ignore -->
-            {% set icon_svg = ({ src: '/static/img/icons/icon-google-rocket.svg'}) %}
-            {% include "../components/icon-svg.njk" %}
-
-            <span
-              class="pin-icon-mobile mask-icon"
-              style="mask-image: url('/static/img/icon-google-mobile.svg')"
-            ></span>
-            <span
-              class="pin-icon-desktop mask-icon"
-              style="mask-image: url('/static/img/icon-google-desktop.svg')"
-            ></span>
+        <h2
+          class="scroll-horizontal__message"
+          aria-label="We are commited to building enjoyable web experiences."
+        >
+          <span class="sh-word sh-word-1" aria-hidden="true">We</span>
+          <span class="sh-word sh-word-2" aria-hidden="true">are</span>
+          <span class="sh-word sh-word-3 text-stroke" aria-hidden="true">committed</span>
+          <span class="sh-word sh-word-4" aria-hidden="true">to</span>
+          <span
+            class="sh-word sh-word-5 split-text color-yellow"
+            data-split-type="chars"
+            aria-hidden="true"
+          >
+            building
           </span>
-          <span class="split-chars sh-split-chars-7"> experiences </span>
-          <span class="color--coral pin-spin__star">✦</span>
+          <span
+            class="sh-word sh-word-6 split-text text-stroke"
+            data-split-type="chars"
+            aria-hidden="true"
+          >
+            enjoyable
+          </span>
+          <span class="sh-word sh-word-7" aria-hidden="true">web</span>
+          <span class="sh-icons">
+            <!-- prettier-ignore -->
+            {% set icon_svg = ({ src: '/static/img/icons/icon-google-mobile.svg', class: 'sh-icon-mobile'}) %}
+            {% include "../components/icon-svg.njk" %}
+            <!-- prettier-ignore -->
+            {% set icon_svg = ({ src: '/static/img/icons/icon-google-desktop.svg', class: 'sh-icon-desktop'}) %}
+            {% include "../components/icon-svg.njk" %}
+          </span>
+          <span class="sh-word sh-word-8" aria-hidden="true">experiences</span>
+          <span class="sh-icon-star color-coral" aria-hidden="true">✦</span>
         </h2>
         {% endif %}
       </div>

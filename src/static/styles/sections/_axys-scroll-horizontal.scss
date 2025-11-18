@@ -1,11 +1,16 @@
 .scroll-horizontal {
+  // border: $test;
   // @include width-clamp;
   @include section-padding;
   position: relative; // for pin steps
   overflow: hidden;
 
+  @include mq-max(md) {
+    margin-block-end: var(--spacing--xxl);
+  }
+
   &__pin {
-    border: $test;
+    // border: $test;
     height: calc(100vh - calc(var(--header-height) * 2));
     min-height: 850px;
     max-width: $content-width;
@@ -15,7 +20,7 @@
       min-height: 650px;
     }
 
-    @include mq-max(sm) {
+    @include mq-max(md) {
       display: none;
     }
   }
@@ -32,23 +37,97 @@
   &__slider {
     height: 100%;
     display: flex;
+    align-items: center;
     gap: var(--spacing);
   }
 
   &__mobile-container {
-    @include mq-min(sm) {
+    @include mq-min(md) {
       display: none;
+    }
+
+    &-message {
+      @include column-start;
+      font-size: 15vw;
+
+      .split-text__word {
+        @include mq-motion-allow {
+          overflow: hidden;
+          max-height: 2ch;
+          padding-block-start: 1.8ch;
+
+          // &:nth-of-type(1),
+          &:nth-of-type(3),
+          &:nth-of-type(5),
+          &:nth-of-type(7) {
+            translate: 1ch 0;
+          }
+          &:nth-of-type(1),
+          &:nth-of-type(4),
+          &:nth-of-type(6) {
+            &.gsap-animated {
+              translate: 1ch 0;
+            }
+          }
+
+          &.gsap-animated {
+            padding-block-start: 0;
+            translate: 0 0;
+            transition: padding 1s $cubic-ease-sudden, translate 1s $cubic-ease-sudden 0.5s;
+          }
+        }
+      }
     }
   }
 
-  &--message {
-    .scroll-horizontal__slider {
-      align-items: center;
+  .scroll-horizontal__message {
+    $gap: 0.5ch;
+
+    // border: $test;
+    display: inline-flex;
+    align-items: center;
+    // gap: $gap; // gap has issue with icons (space on left and right)
+    white-space: nowrap;
+    font-size: min(10vw, 128px);
+    // height: 5ch;
+
+    .sh-word {
+      display: inline-flex;
+      overflow: hidden;
+      line-height: 1.2;
+      margin-inline-end: $gap;
+
+      &-5 {
+        // border: $test;
+
+        .split-text__char1 {
+          display: inline-block;
+          // background: blue;
+        }
+      }
     }
 
-    .scroll-horizontal__message {
-      white-space: nowrap;
-      font-size: min(10vw, 128px);
+    .sh-icons {
+      display: inline-flex;
+      position: relative;
+      translate: calc(#{$gap} / -2) 0;
+
+      .icon-svg {
+        position: absolute;
+        top: 0;
+      }
+
+      .sh-icon-mobile {
+        left: 0;
+        translate: -132px -196px;
+        rotate: -10deg;
+      }
+
+      .sh-icon-desktop {
+        right: 0;
+        translate: 132px -196px;
+        rotate: 10deg;
+      }
     }
   }
 }

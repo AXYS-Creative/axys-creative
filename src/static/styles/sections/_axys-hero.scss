@@ -8,12 +8,17 @@
   position: relative;
   overflow: hidden; // for tilt, either make that smaller or keep this line
 
+  @include mq-max(md) {
+    justify-content: start;
+  }
+
   &__content {
     z-index: 1;
   }
 
   &__content-small {
     @include column-start;
+    // line-height: 1.1;
 
     @include mq-min(md) {
       translate: calc(var(--shift-offset-x) * -1) 0;
@@ -150,25 +155,24 @@
     }
 
     .axys-dots-logo__push {
+      --logo-size: 40vw;
+
       @include absolute-center;
 
-      width: 40vw;
-      height: 40vw;
+      width: var(--logo-size);
+      height: var(--logo-size);
       max-width: 650px;
       max-height: 650px;
       filter: blur(7px) brightness(2);
-      // opacity: 0.5;
 
       @include mq-max(lg) {
-        width: 72vw;
-        height: 72vw;
-        filter: blur(3px);
+        --logo-size: 72vw;
+
+        filter: blur(5px) brightness(2);
       }
 
       @include mq-max(sm) {
-        // width: 72vw;
-        // height: 72vw;
-        filter: blur(1px);
+        filter: blur(3px) brightness(2);
       }
     }
   }
