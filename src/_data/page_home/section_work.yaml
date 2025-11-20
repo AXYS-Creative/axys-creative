@@ -3,31 +3,31 @@ desc: We diligently collaborate with our clients to create exceptional experienc
 grid_type: alternate # default | alternate
 
 items:
-  - title: Project 1
-    type: Design # design | development | design + development
+  - title: Join Sunder
+    url: "https://joinsunder.com/"
+    type: Development # design | development | design + development
     year: 2025
     img:
-      src: "/static/img/img-sample-1.jpg"
+      src: "/static/img/showcase-joinsunder.png"
       alt: ""
-    url: "/"
-  - title: Project 2
-    type: Development
-    year: 2024
-    img:
-      src: "/static/img/img-sample-2.jpg"
-      alt: ""
+  - title: SPWR
     url: "https://axyscreative.com"
-  - title: Project 3
-    type: Design + Development
-    year: 2023
+    type: Coming Soon
+    year: 2025
     img:
-      src: "/static/img/img-sample-3.jpg"
+      src: "/static/img/showcase-spwr.png"
       alt: ""
-    url: ""
-  - title: Project 4
-    type: Design
+  - title: ESSENCE
+    url: "https://essentialism.netlify.app/"
+    type: Design + Development
     year: 2024
+    img:
+      src: "/static/img/showcase-essence.png"
+      alt: ""
+  - title: Northline Homes
+    url: ""
+    type: Design + Development
+    year: 2025
     img:
       src: "/static/img/img-sample-4.jpg"
       alt: ""
-    url: ""

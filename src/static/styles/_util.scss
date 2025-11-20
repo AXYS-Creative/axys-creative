@@ -65,7 +65,7 @@
   }
 
   .pin-steps {
-    // @include hide-content;
+    @include hide-content;
     @include column-start;
     position: absolute;
     top: 0;

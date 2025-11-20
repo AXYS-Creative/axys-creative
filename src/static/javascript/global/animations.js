@@ -279,14 +279,14 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           });
 
           gsap.from(".sh-icon-star", {
-            y: "-96px",
-            rotate: "32deg",
+            x: "64px",
+            rotate: "64deg",
             opacity: 0,
             ease: "back.out(2)",
             scrollTrigger: {
-              trigger: ".scroll-horizontal__pin-step-6",
-              start: "20% center",
-              end: "120% center",
+              trigger: ".scroll-horizontal__pin-step-7",
+              start: "32% center",
+              end: "116% center",
               scrub: scrollHorizontalScrub,
             },
           });

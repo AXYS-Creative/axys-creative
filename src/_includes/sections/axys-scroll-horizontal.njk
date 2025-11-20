@@ -17,24 +17,32 @@
 
 <section class="scroll-horizontal {{ modifier_class }}">
   <div class="scroll-horizontal__mobile-container">
-    <h2
-      class="scroll-horizontal__mobile-container-message split-text"
-      data-split-type="words"
-      data-split-class="gsap-animate"
-    >
+    <h2 class="scroll-horizontal__mobile-container-message" data-split-class="gsap-animate">
       <span class="split-text__word split-text__word1 gsap-animate" aria-hidden="true"> We </span>
       <span class="split-text__word split-text__word2 gsap-animate" aria-hidden="true"> are </span>
       <span class="split-text__word split-text__word3 gsap-animate text-stroke" aria-hidden="true">
         committed
       </span>
       <span class="split-text__word split-text__word3 gsap-animate" aria-hidden="true"> to </span>
-      <span class="split-text__word split-text__word4 gsap-animate" aria-hidden="true">
+      <span class="split-text__word split-text__word4 gsap-animate color-yellow" aria-hidden="true">
         building
       </span>
       <span class="split-text__word split-text__word5 gsap-animate text-stroke" aria-hidden="true">
         enjoyable
       </span>
-      <span class="split-text__word split-text__word6 gsap-animate" aria-hidden="true">web</span>
+      <span>
+        <span class="split-text__word split-text__word6 gsap-animate" aria-hidden="true">
+          web
+        </span>
+        <span class="sh-icons">
+          <!-- prettier-ignore -->
+          {% set icon_svg = ({ src: '/static/img/icons/icon-google-mobile.svg', class: 'sh-icon-mobile', size: 'sm'}) %}
+            {% include "../components/icon-svg.njk" %}
+          <!-- prettier-ignore -->
+          {% set icon_svg = ({ src: '/static/img/icons/icon-google-desktop.svg', class: 'sh-icon-desktop', size: 'sm'}) %}
+            {% include "../components/icon-svg.njk" %}
+        </span>
+      </span>
       <span class="split-text__word split-text__word7 gsap-animate" aria-hidden="true">
         experiences
       </span>

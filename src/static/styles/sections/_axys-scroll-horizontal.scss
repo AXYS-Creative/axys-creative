@@ -53,7 +53,7 @@
       .split-text__word {
         @include mq-motion-allow {
           overflow: hidden;
-          max-height: 2ch;
+          height: 2ch; // Using padding for translate effect, fix height to avoid layout shift
           padding-block-start: 1.8ch;
 
           // &:nth-of-type(1),
@@ -129,5 +129,13 @@
         rotate: 10deg;
       }
     }
+
+    // .sh-icon-star {
+
+    // }
+  }
+
+  .icon-svg {
+    color: var(--color-brand--secondary);
   }
 }

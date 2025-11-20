@@ -7,8 +7,9 @@ $brand-font--mono: "Geist Mono", source-sans-pro, sans-serif;
 $black: #101010;
 // $grey-darker: #212121;
 $grey-dark: #1e1e1e;
-$grey: #3d3d3d;
-$grey-light: #909090;
+// $grey: #3d3d3d;
+$grey: #909090;
+$grey-light: #e4e4e4;
 // $grey-lighter: #e7e7e7;
 $white: #f0f0f0;
 
@@ -18,6 +19,12 @@ $blue: #7ec1d4;
 $green: #a4d1a2;
 $yellow: #fbfaa2;
 $pink: #e1a7b4;
+
+$dark-coral: #ab694c;
+$dark-blue: #0b708b;
+$dark-green: #617b60;
+$dark-yellow: #848347;
+$dark-pink: #956f77;
 
 $content-width: 1364px;
 
@@ -69,13 +76,6 @@ $test-bg: rgba(navy, 0.75);
   // --color-brand--on-primary: #{$white};
   --color-brand--secondary: #{$blue};
   --color-brand--tertiary: #{$green};
-
-  // Used in data- props
-  --color-brand--coral: #{$coral};
-  --color-brand--blue: #{$blue};
-  --color-brand--green: #{$green};
-  --color-brand--yellow: #{$yellow};
-  --color-brand--pink: #{$pink};
 
   --color-font--error: #{$red};
 
@@ -148,6 +148,13 @@ $test-bg: rgba(navy, 0.75);
   --color-font--secondary: #{$grey-dark};
   --color-font--tertiary: #{$grey-light};
 
+  // Used in data- props
+  --color-brand--coral: #{$dark-coral};
+  --color-brand--blue: #{$dark-blue};
+  --color-brand--green: #{$dark-green};
+  --color-brand--yellow: #{$dark-yellow};
+  --color-brand--pink: #{$dark-pink};
+
   // --color-link: #{$grey-light};
   // --color-link--hover: #{$white};
 
@@ -166,6 +173,13 @@ $test-bg: rgba(navy, 0.75);
   --color-font--primary: #{$white};
   --color-font--secondary: #{$grey-light};
   --color-font--tertiary: #{$grey-dark};
+
+  // Used in data- props
+  --color-brand--coral: #{$coral};
+  --color-brand--blue: #{$blue};
+  --color-brand--green: #{$green};
+  --color-brand--yellow: #{$yellow};
+  --color-brand--pink: #{$pink};
 
   // --color-link: #{$grey-light};
   // --color-link--hover: #{$white};
