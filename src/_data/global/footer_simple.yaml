@@ -11,18 +11,17 @@ linkset_1:
     url: "/"
     new_tab: false
     type: underline
-  - text: Portfolio
+    class: menu-links__link btn--split-text
+  - text: Our Work
     url: "/"
     new_tab: false
     type: underline
+    class: menu-links__link btn--split-text
   - text: Contact
     url: "/contact"
     new_tab: false
     type: underline
-  - text: Style Guide
-    url: "/style-guide"
-    new_tab: false
-    type: underline
+    class: menu-links__link btn--split-text
 
 linkset_2_title: Membership
 linkset_2:
@@ -30,14 +29,17 @@ linkset_2:
     url: "https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
     new_tab: true
     type: underline
+    class: menu-links__link btn--split-text
   - text: Pricing
     url: "/tokens"
     new_tab: true
     type: underline
+    class: menu-links__link btn--split-text
   - text: FAQ
     url: "/tokens"
     new_tab: true
     type: underline
+    class: menu-links__link btn--split-text
 
 linkset_3_title: Client Links
 linkset_3:
@@ -45,10 +47,12 @@ linkset_3:
     url: "https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000"
     new_tab: true
     type: underline
+    class: menu-links__link btn--split-text
   - text: CMS Tokens
     url: "/tokens"
     new_tab: true
     type: underline
+    class: menu-links__link btn--split-text
 
 include_bottom: true
 divider: true
@@ -67,11 +71,11 @@ legal_links:
   - text: Privacy Policy
     url: "https://google.com"
     type: underline
-    # class: "btn--split-text"
+    class: menu-links__link btn--split-text
   - text: Terms & Conditions
     url: "https://google.com"
     type: underline
-    # class: "btn--split-text"
+    class: menu-links__link btn--split-text
   # - text: Cookie Policy
   #   url: "https://google.com"
   #   type: underline

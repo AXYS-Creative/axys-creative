@@ -24,12 +24,6 @@ menu_links:
     new_tab: false
     type: underline
     class: menu-links__link btn--split-text
-  - text: Tokens
-    url: "/tokens"
-    path: "tokens"
-    new_tab: false
-    type: underline
-    class: menu-links__link btn--split-text
 
 link_placement: center # start | center | end
 

@@ -7,10 +7,10 @@ $brand-font--mono: "Geist Mono", source-sans-pro, sans-serif;
 $black: #101010;
 // $grey-darker: #212121;
 $grey-dark: #1e1e1e;
-// $grey: #3d3d3d;
-$grey: #909090;
-$grey-light: #e4e4e4;
-// $grey-lighter: #e7e7e7;
+$grey: #3d3d3d;
+// $grey: #909090;
+$grey-light: #909090;
+$grey-lighter: #e4e4e4;
 $white: #f0f0f0;
 
 $coral: #e48c66;
@@ -20,7 +20,7 @@ $green: #a4d1a2;
 $yellow: #fbfaa2;
 $pink: #e1a7b4;
 
-$dark-coral: #ab694c;
+$dark-coral: #bd7454;
 $dark-blue: #0b708b;
 $dark-green: #617b60;
 $dark-yellow: #848347;
@@ -158,7 +158,7 @@ $test-bg: rgba(navy, 0.75);
   // --color-link: #{$grey-light};
   // --color-link--hover: #{$white};
 
-  --color-surface--1: #{$grey-light};
+  --color-surface--1: #{$grey-lighter};
   // --color-surface--2: #{$grey-lighter};
 
   // --color-border: #{$grey-light};
