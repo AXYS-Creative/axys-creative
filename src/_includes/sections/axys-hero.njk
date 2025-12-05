@@ -2,36 +2,17 @@
 {% set cta_1 = axys_hero.cta_1 or null %}
 {% set cta_2 = axys_hero.cta_2 or null %}
 
-{% set dots_config = 2 %}
-{% set dots_data = '' %}
-
-{% if dots_config == 1 %}
-  {% set dots_data = '
-    data-dot-size=0.15
-    data-dot-gap=2
-    data-dot-restore=0.75
-    data-dot-sensitivity=0.95
-    data-dot-distance=20
-    data-dot-strength=0.25
-    data-dot-color=var(--color-dots-logo)
-    data-dot-illuminate=false
-    data-dot-grow=2.5
-  ' %}
-{% endif %}
-
-{% if dots_config == 2 %}
-  {% set dots_data = '
-    data-dot-size=0.2
-    data-dot-gap=2
-    data-dot-restore=0.9
-    data-dot-sensitivity=0.9
-    data-dot-distance=50
-    data-dot-strength=2.5
-    data-dot-color=var(--color-dots-logo)
-    data-dot-illuminate=true
-    data-dot-grow=1
-  ' %}
-{% endif %}
+{% set dots_data = '
+  data-dot-size=0.2
+  data-dot-gap=2
+  data-dot-restore=0.99
+  data-dot-sensitivity=0.9
+  data-dot-distance=50
+  data-dot-strength=5
+  data-dot-color=var(--color-dots-logo)
+  data-dot-illuminate=true
+  data-dot-grow=1
+' %}
 
 <section class="axys-hero">
   <div class="axys-hero__content">
@@ -133,7 +114,7 @@
         <div
           class="axys-dots-logo__push velocity-push"
           data-push-strength="0.75"
-          data-push-restore="0.02"
+          data-push-restore="0.05"
           data-push-rotate-max="5"
         >
           <div class="axys-hero__logo-gsap-animate gsap-animate">

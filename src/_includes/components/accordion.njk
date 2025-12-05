@@ -15,8 +15,9 @@
     {%endif%}
     aria-expanded="false"
     aria-controls="accordion-{{ id }}-item-{{ loop.index }}"
+    aria-label="{{ item.title }}"
   >
-    <div class="accordion-label">
+    <div class="accordion-label" aria-hidden="true">
       <span class="accordion-label__title">{{ item.title }}</span>
 
       {% if icon %}

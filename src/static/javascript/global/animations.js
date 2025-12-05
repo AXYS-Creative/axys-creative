@@ -571,7 +571,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           cycle();
         });
 
-        // Toggle-based glitch
+        // Toggle-based glitch (Plans)
         {
           const toggleBtns = document.querySelectorAll(".plan-selection__toggle-option");
           const swapElems = document.querySelectorAll("[data-toggle-target]");
@@ -600,8 +600,8 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
           toggleBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
-              toggleBtns.forEach((b) => b.setAttribute("aria-selected", "false"));
-              btn.setAttribute("aria-selected", "true");
+              toggleBtns.forEach((b) => b.setAttribute("aria-pressed", "false"));
+              btn.setAttribute("aria-pressed", "true");
 
               const mode = btn.dataset.toggleOption; // "start" or "end"
 
@@ -874,6 +874,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             type: scaleType,
             [`${scaleType}Class`]: `text-scale__${scaleType}`,
             tag: "span",
+            aria: "none", // a11y flags with aria-label on tags like span
           });
 
           const targets = scaleType === "words" ? split.words : split.chars;

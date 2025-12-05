@@ -8,6 +8,7 @@ document.querySelectorAll("[class*='toggle-slider']").forEach((container) => {
     container.querySelector(".option-active") ||
     container.querySelector("input:checked")?.closest("[class*='option']") ||
     container.querySelector("[aria-selected='true']") ||
+    container.querySelector("[aria-pressed='true']") ||
     Array.from(options).find((opt) => !opt.hasAttribute("hidden")) ||
     options[0];
 
@@ -41,9 +42,7 @@ document.querySelectorAll("[class*='toggle-slider']").forEach((container) => {
   // Update active option when clicked
   options.forEach((option) => {
     option.addEventListener("click", () => {
-      const input = option.querySelector(
-        "input[type=radio], input[type=checkbox]"
-      );
+      const input = option.querySelector("input[type=radio], input[type=checkbox]");
       if (input) input.checked = true; // sync input state if present
 
       options.forEach((o) => o.classList.remove("option-active"));
@@ -54,9 +53,7 @@ document.querySelectorAll("[class*='toggle-slider']").forEach((container) => {
     });
 
     // If option has an input, listen for changes too
-    const input = option.querySelector(
-      "input[type=radio], input[type=checkbox]"
-    );
+    const input = option.querySelector("input[type=radio], input[type=checkbox]");
     if (input) {
       input.addEventListener("change", () => {
         if (input.checked) {
