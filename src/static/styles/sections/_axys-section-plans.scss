@@ -117,7 +117,7 @@
   }
 
   // if quarterly is selected
-  &:has([data-toggle-option="end"][aria-selected="true"]) {
+  &:has([data-toggle-option="end"][aria-pressed="true"]) {
     [data-toggle-show="end"] {
       @include show-content;
       opacity: 0.8;

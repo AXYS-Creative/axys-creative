@@ -15,7 +15,7 @@ export const lenis = new Lenis({
 // Global config shared everywhere
 export const globalConfig = {
   // loadDuration: 3.2, // global loader, in seconds (not ms)
-  loadDuration: 5, // global loader, in seconds (not ms)
+  loadDuration: 0, // global loader, in seconds (not ms)
 };
 
 // Cubic-bezier - Lenis helper
