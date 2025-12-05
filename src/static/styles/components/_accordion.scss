@@ -24,6 +24,7 @@
 
     &[aria-expanded="true"] {
       .accordion-content {
+        padding-block-start: 16px;
         grid-template-rows: 1fr;
         visibility: visible;
       }
@@ -95,6 +96,7 @@
     display: grid;
     grid-template-rows: 0fr;
     visibility: hidden;
+    margin-inline: 16px;
 
     @include mq-motion-allow {
       transition: $ease;

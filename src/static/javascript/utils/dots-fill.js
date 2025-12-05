@@ -19,6 +19,10 @@ class DotFill {
     this.mouse = { x: 0, y: 0, prevX: 0, prevY: 0, speed: 0 };
     this.svgBounds = { x: 0, y: 0, width: 0, height: 0 };
     this.animationFrame = null;
+    this.resizeObserver = null;
+
+    // Cache viewBox values
+    this.viewBoxCache = { width: 0, height: 0, x: 0, y: 0 };
   }
 
   resolveColor(color) {
@@ -36,21 +40,39 @@ class DotFill {
   }
 
   init() {
-    this.updateBounds();
+    // Set the color on the SVG element so circles can inherit it
+    if (this.config.color) {
+      this.svg.style.color = this.config.color;
+    }
+    this.cacheViewBox();
+    this.updateBoundsThrottled();
     this.createDots();
     this.bindEvents();
     this.startMouseSpeed();
     this.tick();
   }
 
-  updateBounds() {
-    const rect = this.svg.getBoundingClientRect();
-    this.svgBounds = {
-      x: rect.left + window.scrollX,
-      y: rect.top + window.scrollY,
-      width: rect.width,
-      height: rect.height,
+  cacheViewBox() {
+    const viewBox = this.svg.viewBox.baseVal;
+    this.viewBoxCache = {
+      width: viewBox.width,
+      height: viewBox.height,
+      x: viewBox.x,
+      y: viewBox.y,
     };
+  }
+
+  updateBoundsThrottled() {
+    // Batch reads to avoid layout thrashing
+    requestAnimationFrame(() => {
+      const rect = this.svg.getBoundingClientRect();
+      this.svgBounds = {
+        x: rect.left + window.scrollX,
+        y: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
   }
 
   createDots() {
@@ -61,21 +83,27 @@ class DotFill {
     if (shapes.length === 0) return;
 
     // Clear existing dots
-    this.svg.querySelectorAll(".dot-fill-dot").forEach((dot) => dot.remove());
+    this.svg.querySelectorAll(".dots-fill-dot").forEach((dot) => dot.remove());
     this.dots = [];
+
+    // Batch all getBBox calls first to minimize reflows
+    const bboxes = Array.from(shapes).map((shape) => shape.getBBox());
 
     // Get the combined bounding box of all shapes in viewBox coordinates
     let minX = Infinity,
       minY = Infinity,
       maxX = -Infinity,
       maxY = -Infinity;
-    shapes.forEach((shape) => {
-      const bbox = shape.getBBox();
+
+    bboxes.forEach((bbox) => {
       minX = Math.min(minX, bbox.x);
       minY = Math.min(minY, bbox.y);
       maxX = Math.max(maxX, bbox.x + bbox.width);
       maxY = Math.max(maxY, bbox.y + bbox.height);
     });
+
+    // Use DocumentFragment for batch DOM insertion
+    const fragment = document.createDocumentFragment();
 
     // Create dots within the shape
     for (let y = minY; y <= maxY; y += this.config.gap) {
@@ -95,23 +123,29 @@ class DotFill {
             position: { x, y },
             smooth: { x, y },
             velocity: { x: 0, y: 0 },
+            lastOpacity: 1,
+            lastRadius: this.config.radius,
           };
 
           dot.el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           dot.el.setAttribute("cx", x);
           dot.el.setAttribute("cy", y);
           dot.el.setAttribute("r", this.config.radius);
-          dot.el.setAttribute("fill", this.config.color);
-          dot.el.classList.add("dot-fill-dot");
+          dot.el.classList.add("dots-fill-dot");
 
-          this.svg.appendChild(dot.el);
+          fragment.appendChild(dot.el);
           this.dots.push(dot);
         }
       }
     }
 
-    // Hide original shapes
-    shapes.forEach((shape) => (shape.style.opacity = "0"));
+    // Single DOM operation instead of many
+    this.svg.appendChild(fragment);
+
+    // Hide original shapes (batch style changes)
+    requestAnimationFrame(() => {
+      shapes.forEach((shape) => (shape.style.opacity = "0"));
+    });
   }
 
   isPointInShape(shape, x, y) {
@@ -160,12 +194,23 @@ class DotFill {
       this.mouse.y = e.pageY;
     };
 
-    this.handleResize = () => {
-      this.updateBounds();
-    };
+    // Use ResizeObserver instead of resize event for better performance
+    if (typeof ResizeObserver !== "undefined") {
+      this.resizeObserver = new ResizeObserver(() => {
+        this.updateBoundsThrottled();
+      });
+      this.resizeObserver.observe(this.svg);
+    } else {
+      // Fallback to resize event with throttling
+      let resizeTimeout;
+      this.handleResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => this.updateBoundsThrottled(), 100);
+      };
+      window.addEventListener("resize", this.handleResize);
+    }
 
-    window.addEventListener("mousemove", this.handleMouseMove);
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener("mousemove", this.handleMouseMove, { passive: true });
   }
 
   startMouseSpeed() {
@@ -196,33 +241,43 @@ class DotFill {
   }
 
   tick() {
+    // Use cached viewBox values
+    const scaleX = this.viewBoxCache.width / this.svgBounds.width;
+    const scaleY = this.viewBoxCache.height / this.svgBounds.height;
+    const mouseXInSVG = (this.mouse.x - this.svgBounds.x) * scaleX + this.viewBoxCache.x;
+    const mouseYInSVG = (this.mouse.y - this.svgBounds.y) * scaleY + this.viewBoxCache.y;
+
+    // Pre-calculate shared values
+    const minIntensity = 0.25;
+    const maxIntensity = 1 - minIntensity;
+
     this.dots.forEach((dot) => {
-      // Convert mouse page coordinates to SVG viewBox coordinates
-      const viewBox = this.svg.viewBox.baseVal;
-      const scaleX = viewBox.width / this.svgBounds.width;
-      const scaleY = viewBox.height / this.svgBounds.height;
-
-      const mouseXInSVG = (this.mouse.x - this.svgBounds.x) * scaleX + viewBox.x;
-      const mouseYInSVG = (this.mouse.y - this.svgBounds.y) * scaleY + viewBox.y;
-
       const distX = mouseXInSVG - dot.position.x;
       const distY = mouseYInSVG - dot.position.y;
       const dist = Math.max(Math.hypot(distX, distY), 1);
 
       // Shared intensity calculation
-      const minIntensity = 0.25;
       let intensity = 1 - dist / this.config.distance;
       intensity = Math.min(Math.max(intensity, 0), 1);
-      intensity = minIntensity + intensity * (1 - minIntensity);
+      intensity = minIntensity + intensity * maxIntensity;
 
-      // Illuminate effect
+      // Illuminate effect - only update if changed significantly
       if (this.config.illuminate) {
-        dot.el.style.opacity = intensity;
+        const opacityDiff = Math.abs(dot.lastOpacity - intensity);
+        if (opacityDiff > 0.01) {
+          dot.el.style.opacity = intensity;
+          dot.lastOpacity = intensity;
+        }
       }
 
-      // Grow effect
+      // Grow effect - only update if changed significantly
       if (this.config.grow > 0) {
-        dot.el.setAttribute("r", this.config.radius * (1 + intensity * this.config.grow));
+        const newRadius = this.config.radius * (1 + intensity * this.config.grow);
+        const radiusDiff = Math.abs(dot.lastRadius - newRadius);
+        if (radiusDiff > 0.1) {
+          dot.el.setAttribute("r", newRadius);
+          dot.lastRadius = newRadius;
+        }
       }
 
       // Motion
@@ -243,6 +298,7 @@ class DotFill {
       dot.smooth.x += (dot.position.x - dot.smooth.x) * 0.1;
       dot.smooth.y += (dot.position.y - dot.smooth.y) * 0.1;
 
+      // Always update position (these are the main animation)
       dot.el.setAttribute("cx", dot.smooth.x);
       dot.el.setAttribute("cy", dot.smooth.y);
     });
@@ -254,14 +310,19 @@ class DotFill {
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
     }
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
     window.removeEventListener("mousemove", this.handleMouseMove);
-    window.removeEventListener("resize", this.handleResize);
+    if (this.handleResize) {
+      window.removeEventListener("resize", this.handleResize);
+    }
   }
 }
 
-// Initialize all dot-fill SVGs
+// Initialize all dots-fill SVGs
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".dot-fill").forEach((svg) => {
+  document.querySelectorAll(".dots-fill").forEach((svg) => {
     const dotFill = new DotFill(svg);
     dotFill.init();
   });

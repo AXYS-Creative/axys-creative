@@ -163,16 +163,16 @@
       height: var(--logo-size);
       max-width: 650px;
       max-height: 650px;
-      filter: blur(7px) brightness(2);
+      filter: blur(7px) brightness(1.5);
 
       @include mq-max(lg) {
         --logo-size: 72vw;
 
-        filter: blur(5px) brightness(2);
+        filter: blur(5px) brightness(1.5);
       }
 
       @include mq-max(sm) {
-        filter: blur(3px) brightness(2);
+        filter: blur(3px) brightness(1.5);
       }
     }
   }

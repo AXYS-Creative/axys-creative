@@ -7,10 +7,42 @@ accordion:
   plus: true
   single_open: true
   items:
-    - title: "What happens if you have really long content? Does this still work with lengthy titles or does it just work with short ones? What will happen?"
-      content: "48 characters. <a class='classic-link' href='https://axyscreative.com' target='_blank'>this is link</a> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis, fugiat, consequatur perferendis eius sapiente pariatur repudiandae amet molestiae deleniti laborum rem rerum laudantium autem omnis non numquam. Porro, dicta? Velit, rem dolores! Voluptatem, qui exercitationem minus illo quam aperiam vero commodi? Sit mollitia quidem illum ab aut minima."
-      content_start: true # Dev use only
-    - title: "What about long inner content?"
-      content: "128 characters. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima numquam officiis ipsa obcaecati illo molestias aliquam molestiae praesentium provident eos? Excepturi veniam assumenda non corrupti similique aperiam rem enim dolores repellat. Saepe iste obcaecati ullam nulla nisi, ipsa quae, doloremque excepturi exercitationem provident architecto et? Atque facere veniam nobis facilis mollitia a quas autem quos dicta in corrupti voluptatibus officia, accusamus necessitatibus ducimus aliquid vero ut repellendus modi illo labore dolor nam delectus nesciunt. Quasi doloribus culpa delectus esse, consectetur accusamus, deserunt distinctio officiis atque quia dolorum doloremque, exercitationem autem! Error numquam magnam ipsa ea fugiat, ullam officiis natus sequi praesentium nam provident quas ipsam repellendus incidunt quo, alias, impedit minima harum. Maiores delectus, eum soluta ratione iure atque! Ratione facilis illum ipsam. Ipsam architecto commodi deleniti alias."
-    - title: "What features does this accordion have?"
-      content: "It's cross browser compatible, accessible, and works with any content length. It also has a few configs such as single_accordion toggle and icon changing the icon."
+    - title: "What services do you offer?"
+      content: "
+        We specialize in designing and developing unique websites made for user experience, accessibility, performance, and search engine optimization.
+        <br><br>
+        We provide these solutions through:
+        <br><br>
+        <ul class='classic-list'>
+        <li>Custom Website Design</li>
+        <li>Website Development (HTML, CSS, JS, CMS)</li>
+        <li>Website Maintenance & Support</li>
+        <li>Branding & Identity Design</li>
+        <li>UX/UI Design</li>
+        </ul>
+        "
+      content_start: false # Dev use only
+    - title: "Why wouldn't I just hire in-house?"
+      content: "To save money. The average annual salary for designers and developers often exceeds $100,000 (roughly $8,000 per month) plus benefits. In our model you’re paying a fraction of the cost. Plus, with the flexibility to pause or cancel your plan at any time means you're only paying for what you need when you need it."
+    - title: "What happens after I sign up?"
+      content: "Within minutes of signing up, we'll issue an intro email containing a link to your <a class='btn-type--underline btn--split-text tab-element-page' href='https://trello.com'>Trello</a> board. This board will be our primary means of communication, task tracking, and request handling. After creating the board, we'll send you the link so you can start adding requests immediately. Typically, we begin working on these requests on the same day."
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: ""
+      content: ""
+    - title: "Do you offer refunds?"
+      content: "Yes and no. Refunds are considered on a case-by-case basis and may be subject to processing fees. We want you to be happy with axys so if you encounter any issues, contact us at hello@axyscreative.com within 7 days of purchase."
