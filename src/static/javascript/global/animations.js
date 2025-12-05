@@ -98,6 +98,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           const config = {
             type: splitType, // SplitText accepts "words,chars" etc.
             tag: "span",
+            aria: "none", // a11y flags with aria-label on tags like span
           };
 
           if (types.includes("chars")) {
@@ -754,6 +755,7 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
             type: revealType,
             [`${revealType}Class`]: `text-reveal__${revealType}`,
             tag: "span",
+            aria: "none", // a11y flags with aria-label on tags like span
           });
 
           const targets =
