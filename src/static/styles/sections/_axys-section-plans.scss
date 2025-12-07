@@ -70,7 +70,7 @@
   &__disclaimer {
     @include font-styles--mono;
     // color: var(--color-font--secondary);
-    color: $green;
+    color: var(--color-brand--green);
     margin-block-start: var(--spacing);
 
     // If using text-reveal
@@ -127,7 +127,7 @@
     .plan-option {
       &__price,
       &__message {
-        color: var(--color-brand--tertiary);
+        color: var(--color-brand--green);
       }
 
       &__cta-wrapper--monthly {
@@ -140,6 +140,8 @@
       &--primary {
         .plan-option__price,
         .plan-option__message {
+          --color-brand--green: #{$green};
+
           filter: brightness(1.25);
         }
       }

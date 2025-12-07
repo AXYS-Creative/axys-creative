@@ -119,13 +119,15 @@
 
       .sh-icon-mobile {
         left: 0;
-        translate: -132px -196px;
+        // translate: -132px -196px;
+        translate: -1.125em -1.5em;
         rotate: -10deg;
       }
 
       .sh-icon-desktop {
         right: 0;
-        translate: 132px -196px;
+        // translate: 132px -196px;
+        translate: 1.125em -1.5em;
         rotate: 10deg;
       }
     }

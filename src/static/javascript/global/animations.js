@@ -254,7 +254,8 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
 
           // icon animations
           gsap.from(".sh-icon-mobile", {
-            y: "-96px",
+            // y: "-96px",
+            y: "-0.5em",
             rotate: "-32deg",
             opacity: 0,
             ease: "back.out(2)",
@@ -267,7 +268,8 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
           });
 
           gsap.from(".sh-icon-desktop", {
-            y: "-96px",
+            // y: "-96px",
+            y: "-0.5em",
             rotate: "32deg",
             opacity: 0,
             ease: "back.out(2)",

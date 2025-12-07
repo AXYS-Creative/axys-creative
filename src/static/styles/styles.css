@@ -88,7 +88,7 @@ html[data-theme=light] {
   --color-font--tertiary: #909090;
   --color-brand--coral: #bd7454;
   --color-brand--blue: #0b708b;
-  --color-brand--green: #617b60;
+  --color-brand--green: #4b654b;
   --color-brand--yellow: #848347;
   --color-brand--pink: #956f77;
   --color-surface--1: #e4e4e4;
@@ -8113,12 +8113,12 @@ html:has(.scroll-progress)::-webkit-scrollbar {
 }
 .scroll-horizontal .scroll-horizontal__message .sh-icons .sh-icon-mobile {
   left: 0;
-  translate: -132px -196px;
+  translate: -1.125em -1.5em;
   rotate: -10deg;
 }
 .scroll-horizontal .scroll-horizontal__message .sh-icons .sh-icon-desktop {
   right: 0;
-  translate: 132px -196px;
+  translate: 1.125em -1.5em;
   rotate: 10deg;
 }
 .scroll-horizontal .icon-svg {
@@ -8202,7 +8202,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   font-family: var(--font-family--mono);
   letter-spacing: -0.5px;
   font-weight: 400;
-  color: #a4d1a2;
+  color: var(--color-brand--green);
   margin-block-start: var(--spacing);
   display: inline-flex;
   align-items: center;
@@ -8248,7 +8248,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   translate: 0 0;
 }
 .plan-selection:has([data-toggle-option=end][aria-pressed=true]) .plan-option__price, .plan-selection:has([data-toggle-option=end][aria-pressed=true]) .plan-option__message {
-  color: var(--color-brand--tertiary);
+  color: var(--color-brand--green);
 }
 .plan-selection:has([data-toggle-option=end][aria-pressed=true]) .plan-option__cta-wrapper--monthly {
   display: none;
@@ -8258,6 +8258,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
 }
 .plan-selection:has([data-toggle-option=end][aria-pressed=true]) .plan-option--primary .plan-option__price,
 .plan-selection:has([data-toggle-option=end][aria-pressed=true]) .plan-option--primary .plan-option__message {
+  --color-brand--green: #a4d1a2;
   filter: brightness(1.25);
 }
 
@@ -8700,7 +8701,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
 @media (max-width: 1024px) {
   .work-gallery__layout {
     grid-template-columns: 1fr;
-    gap: var(--spacing);
+    gap: var(--spacing--xl);
   }
 }
 @media (min-width: 1201px) {

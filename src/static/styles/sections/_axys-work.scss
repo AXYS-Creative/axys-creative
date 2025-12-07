@@ -31,7 +31,7 @@
 
     @include mq-max(lg) {
       grid-template-columns: 1fr;
-      gap: var(--spacing);
+      gap: var(--spacing--xl);
     }
 
     &--default {

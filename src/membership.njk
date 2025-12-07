@@ -1,23 +1,11 @@
 ---
 layout: app
-path: home
+path: membership
 ---
 
 <!-- prettier-ignore -->
 {% set axys_hero = page_home.section_hero %}
 {% include "./_includes/sections/axys-hero.njk" %}
-
-<!-- prettier-ignore -->
-{% set scroll_horizontal = ({
-  title: '',
-  desc: "",
-  message: true
-}) %} 
-{% include './_includes/sections/axys-scroll-horizontal.njk' %}
-
-<!-- prettier-ignore -->
-{% set work_gallery = page_home.section_work %}
-{% include "./_includes/sections/axys-work.njk" %}
 
 <!-- prettier-ignore  -->
 {% set scroll_stack = page_home.section_scroll_stack %}
