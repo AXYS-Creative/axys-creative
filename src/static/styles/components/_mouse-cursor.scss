@@ -89,39 +89,9 @@
     }
   }
 
-  &.star-icon {
-    .mouse-cursor__shape {
-      --size: 32px;
-
-      border: 1px dashed $blue;
-      rotate: 0deg;
-      scale: 1 1 !important;
-      opacity: 1;
-      transition: 1s ease, opacity 1s 0.12s, scale 0s;
-    }
-  }
-
-  &.cursor-content-1 {
+  &.cursor-work-link {
     .mouse-cursor__shape {
       --size: 96px;
-
-      background: var(--color-brand--primary);
-      border-color: var(--color-brand--primary);
-      opacity: 1;
-    }
-  }
-
-  &.cursor-content-2 {
-    .mouse-cursor__shape {
-      --size: 64px;
-
-      opacity: 1;
-    }
-  }
-
-  &.cursor-content-3 {
-    .mouse-cursor__shape {
-      --size: 80px;
 
       opacity: 1;
       background: var(--color-font--primary);

@@ -616,27 +616,34 @@ export const cubicBezier = (p1x, p1y, p2x, p2y) => {
         }
       }
 
-      // // Parallax Util
-      // {
-      //   document.querySelectorAll(".parallax").forEach((el) => {
-      //     const dataY = el.dataset.parallaxY || "15%";
-      //     const dataScrub = parseFloat(el.dataset.parallaxScrub) || 1;
-      //     const dataStart = el.dataset.parallaxStart || "top bottom";
-      //     const dataEnd = el.dataset.parallaxEnd || "bottom top";
-      //     const dataHero = el.dataset.parallaxHero === "true";
+      // Parallax Util
+      {
+        document.querySelectorAll(".parallax").forEach((el) => {
+          const parallax = el.dataset.startVal || "-10%";
+          const dataY = el.dataset.parallaxY || "10%";
+          const dataScrub = parseFloat(el.dataset.parallaxScrub) || 1;
+          const dataStart = el.dataset.parallaxStart || "top bottom";
+          const dataEnd = el.dataset.parallaxEnd || "bottom top";
+          const dataHero = el.dataset.parallaxHero === "true";
 
-      //     gsap.to(el, {
-      //       y: dataY,
-      //       ease: "none",
-      //       scrollTrigger: {
-      //         trigger: el,
-      //         start: dataHero ? `top ${headerHeight}` : dataStart,
-      //         end: dataEnd,
-      //         scrub: dataScrub,
-      //       },
-      //     });
-      //   });
-      // }
+          gsap.fromTo(
+            el,
+            {
+              y: parallax,
+            },
+            {
+              y: dataY,
+              ease: "none",
+              scrollTrigger: {
+                trigger: el,
+                start: dataHero ? `top ${headerHeight}` : dataStart,
+                end: dataEnd,
+                scrub: dataScrub,
+              },
+            }
+          );
+        });
+      }
 
       // Marquee component
       {

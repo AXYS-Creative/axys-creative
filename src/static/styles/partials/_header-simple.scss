@@ -10,7 +10,7 @@
   &__inner {
     @include width-clamp;
     @include row-center(space-between);
-    padding: 12px var(--body-padding);
+    padding: 16px var(--body-padding);
 
     position: relative;
   }

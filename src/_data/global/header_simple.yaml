@@ -32,8 +32,8 @@ cta_1:
   text_desc:
   url: "https://axyscreative.com"
   new_tab: true
-  type: outline # visit _btn.scss for all types
-  class: btn--split-text
+  type: solid # visit _btn.scss for all types
+  class: magnet magnet-wide-btn
   attributes: "data-hover-alt"
   # icon_end: /static/img/icons/icon-google-chevron-right.svg
   # icon_start: /static/img/icons/icon-google-info-circle.svg

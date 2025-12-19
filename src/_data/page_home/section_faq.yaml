@@ -1,4 +1,4 @@
-title: Quick [%span.yellow-text%]FAQ[%span%]
+title: Quick FAQ [%span.color-star%]✳[%span%]
 desc: Get answers to the most common questions about axys creative. Still have questions? Reach out below.
 
 accordion:
@@ -25,13 +25,13 @@ accordion:
     - title: "Why wouldn't I just hire in-house?"
       content: "To save money. The average annual salary for designers and developers often exceeds $100,000 (roughly $8,000 per month) plus benefits. In our model you’re paying a fraction of the cost. Plus, with the flexibility to pause or cancel your plan at any time means you're only paying for what you need when you need it."
     - title: "What happens after I sign up?"
-      content: "Within minutes of signing up, we'll issue an intro email containing a link to your <a class='btn-type--underline btn--split-text tab-element-page' href='https://trello.com'>Trello</a> board. This board will be our primary means of communication, task tracking, and request handling. After creating the board, we'll send you the link so you can start adding requests immediately. Typically, we begin working on these requests on the same day."
+      content: "Within minutes of signing up, we'll issue an intro email containing a link to your <a class='classic-link btn--split-text tab-element-page' href='https://trello.com'>Trello</a> board. This board will be our primary means of communication, task tracking, and request handling. After creating the board, we'll send you the link so you can start adding requests immediately. Typically, we begin working on these requests on the same day."
     - title: "Do I have a limited number of requests?"
       content: "No. Once you become a member, you can add as many design or development requests as you'd like (based on the plan you chose). Keep in mind that they are worked on and delivered one by one."
     - title: "What if I only have a single request?"
       content: "This is where the pause feature comes in. You can pause your subscription at any time from your Stripe account. Any unused days remaining will carry over and can be used anytime in the future. When you need our services again, resuming your subscription is easy. Another benefit of pausing instead of canceling is that your rate remains locked in."
     - title: "How do I pause my plan?"
-      content: "This can be done from your <a href='https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000' target='_blank'>Stripe account</a>. You can also reach out to us for assistance."
+      content: "This can be done from your <a class='classic-link btn--split-text tab-element-page' href='https://billing.stripe.com/p/login/bIYcNw7NXeQDchi000' target='_blank'>Stripe account</a>. You can also reach out to us for assistance."
     - title: "How quickly do you deliver?"
       content: "We deliver designs or portions of websites within 24-48 hours. Estimates for delivering entire projects depends on their size and complexity. Most single page, static sites can move from wireframe to launch in about a week or two. Larger sites, online shops, or other ambitious projects can take four or more weeks to complete."
     - title: "How do I make a request and track progress?"

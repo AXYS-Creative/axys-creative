@@ -4,6 +4,8 @@
 {% set items = work_gallery.items or [] %}
 {% set grid_type = work_gallery.grid_type or 'alternate' %}
 
+{% set star_options = '✳✴✱✺' %}
+
 <section class="work-gallery">
   <div class="work-gallery__inner">
     <header class="work-gallery__header">
@@ -29,9 +31,8 @@
         <a
           href="{{ item.url }}"
           class="work-gallery__figure-link cursor-content glitch-trigger"
-          data-cursor-icon="/static/img/icons/icon-google-arrow-tr.svg"
-          data-cursor-icon-size="md"
-          data-cursor-class="cursor-content-1"
+          data-cursor-message="Visit Site"
+          data-cursor-class="cursor-work-link"
           data-glitch-target="glitch-target__work-gallery-caption"
         >
           <!-- prettier-ignore -->
@@ -40,7 +41,7 @@
             type: 'glass'
           }) %}
           {% include "../components/badge.njk" %}
-          <img class="work-gallery__figure-img" src="{{ item.img.src }}" alt="" />
+          <img class="work-gallery__figure-img parallax" src="{{ item.img.src }}" alt="" />
         </a>
         <figcaption
           class="work-gallery__figure-caption gsap-animate"

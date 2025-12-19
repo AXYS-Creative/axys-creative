@@ -542,6 +542,7 @@ code.codearea {
   min-height: 1.1lh;
   color: var(--color-font--primary);
   border-radius: var(--radius--btn);
+  color: var(--color-brand--yellow);
 }
 @media (prefers-reduced-motion: no-preference) {
   .classic-link {
@@ -1839,119 +1840,6 @@ code.codearea {
   }
 }
 @media all {
-  .library-section {
-    width: 100%;
-    max-width: 1364px;
-    margin-inline: auto;
-    padding-inline: var(--body-padding);
-    padding-block: var(--body-padding-double);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-  }
-  .library-section-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 24px;
-    margin-block: var(--spacing);
-  }
-  .library-section--centered {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .library-section .text-fade code.gsap-animate,
-  .library-section .text-scale code.gsap-animate {
-    background: transparent;
-  }
-  .library-section .text-fade code.gsap-animate.gsap-animated,
-  .library-section .text-scale code.gsap-animate.gsap-animated {
-    background: var(--color-surface--1);
-    transition: 0.56s ease 0.36s;
-  }
-  .library-section .tilt-card-group {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 24px;
-    width: 100%;
-    overflow: hidden;
-  }
-}
-@media (min-width: 1025px) {
-  .library-section .tilt-card-group {
-    padding-block: var(--spacing--lg);
-  }
-}
-@media all {
-  .library-section .tilt-card-group .tilt-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    aspect-ratio: 1/1.25;
-    max-width: 450px;
-    border-radius: var(--radius);
-    background: var(--color-surface--1);
-    padding: var(--spacing);
-    flex: 1 1 320px;
-  }
-}
-@media (max-width: 768px) {
-  .library-section .tilt-card-group .tilt-card {
-    width: 100%;
-  }
-}
-@media all {
-  .library-section .tilt-card-group .tilt-card .cta-group {
-    margin-top: auto;
-  }
-}
-@media (hover: hover) and (pointer: fine) {
-  .library-section .tilt-card-group .tilt-card--3d:hover, .library-section .tilt-card-group .tilt-card--3d:focus-visible {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-  }
-  .library-section .tilt-card-group .tilt-card--3d:hover h3,
-  .library-section .tilt-card-group .tilt-card--3d:hover p,
-  .library-section .tilt-card-group .tilt-card--3d:hover ol,
-  .library-section .tilt-card-group .tilt-card--3d:hover .cta-group, .library-section .tilt-card-group .tilt-card--3d:focus-visible h3,
-  .library-section .tilt-card-group .tilt-card--3d:focus-visible p,
-  .library-section .tilt-card-group .tilt-card--3d:focus-visible ol,
-  .library-section .tilt-card-group .tilt-card--3d:focus-visible .cta-group {
-    transform: translateZ(20px);
-  }
-}
-@media all {
-  .library-section .tilt-card-group .tilt-card--3d h3,
-  .library-section .tilt-card-group .tilt-card--3d p,
-  .library-section .tilt-card-group .tilt-card--3d ol,
-  .library-section .tilt-card-group .tilt-card--3d .cta-group {
-    transition: 0.3s ease !important;
-  }
-  .library-block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: var(--radius);
-    width: 20%;
-    aspect-ratio: 1;
-    background-color: var(--color-surface--1);
-    cursor: pointer;
-    transition: 0.64s cubic-bezier(0.18, 0.97, 0.47, 1);
-  }
-  .library-block:active {
-    scale: 0.96;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-            user-select: none;
-  }
   .cursor-content-section__sample {
     transition: 0.24s ease;
   }
@@ -2314,6 +2202,9 @@ code.codearea {
   }
   .color-pink {
     color: var(--color-brand--pink);
+  }
+  .color-star {
+    color: var(--color-brand--green);
   }
   .text-balance {
     text-wrap: balance;
@@ -6555,30 +6446,12 @@ body[data-body-loading-complete] .hero-simple.home-hero .cta-group {
   --size: 36px;
   opacity: 1;
 }
-.mouse-cursor.star-icon .mouse-cursor__shape {
-  --size: 32px;
-  border: 1px dashed #7ec1d4;
-  rotate: 0deg;
-  scale: 1 1 !important;
-  opacity: 1;
-  transition: 1s ease, opacity 1s 0.12s, scale 0s;
-}
-.mouse-cursor.cursor-content-1 .mouse-cursor__shape {
+.mouse-cursor.cursor-work-link .mouse-cursor__shape {
   --size: 96px;
-  background: var(--color-brand--primary);
-  border-color: var(--color-brand--primary);
-  opacity: 1;
-}
-.mouse-cursor.cursor-content-2 .mouse-cursor__shape {
-  --size: 64px;
-  opacity: 1;
-}
-.mouse-cursor.cursor-content-3 .mouse-cursor__shape {
-  --size: 80px;
   opacity: 1;
   background: var(--color-font--primary);
 }
-.mouse-cursor.cursor-content-3 .mouse-cursor__message {
+.mouse-cursor.cursor-work-link .mouse-cursor__message {
   color: var(--color-background);
 }
 
@@ -7240,7 +7113,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px var(--body-padding);
+  padding: 16px var(--body-padding);
   position: relative;
 }
 .header-simple .menu-links {
@@ -7989,6 +7862,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   height: var(--logo-size);
   max-width: 650px;
   max-height: 650px;
+  opacity: 0.8;
   filter: blur(7px) brightness(1.5);
 }
 @media (max-width: 1024px) {
@@ -9049,6 +8923,8 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius--sm);
 }
 @media (hover: hover) and (pointer: fine) {
   .work-gallery__figure-link:hover picture,
@@ -9070,7 +8946,9 @@ html:has(.scroll-progress)::-webkit-scrollbar {
      object-fit: cover;
   border-radius: var(--radius--sm);
   object-view-box: inset(2.5%);
-  transition: 0.64s cubic-bezier(0.75, 0, 0.2, 1);
+  scale: 1.025;
+  z-index: -1;
+  transition: 0.64s cubic-bezier(0.75, 0, 0.2, 1), transform 0s ease;
 }
 @media (max-width: 1200px) {
   .work-gallery__figure-link picture,

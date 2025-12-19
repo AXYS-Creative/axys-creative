@@ -99,9 +99,12 @@
     }
 
     &-link {
+      // border: $test;
       position: relative;
       width: 100%;
       height: 100%;
+      overflow: hidden;
+      border-radius: var(--radius--sm);
 
       @include desktop-hover {
         picture,
@@ -123,8 +126,10 @@
         object-fit: cover;
         border-radius: var(--radius--sm);
         object-view-box: inset(2.5%); // zoom in (scale up) slightly
+        scale: 1.025;
+        z-index: -1;
 
-        transition: $ease-sudden;
+        transition: $ease-sudden, transform 0s ease;
 
         @include mq-max(xl) {
           border-radius: var(--radius--sm);
