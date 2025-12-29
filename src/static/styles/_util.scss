@@ -26,8 +26,12 @@
 }
 
 .classic-link {
+  // see also util.js for btn--split-text default behavior
   @include btn-type--underline;
-  color: var(--color-brand--yellow);
+
+  @include desktop-hover {
+    color: var(--color-link--hover);
+  }
 }
 
 .classic-list {

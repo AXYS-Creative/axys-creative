@@ -1,6 +1,6 @@
 nav: true # based on each panel in 'panels' below
 text_region:
-  title: "Member Benefits [%span.color-star%]✳[%span%]"
+  title: "Member Benefits [%span.color-star%]✺[%span%]"
   desc: "The concept is simple — we replace unreliable freelancers and expensive agencies for one flat monthly fee. With swift turnaround times, you won't want to go anywhere else."
   cta_1:
     text: View Plans

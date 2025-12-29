@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // CSS Util for .btn--split-text
 {
-  document.querySelectorAll(".btn--split-text").forEach((el) => {
+  document.querySelectorAll([".btn--split-text", ".classic-link"]).forEach((el) => {
     // Decide what to target
     const target = el.classList.contains("btn") ? el.querySelector(".btn__text") : el;
 

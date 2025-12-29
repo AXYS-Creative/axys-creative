@@ -1,0 +1,104 @@
+<!-- prettier-ignore -->
+{% set title = hero_simple.title or 'No title provided' %}
+{% set desc = hero_simple.desc | default('No desc provided') %}
+{% set eyebrow = hero_simple.eyebrow or '' %}
+{% set cta_1 = hero_simple.cta_1 or null %}
+{% set cta_2 = hero_simple.cta_2 or null %}
+{% set direction = hero_simple.direction or 'column' %}
+{% set float = hero_simple.float or false %}
+{% set glass = hero_simple.glass or false %}
+{% set class = hero_simple.class or '' %}
+
+{% set extra_content = hero_simple.extra_content or false %}
+
+{% set corner_imgs = hero_simple.corner_imgs or '' %}
+
+{% if float %}
+  {% set class = class + ' hero-simple--float' %}
+{% endif %}
+
+{% if not extra_content %}
+  {% set class = class + ' hero-simple--text-only' %}
+{% endif %}
+
+<section class="hero-simple hero-simple--{{ direction }} {{ class }}">
+  <div class="hero-simple__inner">
+    <div class="hero-simple__text">
+      <!-- prettier-ignore -->
+      {% if eyebrow %}
+      <small
+        class="hero-simple__text-eyebrow typing-scroll"
+        data-typing-once="true"
+        data-typing-speed="50"
+        data-typing-delay="800"
+        data-typing-cursor="underscore"
+        >{{ eyebrow }}</small
+      >
+      {% endif %}
+
+      <!-- prettier-ignore -->
+      {% if title %}
+      <h1 class="hero-simple__text-title">{{ title }}</h1>
+      {% endif %}
+
+      <!-- prettier-ignore -->
+      {% if desc %}
+      <p class="hero-simple__text-desc">{{ desc | safe }}</p>
+      {% endif %}
+
+      <!-- prettier-ignore -->
+      {% set content_start = true %}
+      {% include "../components/cta-group.njk" %}
+      {% set content_start = false %}
+    </div>
+
+    <div class="hero-simple__extra">
+      {% if path == 'tokens' %}
+      <svg
+        class="dots-fill"
+        data-dot-size="1"
+        data-dot-gap="16"
+        data-dot-restore="0.9"
+        data-dot-sensitivity="0.9"
+        data-dot-distance="320"
+        data-dot-strength="180"
+        data-dot-color="var(--color-dots-logo)"
+        data-dot-illuminate="true"
+        data-dot-grow="2"
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="#e3e3e3"
+      >
+        <path
+          d="M600-160q-134 0-227-93t-93-227q0-134 93-227t227-93q134 0 227 93t93 227q0 134-93 227t-227 93Zm-320-10q-106-28-173-114T40-480q0-110 67-196t173-114v84q-72 25-116 87t-44 139q0 77 44 139t116 87v84Zm320-310Zm0 240q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z"
+        />
+      </svg>
+      {% endif %}
+    </div>
+
+    <!-- prettier-ignore -->
+    {% if corner_imgs and not extra_content %}
+    <div class="hero-simple__corner-imgs">
+      {% for img in corner_imgs %}
+      <figure
+        class="
+          hero-simple__corner-imgs__figure 
+          hero-simple__corner-imgs__figure-{{ loop.index }}
+          gsap-animate
+        "
+        data-gsap-once="true"
+      >
+        <img
+          class="hero-simple__corner-imgs__figure-img velocity-push"
+          src="{{ img.src }}"
+          alt="{{ img.title }}"
+          data-push-strength="5"
+        />
+      </figure>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

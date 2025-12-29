@@ -33,7 +33,7 @@ cta_1:
   url: "https://axyscreative.com"
   new_tab: true
   type: solid # visit _btn.scss for all types
-  class: magnet magnet-wide-btn
+  class: magnet magnet-wide-btn cursor-hide
   attributes: "data-hover-alt"
   # icon_end: /static/img/icons/icon-google-chevron-right.svg
   # icon_start: /static/img/icons/icon-google-info-circle.svg
@@ -45,7 +45,7 @@ cta_2:
   icon_end: ""
   new_tab: true
   type: underline
-  class: btn--split-text
+  class: btn--split-text cursor-hide
   attributes: 'data-test-1=no-quotes data-test-2="with-quotes"'
 
 # mobile nav specific content

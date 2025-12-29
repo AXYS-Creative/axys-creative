@@ -1,4 +1,8 @@
 .work-gallery {
+  @include mq-max(md) {
+    margin-block-end: var(--spacing--xl);
+  }
+
   &__inner {
     @include width-clamp;
     @include section-padding;

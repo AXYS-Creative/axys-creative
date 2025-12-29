@@ -293,8 +293,7 @@ $min-breakpoints: ();
   border-radius: var(--radius--btn);
 
   @include mq-motion-allow {
-    // transition: $ease;
-    transition: all $ease, $magnet;
+    transition: $ease;
   }
 
   &::before {
@@ -313,6 +312,10 @@ $min-breakpoints: ();
   }
 
   @include desktop-hover {
+    @include mq-motion-allow {
+      transition: $ease 0.36s;
+    }
+
     &::before {
       width: 0;
       left: auto;

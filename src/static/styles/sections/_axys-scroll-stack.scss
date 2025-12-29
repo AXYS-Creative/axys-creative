@@ -8,6 +8,10 @@
 
   position: relative;
 
+  @include mq-max(md) {
+    margin-block-start: var(--spacing--xl);
+  }
+
   @include mq-max(sm) {
     --panel-to-top: 96px;
   }

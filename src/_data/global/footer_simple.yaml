@@ -50,7 +50,7 @@ linkset_3:
     class: menu-links__link btn--split-text
   - text: CMS Tokens
     url: "/tokens"
-    new_tab: true
+    new_tab: false
     type: underline
     class: menu-links__link btn--split-text
 
