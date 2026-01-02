@@ -4,7 +4,7 @@ grid_type: alternate # default | alternate
 
 items:
   - title: Join Sunder
-    url: "https://joinsunder.com/"
+    url: "https://joinsunder.netlify.app/"
     type: Development # design | development | design + development
     year: 2025
     img:

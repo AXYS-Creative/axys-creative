@@ -40,12 +40,40 @@
 
   &__extra {
     @include absolute-center;
+    translate: -50% -50%;
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    z-index: -1;
+
+    &-fade {
+      border: $test;
+
+      @include mq-motion-allow {
+        opacity: 0;
+        scale: 0.95;
+
+        &.gsap-animated {
+          opacity: 1;
+          scale: 1;
+          transition: $ease-sudden 0.64s;
+        }
+      }
+    }
+  }
+
+  .tilt-block {
+    border: $test;
+    width: 100%;
+    height: 100%;
   }
 
   .dots-fill {
-    // border: $test;
-    width: 500px;
-    height: 500px;
+    --logo-size: 40vw;
+
+    width: var(--logo-size);
+    height: var(--logo-size);
+    max-width: 650px;
+    max-height: 650px;
   }
 
   // Content Modifiers

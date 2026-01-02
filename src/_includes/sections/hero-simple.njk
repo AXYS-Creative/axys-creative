@@ -9,7 +9,28 @@
 {% set glass = hero_simple.glass or false %}
 {% set class = hero_simple.class or '' %}
 
-{% set extra_content = hero_simple.extra_content or false %}
+{% set dots_data = '
+    data-dot-size=3.5
+    data-dot-gap=15
+    data-dot-restore=0.9
+    data-dot-sensitivity=0.9
+    data-dot-distance=320
+    data-dot-strength=180
+    data-dot-color=var(--color-dots-logo)
+    data-dot-illuminate=true
+    data-dot-grow=0.5
+' %}
+
+{% set tilt_data = '
+  data-tilt
+  data-tilt-reverse=true
+  data-tilt-max=12
+  data-tilt-startX=0
+  data-tilt-startY=0
+  data-tilt-perspective=2400
+  data-tilt-speed=1250
+  data-tilt-reset=false
+' %}
 
 {% set corner_imgs = hero_simple.corner_imgs or '' %}
 
@@ -52,30 +73,21 @@
       {% set content_start = false %}
     </div>
 
-    <div class="hero-simple__extra">
-      {% if path == 'tokens' %}
-      <svg
-        class="dots-fill"
-        data-dot-size="1"
-        data-dot-gap="16"
-        data-dot-restore="0.9"
-        data-dot-sensitivity="0.9"
-        data-dot-distance="320"
-        data-dot-strength="180"
-        data-dot-color="var(--color-dots-logo)"
-        data-dot-illuminate="true"
-        data-dot-grow="2"
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 -960 960 960"
-        width="24px"
-        fill="#e3e3e3"
-      >
-        <path
-          d="M600-160q-134 0-227-93t-93-227q0-134 93-227t227-93q134 0 227 93t93 227q0 134-93 227t-227 93Zm-320-10q-106-28-173-114T40-480q0-110 67-196t173-114v84q-72 25-116 87t-44 139q0 77 44 139t116 87v84Zm320-310Zm0 240q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z"
-        />
-      </svg>
-      {% endif %}
+    <div class="hero-simple__extra tilt-block" data-tilt {{tilt_data}}>
+      <div class="hero-simple__extra-fade gsap-animate">
+        {% if path == 'tokens' %}
+        <svg
+          class="dots-fill"
+          {{dots_data}}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 640"
+        >
+          <path
+            d="M192 160L192 144C192 99.8 278 64 384 64C490 64 576 99.8 576 144L576 160C576 190.6 534.7 217.2 474 230.7C471.6 227.9 469.1 225.2 466.6 222.7C451.1 207.4 431.1 195.8 410.2 187.2C368.3 169.7 313.7 160.1 256 160.1C234.1 160.1 212.7 161.5 192.2 164.2C192 162.9 192 161.5 192 160.1zM496 417L496 370.8C511.1 366.9 525.3 362.3 538.2 356.9C551.4 351.4 564.3 344.7 576 336.6L576 352C576 378.8 544.5 402.5 496 417zM496 321L496 288C496 283.5 495.6 279.2 495 275C510.5 271.1 525 266.4 538.2 260.8C551.4 255.2 564.3 248.6 576 240.5L576 255.9C576 282.7 544.5 306.4 496 320.9zM64 304L64 288C64 243.8 150 208 256 208C362 208 448 243.8 448 288L448 304C448 348.2 362 384 256 384C150 384 64 348.2 64 304zM448 400C448 444.2 362 480 256 480C150 480 64 444.2 64 400L64 384.6C75.6 392.7 88.5 399.3 101.8 404.9C143.7 422.4 198.3 432 256 432C313.7 432 368.3 422.3 410.2 404.9C423.4 399.4 436.3 392.7 448 384.6L448 400zM448 480.6L448 496C448 540.2 362 576 256 576C150 576 64 540.2 64 496L64 480.6C75.6 488.7 88.5 495.3 101.8 500.9C143.7 518.4 198.3 528 256 528C313.7 528 368.3 518.3 410.2 500.9C423.4 495.4 436.3 488.7 448 480.6z"
+          />
+        </svg>
+        {% endif %}
+      </div>
     </div>
 
     <!-- prettier-ignore -->
