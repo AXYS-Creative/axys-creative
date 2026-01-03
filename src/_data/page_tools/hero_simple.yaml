@@ -1,0 +1,16 @@
+class: "tools-hero"
+float: false
+direction: column # row | column (column is default, mobile first)
+
+eyebrow:
+title: Tools
+desc: Explore our collection of useful design and development tools to enhance your workflow and productivity.
+
+# Remember, you don't need to expose all available configs to the admin, some can be reserved for dev use.
+cta_1:
+  text: Return Home
+  text_desc:
+  url: /
+  new_tab: false
+  # icon_start: /static/img/icon-google-copy.svg
+  # icon_end: /static/img/icon-google-chevron-right.svg

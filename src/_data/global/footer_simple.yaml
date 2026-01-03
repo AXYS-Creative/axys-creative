@@ -31,12 +31,12 @@ linkset_2:
     type: underline
     class: menu-links__link btn--split-text
   - text: Pricing
-    url: "/tokens"
+    url: "/"
     new_tab: true
     type: underline
     class: menu-links__link btn--split-text
   - text: FAQ
-    url: "/tokens"
+    url: "/"
     new_tab: true
     type: underline
     class: menu-links__link btn--split-text
@@ -50,6 +50,11 @@ linkset_3:
     class: menu-links__link btn--split-text
   - text: CMS Tokens
     url: "/tokens"
+    new_tab: false
+    type: underline
+    class: menu-links__link btn--split-text
+  - text: Tools
+    url: "/tools"
     new_tab: false
     type: underline
     class: menu-links__link btn--split-text

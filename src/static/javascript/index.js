@@ -20,3 +20,5 @@ import "./utils/tabs.js";
 import "./utils/theme-toggle.js";
 import "./utils/toggle-slider.js";
 import "./utils/velocity-push.js";
+
+import "./tools/bezier-curve-visualizer.js";

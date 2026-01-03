@@ -1,0 +1,24 @@
+---
+layout: app
+path: tools
+---
+
+<!-- prettier-ignore -->
+{% set hero_simple = page_tools.hero_simple %}
+{% include "./_includes/sections/hero-simple.njk" %}
+
+<section class="bezier-curve-vizualizer section-width--thin cursor-hide">
+  <h2>Bezier Curve Visualizer</h2>
+  <div class="bezier-curve-vizualizer__canvas" id="canvasContainer">
+    <canvas id="canvas"></canvas>
+    <div class="control-point" id="control1" style="left: 33.33%; top: 50%"></div>
+    <div class="control-point" id="control2" style="left: 66.67%; top: 50%"></div>
+  </div>
+  <div class="bezier-curve-vizualizer__output output-section">
+    <div class="output-label">Data Attribute Value</div>
+    <div class="output-value" id="outputValue">cubic-bezier(0.33, 0.00, 0.67, 0.00)</div>
+    <div class="button-group">
+      <button class="bezier-curve-vizualizer__output-copy cta-1">Copy to Clipboard</button>
+    </div>
+  </div>
+</section>
