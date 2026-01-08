@@ -7720,7 +7720,6 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   border-radius: var(--radius);
   position: relative;
   aspect-ratio: 1;
-  overflow: hidden;
 }
 .bezier-curve-vizualizer__canvas canvas {
   display: block;

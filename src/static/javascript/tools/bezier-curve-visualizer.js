@@ -1,5 +1,5 @@
 const rootStyles = window.getComputedStyle(document.documentElement);
-const primaryColor = rootStyles.getPropertyValue("--color-brand--secondary").trim(); // Use .trim() to remove potential leading/trailing spaces
+const primaryColor = rootStyles.getPropertyValue("--color-brand--secondary").trim();
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -21,7 +21,7 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-// Get normalized coordinates (0-1 range, inverted Y)
+// Get normalized coordinates (0-1 range, inverted Y) - can now be outside 0-1
 function getNormalizedCoords(element) {
   const x = parseFloat(element.style.left) / 100;
   const y = 1 - parseFloat(element.style.top) / 100; // Invert Y axis
@@ -147,8 +147,10 @@ function drag(e) {
     y = e.clientY - rect.top;
   }
 
-  const percentX = Math.max(0, Math.min(100, (x / rect.width) * 100));
-  const percentY = Math.max(0, Math.min(100, (y / rect.height) * 100));
+  // Allow values outside 0-100% range for dramatic curves
+  // Extended range: -50% to 150% for more flexibility
+  const percentX = Math.max(-50, Math.min(150, (x / rect.width) * 100));
+  const percentY = Math.max(-50, Math.min(150, (y / rect.height) * 100));
 
   activeControl.style.left = percentX + "%";
   activeControl.style.top = percentY + "%";
