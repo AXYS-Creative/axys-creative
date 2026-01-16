@@ -1,4 +1,4 @@
-title: Quick FAQ [%span.color-star magnet magnet-strong%]✺[%span%]
+title: Quick FAQ [%span.color-star velocity-push%]✺[%span%]
 desc: Get answers to the most common questions about axys creative. Still have questions? Reach out below.
 
 accordion:
@@ -15,9 +15,8 @@ accordion:
         <br><br>
         <ul class='classic-list'>
         <li>Custom Website Design</li>
-        <li>Website Development (HTML, CSS, JS, CMS)</li>
-        <li>Website Maintenance & Support</li>
-        <li>Branding & Identity Design</li>
+        <li>Website Development (HTML, CSS, JS)</li>
+        <li>Website Maintenance & Support (CMS available)</li>
         <li>UX/UI Design</li>
         </ul>
         "

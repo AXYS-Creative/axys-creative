@@ -1,7 +1,7 @@
 nav: true # based on each panel in 'panels' below
 text_region:
-  title: "Member Benefits [%span.color-star%]✺[%span%]"
-  desc: "The concept is simple — we replace unreliable freelancers and expensive agencies for one flat monthly fee. With swift turnaround times, you won't want to go anywhere else."
+  title: Member Benefits [%span.color-star velocity-push%]✺[%span%]
+  desc: "The concept is simple. We replace unreliable freelancers and expensive agencies for one flat monthly fee. With swift turnaround times, you won't want to go anywhere else."
   cta_1:
     text: View Plans
     url: /
@@ -18,35 +18,35 @@ panels:
   - title: Unlimited Services
     desc: Gain access to endless design and development services. Simply put in a ticket in Trello to get started. Please be aware that each request is worked on and delivered one by one.
     icon: /static/img/icons/icon-google-infinity.svg
-    cta_1:
-      text: View Plans
-      url: /
-      new_tab: false
+    # cta_1:
+    #   text: View Plans
+    #   url: /
+    #   new_tab: false
   - title: Swift Delivery
     desc: Get designs or sections of your website generally within 1-2 business days (M-F) . Please be aware that some websites can take weeks or even months to complete depending on their size and complexity.
     icon: /static/img/icons/icon-google-bolt.svg
-    cta_1:
-      text: Visit Advanced
-      url: /advanced
-      new_tab: true
+    # cta_1:
+    #   text: Testimonials
+    #   url: /advanced
+    #   new_tab: true
   - title: Easy Management
     desc: Keeping track of progress is made easy with Trello. Simply sign in from your computer or phone to create and manage tasks, then watch as your requests are completed and delivered.
     icon: /static/img/icons/icon-google-inventory.svg
-    cta_1:
-      text: Return Home
-      url: /
-      new_tab: false
+    # cta_1:
+    #   text: Return Home
+    #   url: /
+    #   new_tab: false
   - title: Fixed Pricing
     desc: Don’t worry about inconsistent pricing that fluctuates throughout the year. Once signed up, your prices are locked in, ensuring you always know what to expect month to month.
     icon: /static/img/icons/icon-google-price-tag.svg
-    cta_1:
-      text: View Plans
-      url: /
-      new_tab: false
+    # cta_1:
+    #   text: View Plans
+    #   url: /
+    #   new_tab: false
   - title: Pause Anytime
     desc: No contracts, ever. We understand that your workload may change, so feel free to pause or cancel anytime. "Pausing" stops all charges and allows for quick start up again while keeping your rate locked in
     icon: /static/img/icons/icon-google-pause.svg
-    cta_1:
-      text: View Plans
-      url: /
-      new_tab: false
+    # cta_1:
+    #   text: Visit FAQ
+    #   url: /
+    #   new_tab: false

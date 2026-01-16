@@ -18,8 +18,9 @@
     {% endif %} {% if text_region.desc %}
     <p
       class="scroll-stack__copy-desc text-scale"
-      data-scale-duration="0.4"
-      data-scale-delay="0.125"
+      data-scale-scrub="true"
+      data-scale-start="top 96%"
+      data-scale-end="bottom 64%"
     >
       {{ text_region.desc }}
     </p>
@@ -71,11 +72,10 @@
       {% endif %} {% if text_region.desc %}
       <p
         class="scroll-stack__copy-desc text-scale"
-        data-scale-duration="0.4"
-        data-scale-delay="0.125"
         data-scale-trigger=".scroll-stack"
-        data-scale-start="top center"
-        data-scale-end="bottom center"
+        data-scale-scrub="true"
+        data-scale-start="10% 96%"
+        data-scale-end="12% 64%"
       >
         {{ text_region.desc }}
       </p>
