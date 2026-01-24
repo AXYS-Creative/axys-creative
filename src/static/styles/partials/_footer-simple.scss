@@ -34,7 +34,7 @@
 
   &__top {
     @include row-start(space-between);
-    gap: var(--spacing);
+    gap: var(--spacing--xl);
     padding: var(--footer-spacing-y) var(--body-padding);
 
     @include mq-max(lg) {
@@ -43,7 +43,7 @@
 
     &-left {
       @include column-start;
-      gap: var(--spacing--sm);
+      gap: var(--spacing);
     }
 
     &-right {

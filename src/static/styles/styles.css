@@ -7329,6 +7329,16 @@ html:has(.scroll-progress)::-webkit-scrollbar {
     min-height: 520px;
   }
 }
+@media (max-width: 1024px) {
+  .site-nav .menu-links .menu-links__link {
+    font-size: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .site-nav .menu-links .menu-links__link {
+    font-size: 20px;
+  }
+}
 .site-nav .menu-links {
   display: flex;
   flex-direction: column;
@@ -7469,17 +7479,6 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   scale: 0;
 }
 
-@media (max-width: 1024px) {
-  .menu-links .menu-links__link {
-    font-size: 24px;
-  }
-}
-@media (max-width: 480px) {
-  .menu-links .menu-links__link {
-    font-size: 20px;
-  }
-}
-
 .footer-simple {
   --footer-spacing-y: 48px;
   display: flex;
@@ -7508,6 +7507,10 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   max-width: 100%;
   translate: 0 0;
 }
+.footer-simple .dots-axys-logo-full {
+  margin-inline: var(--body-padding);
+  margin-block: 64px;
+}
 .footer-simple__inner {
   width: 100%;
   max-width: 1364px;
@@ -7517,7 +7520,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--spacing);
+  gap: var(--spacing--xl);
   padding: var(--footer-spacing-y) var(--body-padding);
 }
 @media (max-width: 1024px) {
@@ -7530,7 +7533,7 @@ html:has(.scroll-progress)::-webkit-scrollbar {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: var(--spacing--sm);
+  gap: var(--spacing);
 }
 .footer-simple__top-right {
   display: flex;

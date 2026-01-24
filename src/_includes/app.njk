@@ -11,16 +11,16 @@
       {% endif %}
     {% endfor %}
 
-    {% include "./meta/_meta-core.njk" %}
-    {% include "./meta/_meta-schema.njk" %}
-    {% include "./meta/_meta-open-graph.njk" %}
-    {% include "./meta/_meta-theme-script.njk" %}
+    {% include './meta/_meta-core.njk' %}
+    {% include './meta/_meta-schema.njk' %}
+    {% include './meta/_meta-open-graph.njk' %}
+    {% include './meta/_meta-theme-script.njk' %}
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/styles/styles.css" type="text/css" />
 
     <!-- Script Tags -->
-    {% if path == "home" %}
+    {% if path == 'home' %}
     <!-- Netlify Identity Widget -->
     <script
       type="text/javascript"
@@ -33,17 +33,17 @@
   </head>
   <body>
     <!-- prettier-ignore -->
-    {% include "./partials/header-simple.njk" %}
+    {% include './partials/header-simple.njk' %}
 
     <main class="main-content main-{{ path | slugifyPath }}">
       {{ content | safe }}
     </main>
-    {%include "./partials/footer-simple.njk" %}
+    {% include './partials/footer-simple.njk' %}
 
     <!-- prettier-ignore -->
-    {% include "./components/mouse-cursor.njk" %}
+    {% include './components/mouse-cursor.njk' %}
 
-    {% if path == "home" %}
+    {% if path == 'home' %}
       {% include './partials/loader.njk' %}
     {% endif %}
 
@@ -51,8 +51,8 @@
       type: 'height',
       allow_click: true
     }) %}
-    {% include "./components/scroll-progress.njk" %}
+    {% include './components/scroll-progress.njk' %}
 
-    {% include "./partials/scripts.njk" %}
+    {% include './partials/scripts.njk' %}
   </body>
 </html>

@@ -226,6 +226,17 @@
   }
 
   .menu-links {
+    .menu-links__link {
+      @include mq-max(lg) {
+        font-size: 24px;
+      }
+      @include mq-max(sm) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .menu-links {
     @include column-start;
     gap: 12px;
     margin-block: max(40vh, 200px) auto;
@@ -395,17 +406,6 @@
           scale: 0;
         }
       }
-    }
-  }
-}
-
-.menu-links {
-  .menu-links__link {
-    @include mq-max(lg) {
-      font-size: 24px;
-    }
-    @include mq-max(sm) {
-      font-size: 20px;
     }
   }
 }
